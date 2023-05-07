@@ -31,3 +31,6 @@
 *.out
 *.app
 /.vs
+/test/x64/Debug
+/test/.vs/test/v17
+/test/.vs/test/FileContentIndex
