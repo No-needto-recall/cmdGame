@@ -35,7 +35,7 @@
 /test/.vs/test/v17
 /test/.vs/test/FileContentIndex
 
-# Visual Studio 生成的文件
+# Visual Studio 锟斤拷锟缴碉拷锟侥硷拷
 Debug/
 Release/
 x64/
@@ -52,9 +52,9 @@ x86/
 *.ipch
 *.aps
 
-# Visual Studio 专有目录
+# Visual Studio 专锟斤拷目录
 .v17/
 .vs/
 fileContentIndex/
 
-/log
+log.txt
