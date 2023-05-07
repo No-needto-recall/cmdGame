@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\myGit\cmdGame\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +132,7 @@
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
+    <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Monster.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
