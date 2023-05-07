@@ -1,4 +1,5 @@
 ﻿#include "Game.h"
+#include "Config.h"
 
 
 
@@ -17,7 +18,14 @@ Game::~Game()
 
 void Game::start() {
 	LOG_INFO("\n\ngame start");
-	AutoActor player(new Player(100, 100, 5, 0, 5, 5, Type::PLAYER, "玩家"));
+	AutoActor player(new Player(
+		Config::instance().getConfigData().actor.player.health,
+		Config::instance().getConfigData().actor.player.mana,
+		Config::instance().getConfigData().actor.player.attack, 
+		Config::instance().getConfigData().actor.player.defense, 
+		5, 5, Type::PLAYER,
+		Config::instance().getConfigData().actor.player.name
+	));
 	_gameMap.addActor(player);
 	_gameMap.randomMonster();
 	_gameMap.display();

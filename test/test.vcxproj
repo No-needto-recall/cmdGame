@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Actor.h" />
+    <ClInclude Include="..\include\Config.h" />
+    <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
@@ -147,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Actor.cpp" />
+    <ClCompile Include="..\src\Config.cpp" />
+    <ClCompile Include="..\src\Config_data.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
@@ -158,7 +162,15 @@
   <ItemGroup>
     <Text Include="..\log\log.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\conf\conf.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
