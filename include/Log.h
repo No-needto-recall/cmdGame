@@ -48,7 +48,7 @@ public:
 private:
     // 私有构造函数
     Log() {
-        logFile_.open("log.txt", std::ios_base::out | std::ios_base::app);
+        logFile_.open("../log/log.txt", std::ios_base::out | std::ios_base::app);
         currentLine_ = countLines();
         openMonitoringWindow();
     }
@@ -66,7 +66,8 @@ private:
         _si.cb = sizeof(_si);
         ZeroMemory(&_pi, sizeof(_pi));
 
-        std::wstring command = L"powershell.exe -NoExit -Command \"Get-Content log.txt -Wait\"";
+        std::wstring command = L"powershell.exe -NoExit -Command \"Get-Content ..\\log\\log.txt -Wait\"";
+
 
         if (!CreateProcessW(NULL, &command[0], NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &_si, &_pi)) {
             std::cerr << "CreateProcess failed: " << GetLastError() << std::endl;
