@@ -1,0 +1,18 @@
+{
+  "actor": {
+    "player": {
+      "name": "玩家2",
+      "health": 100,
+      "mana": 100,
+      "attack": 5,
+      "defense": 0
+    },
+    "monster": {
+      "name": "怪物",
+      "health": 10,
+      "mana": 10,
+      "attack": 5,
+      "defense": 0
+    }
+  }
+}
