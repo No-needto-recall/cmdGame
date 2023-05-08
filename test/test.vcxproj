@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -144,6 +144,7 @@
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Monster.h" />
     <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
     <ClInclude Include="..\include\Type.h" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Monster.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\Role.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>

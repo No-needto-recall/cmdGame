@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Log.h"
 #include "GameMap.h"
-#include "Type.h"
 
 using namespace std;
 
@@ -14,7 +13,6 @@ public:
 	Actor(int hp = 0, int mp = 0
 		, int attack = 0, int defense = 0
 		, int x = 0, int y = 0
-		, Type type = Type::DEFAULT
 		, const string& name = "null");
 
 	virtual ~Actor();
@@ -29,9 +27,6 @@ public:
 	string getName()const;
 	//设置名称
 	void setName(const string& str);
-
-	//获取类别
-	Type getType()const;
 
 	//是否存活
 	bool isAlive();
@@ -61,7 +56,6 @@ protected:
 	int _defensePower;//防御力
 	int _x;//x坐标
 	int _y;//y坐标
-	Type _type;//类型
 	string _name;//名称
 	GameMap* _gMap;//所处在的地图
 
