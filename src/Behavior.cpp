@@ -26,19 +26,8 @@ void PlayerBehavior::death(GameMap& gameMap)
 {
 }
 
-void PlayerBehavior::collide(Behavior& other)
-{
-	other.collideWithPlayer(*this);
-}
 
-void PlayerBehavior::collideWithPlayer(PlayerBehavior&)
-{
-}
-
-void PlayerBehavior::collideWithPokemon(PokemonBehavior&)
-{
-}
-
+//PokemonBehavior
 void PokemonBehavior::upMove(GameMap& gameMap)
 {
 }
@@ -63,15 +52,3 @@ void PokemonBehavior::death(GameMap& gameMap)
 {
 }
 
-void PokemonBehavior::collide(Behavior& other)
-{
-	other.collideWithPokemon(*this);
-}
-
-void PokemonBehavior::collideWithPlayer(PlayerBehavior&)
-{
-}
-
-void PokemonBehavior::collideWithPokemon(PokemonBehavior&)
-{
-}

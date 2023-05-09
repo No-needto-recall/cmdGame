@@ -1,5 +1,6 @@
 #include "Role.h"
 #include "Behavior.h"
+#include "Log.h"
 
 
 BasicRole::BasicRole(const Location & location)
@@ -69,4 +70,64 @@ string Location::toString() const
 				std::to_string(_y) +
 				")";
 	return tmp;
+}
+
+void PlayerRole::collide(Role& other)
+{
+	//分派
+	other.collideWithPlayer(*this);
+}
+
+void PlayerRole::collideWithPlayer(Role& other)
+{
+	//玩家和玩家发生碰撞
+
+}
+
+void PlayerRole::collideWithPokemon(Role&)
+{
+	//宝可梦和玩家发生碰撞
+}
+
+void Pokemon::collide(Role& other)
+{
+	//分派
+	other.collideWithPokemon(*this);
+}
+
+void Pokemon::collideWithPlayer(Role& player)
+{
+	//玩家和宝可梦发生碰撞
+	LOG_INFO(
+		player.getAttribute()._name +" 和 "+
+		this->getAttribute()._name+" 发生碰撞"
+	);
+
+	//发生战斗
+	while (1) {
+		player.getBehavior()->attack(*this);
+		if (this->getAttribute().isAlive()) {
+
+			this->getBehavior()->attack(player);
+
+			if (player.getAttribute().isAlive()) {
+				continue;
+			}
+			else {
+				player.getBehavior()->death();
+				break;
+			}
+		}
+		else {
+			this->getBehavior()->death();
+			break;
+		}
+	}
+
+	return;
+}
+
+void Pokemon::collideWithPokemon(Role&)
+{
+	//宝可梦和宝可梦发生碰撞
 }

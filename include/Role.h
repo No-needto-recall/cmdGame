@@ -56,6 +56,8 @@ public:
 
 	Role(const Attribute& attribute, const Location& location
 		,unique_ptr<Behavior> behavior);
+
+	//析构函数设为虚函数
 	virtual ~Role();
 
 	//获取属性
@@ -68,9 +70,40 @@ public:
 	void setBehavior(unique_ptr<Behavior> behavior);
 
 
+	//碰撞
+	//双分派设计模式
+	virtual void collide(Role& other) = 0;
+	virtual void collideWithPlayer(Role&) = 0;
+	virtual void collideWithPokemon(Role&) = 0;
+
 protected:
 	Attribute _attribute;
 	unique_ptr<Behavior> _behavior;
 	
 };
+
+//玩家角色
+class PlayerRole :public Role {
+public:
+	using Role::Role;
+
+	//碰撞
+	//双分派设计模式
+	virtual void collide(Role& other) override;
+	virtual void collideWithPlayer(Role&)  override;
+	virtual void collideWithPokemon(Role&) override;
+};
+
+//玩家角色
+class Pokemon:public Role {
+public:
+	using Role::Role;
+
+	//碰撞
+	//双分派设计模式
+	virtual void collide(Role& other) override;
+	virtual void collideWithPlayer(Role&)  override;
+	virtual void collideWithPokemon(Role&) override;
+};
+
 
