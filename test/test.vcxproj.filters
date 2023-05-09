@@ -77,10 +77,10 @@
     <ClCompile Include="..\src\Role.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\Behavior.cpp">
+    <ClCompile Include="..\src\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Log.cpp">
+    <ClCompile Include="..\src\Behavior.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

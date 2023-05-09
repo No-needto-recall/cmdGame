@@ -2,6 +2,8 @@
 
 class Role;
 class GameMap;
+class PlayerBehavior;
+class PokemonBehavior;
 
 //行为类
 class Behavior {
@@ -21,11 +23,12 @@ public:
 	virtual void death() = 0;
 	virtual void death(GameMap& gameMap) = 0;
 
-	//地图图标
-	virtual char icon()const = 0;
 
 	//碰撞
-	virtual void collide(Role&);
+	//双分派设计模式
+	virtual void collide(Behavior& )=0;
+	virtual void collideWithPlayer(PlayerBehavior&) = 0;
+	virtual void collideWithPokemon(PokemonBehavior&) = 0;
 };
 
 
@@ -44,9 +47,11 @@ class PlayerBehavior :public Behavior {
 	//死亡
 	virtual void death(GameMap& gameMap)override;
 
-	//地图图标
-	virtual char icon()const override;
 
+	//碰撞
+	virtual void collide(Behavior&)override;
+	virtual void collideWithPlayer(PlayerBehavior&)override;
+	virtual void collideWithPokemon(PokemonBehavior&)override;
 };
 
 
@@ -64,8 +69,10 @@ class PokemonBehavior :public Behavior {
 	//死亡
 	virtual void death(GameMap& gameMap)override;
 
-	//地图图标
-	virtual char icon()const override;
-
+	
+	//碰撞
+	virtual void collide(Behavior&)override;
+	virtual void collideWithPlayer(PlayerBehavior&)override;
+	virtual void collideWithPokemon(PokemonBehavior&)override;
 
 };

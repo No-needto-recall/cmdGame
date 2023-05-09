@@ -78,7 +78,7 @@ void GameMap::addRole(AutoRole& role ) {
 				tmpLocation.toString()
 				,role});
 			//添加图标
-			_mapData[tmpLocation._y][tmpLocation._x]=role->getBehavior()->icon();
+			_mapData[tmpLocation._y][tmpLocation._x]=role->getAttribute()._icon;
 
 			LOG_INFO("添加:" + role->getAttribute()._name + "到: " +
 				tmpLocation.toString()

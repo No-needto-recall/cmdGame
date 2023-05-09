@@ -27,6 +27,7 @@ struct Attribute
 	int _mana;
 	int _attack;
 	int _defense;
+	char _icon;//图标
 
 	bool isAlive()const;
 	bool isDeath()const;

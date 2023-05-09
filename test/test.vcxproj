@@ -147,7 +147,7 @@
     <ClInclude Include="..\include\Type.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\Behavior.cpp" />
+    <ClCompile Include="..\src\Behavior.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
