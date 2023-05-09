@@ -1,4 +1,5 @@
 ﻿#include "InputHandler.h"
+#include "Log.h"
 
 
 
@@ -36,4 +37,34 @@ AutoCmd& InputHandler::handleInput() {
 		}
 	}
 	return _nothing;
+}
+
+void InputHandler::setButtonA(AutoCmd cmd)
+{
+	_buttonA = std::move(cmd);
+}
+
+void InputHandler::setButtonD(AutoCmd cmd)
+{
+	_buttonD = std::move(cmd);
+}
+
+void InputHandler::setButtonW(AutoCmd cmd)
+{
+	_buttonW = std::move(cmd);
+}
+
+void InputHandler::setButtonS(AutoCmd cmd)
+{
+	_buttonS = std::move(cmd);
+}
+
+void InputHandler::setButtonQ(AutoCmd cmd)
+{
+	_buttonQ = std::move(cmd);
+}
+
+void InputHandler::setNothing(AutoCmd cmd)
+{
+	_nothing = std::move(cmd);
 }

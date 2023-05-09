@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Game.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -25,12 +22,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\InputHandler.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Monster.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Player.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ScreenDrawer.h">
@@ -48,11 +39,14 @@
     <ClInclude Include="..\include\Config.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Role.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Behavior.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Actor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Game.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -78,6 +72,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Role.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\Behavior.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

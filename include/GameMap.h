@@ -4,9 +4,6 @@
 #include <unordered_map>
 #include <memory>
 #include <random>
-#include "ScreenDrawer.h"
-#include "Actor.h"
-#include "Type.h"
 
 using namespace std;
 
@@ -14,14 +11,19 @@ using namespace std;
 #define MONSTER_MAP 'M'
 #define DEFAULT_MAP  '_'
 
-class Actor;
-using AutoActor = shared_ptr<Actor>;
+//前置声明
+class Role;
+class ScreenDrawer;
+struct Location;
+
+using AutoRole = shared_ptr<Role>;
+using LocationString = string;
 
 
 class GameMap
 {
 public:
-	GameMap(int maxRows = 20, int maxColumns = 20);
+	GameMap(int maxRows, int maxColumns);
 	~GameMap();
 	//获取行
 	int getMaxRows()const;
@@ -34,45 +36,42 @@ public:
 	void display();
 	
 	//添加角色
-	void addActor(AutoActor& actor);
+	void addRole(AutoRole& actor);
 
 	//删除角色
-	void deleteActor(Actor* actor);
+	void deleteRole(Role& actor);
 
 	//移动角色
-	void moveActor(Actor* actor, int newX, int newY);
+	void moveRole(Role& role, const Location& newLocation);
 
 	//判断该坐标是否有角色
 	//如果有返回该对象的指针，如果没有返回nullptr
-	bool isActor(int x, int y);
-	//获取位置的对象
-	AutoActor& getActor(int x, int y);
+	bool isRole(const Location & location);
 
-	//判断该坐标是否在地图内
-	bool isInMap(int x, int y)const;
+	//获取该位置的对象
+	AutoRole& getRole(const Location & location);
+
+	//判断该位置是否在地图内
+	bool isInMap(const Location & location)const;
 
 	//生成a,b闭区间内的随机数
 	int randomNum(int a, int b);
-	//随机生成怪物
-	void randomMonster();
-	//战斗,lhs先手
-	void fight(Actor& lhs, Actor& rhs);
-	
-	//获取quit
-	bool getQuit()const;
-	void setQuit(bool );
 
-	//actor类型于图标转化
-	char typeTomap(Type ty);
-	//将x,y转化为键
-	string positionToString(int x, int y);
-private:
+	//随机生成角色
+	//保障不重叠
+	void randomCreatRole();
+
+	//发生碰撞
+	//lhs 主动碰撞到 rhs
+	void roleCollide(Role& lhs, Role& rhs);
 	
-	bool _isQuit = true;
+
+private:
+
 	int _maxRows;//最大行数
 	int _maxColumns;//最大列数
 	vector < vector<char> > _mapData;//地图数据
-	unordered_map<string, AutoActor> _actors;//角色信息
+	unordered_map<LocationString, AutoRole> _mapRoles;//角色信息
 
 };
 

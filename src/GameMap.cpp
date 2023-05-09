@@ -1,5 +1,9 @@
 ﻿#include "GameMap.h"
-#include "Monster.h"
+#include "Log.h"
+#include "Role.h"
+#include "Config.h"
+#include "ScreenDrawer.h"
+#include "Behavior.h"
 
 GameMap::GameMap(int maxRows,int maxColumns)
 	:_maxRows(maxRows),_maxColumns(maxColumns)
@@ -38,26 +42,19 @@ void GameMap::display() {
 	}
 }
 
-bool GameMap::isInMap(int x, int y)const {
-	return x >= 0 && x < _maxColumns &&
-		y >= 0 && y < _maxRows;
+bool GameMap::isInMap(const Location & location)const {
+	return location._x >= 0 && location._x < _maxColumns &&
+		location._y >= 0 && location._y < _maxRows;
 }
 
 
-bool GameMap::isActor(int x, int y){
-
-	auto search = _actors.find(to_string(x)+","+to_string(y));
-	if (search != _actors.end()) {
-		return true;
-	}
-	else {
-		return false;
-	}
+bool GameMap::isRole(const Location & location){
+	return _mapRoles.count(location.toString()) > 0;
 }
 
-AutoActor& GameMap::getActor(int x, int y) {
-	auto search = _actors.find(to_string(x)+","+to_string(y));
-	if (search != _actors.end()) {
+AutoRole& GameMap::getRole(const Location & location) {
+	auto search = _mapRoles.find(location.toString());
+	if (search != _mapRoles.end()) {
 		return search->second;
 	}
 	else {
@@ -67,100 +64,82 @@ AutoActor& GameMap::getActor(int x, int y) {
 }
 
 
-void GameMap::addActor(AutoActor& Auto) {
-
-	auto actor = Auto.get();
-	int x = actor->getX();
-	int y = actor->getY();
-
-	if (isActor(x,y)) {
-		LOG_ERROR(actor->getPosition() + "已有对象");
+void GameMap::addRole(AutoRole& role ) {
+	Location tmpLocation= role->getLocation();
+	if (isRole(tmpLocation)) {
+		LOG_ERROR(tmpLocation.toString() + "已有对象");
 	}
 	else {
-		if (!isInMap(x,y)) {
-			LOG_ERROR(actor->getPosition() + "超出地图");
+		if (!isInMap(tmpLocation)) {
+			LOG_ERROR(tmpLocation.toString() + "超出地图");
 		}
 		else {
-			_actors.insert({
-				actor->getPosition()
-				,Auto});
-			
-			_mapData[y][x]=typeTomap(actor->getType());
-			actor->bindMap(this);
-			LOG_INFO("添加:" + actor->getName() + "到: " +
-				actor->getPosition()
+			_mapRoles.insert({
+				tmpLocation.toString()
+				,role});
+			//添加图标
+			_mapData[tmpLocation._y][tmpLocation._x]=role->getBehavior()->icon();
+
+			LOG_INFO("添加:" + role->getAttribute()._name + "到: " +
+				tmpLocation.toString()
 			);
 		}
 	}
 }
 
-
-
-char GameMap::typeTomap(Type ty) {
-	if (ty == Type::PLAYER) {
-		return PLAYER_MAP;
-	}
-	else if (ty == Type::MONSTER) {
-		return MONSTER_MAP;
-	}
-	else {
-		return DEFAULT_MAP;
-	}
-}
-
-void GameMap::fight(Actor& lhs, Actor& rhs) {
+#if 0 
+void GameMap::fight(Role& lhs, Role& rhs) {
 	LOG_INFO("发生战斗");
-	ScreenDrawer::getInstance().drawString(_maxColumns+2,0,"strat fight");
+
 	while (1) {
-		lhs.AD_attack(rhs);
-		if (rhs.isAlive()) {
-			rhs.AD_attack(lhs);
-			if (lhs.isAlive()) {
+		lhs.getBehavior()->attack(rhs);
+		if (rhs.getAttribute().isAlive()) {
+			rhs.getBehavior()->attack(lhs);
+			if (lhs.getAttribute().isAlive()) {
 				continue;
 			}
 			else {
-				deleteActor(&lhs);
+				deleteRole(&lhs);
 				break;
 			}
 		}
 		else {
-			deleteActor(&rhs);
+			deleteRole(&rhs);
 			break;
 		}
 	}
 	LOG_INFO("战斗结束");
 }
 
-void GameMap::moveActor(Actor* actor, int newX, int newY) {
-	if (isInMap(newX, newY)) {
-		if (isActor(newX,newY))
+#endif
+
+void GameMap::deleteRole(Role& role) {
+	LOG_INFO(role.getAttribute()._name + "死亡,将被删除");
+
+	role.getBehavior()->death();
+
+	_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
+	_mapRoles.erase(role.getLocation().toString());
+}
+
+
+void GameMap::moveRole(Role& role, const Location& newLocation) {
+	if ((newLocation._x, newLocation._y)) {
+		if (isRole(newLocation))
 		{
-			fight(*actor, *getActor(newX,newY).get());
+			//fight(*role, *(newX,newY).get());
 			//存在主角死亡的情况
+			roleCollide(role, *getRole(newLocation));
 		}
-		LOG_INFO(actor->getName() + " 从 " + actor->getPosition() + "->" + positionToString(newX, newY));
-		_mapData[actor->getY()][actor->getX()] = DEFAULT_MAP;
-		actor->setX(newX);
-		actor->setY(newY);
-		_mapData[actor->getY()][actor->getX()] = typeTomap(actor->getType());
+		LOG_INFO(role->getName() + " 从 " + role->getPosition() + "->" + locationToStringKey(newX, newY));
+		_mapData[role->getY()][role->getX()] = DEFAULT_MAP;
+		role->setX(newX);
+		role->setY(newY);
+		_mapData[role->getY()][role->getX()] = typeTomap(role->getType());
 	}
 }
 
-void GameMap::deleteActor(Actor* actor) {
-	LOG_INFO(actor->getName() + "死亡,将被删除");
-	if (actor->getType() == Type::MONSTER) {
-		ScreenDrawer::getInstance().drawString(0, _maxColumns, "The monster dies.\nMonster generation");
-		randomMonster();
-	}
-	else if (actor->getType() == Type::PLAYER) {
-		ScreenDrawer::getInstance().drawString(0, _maxColumns, "Player death.\n Game over.");
-		//尚未处理玩家死亡
-		_isQuit = false;
-		return;
-	}
-	_mapData[actor->getY()][actor->getX()] = DEFAULT_MAP;
-	_actors.erase(actor->getPosition());
-}
+
 
 
 int GameMap::randomNum(int a, int b) {
@@ -168,17 +147,14 @@ int GameMap::randomNum(int a, int b) {
 	return a + ::rand() % (b - a + 1);
 }
 
-string GameMap::positionToString(int x, int y) {
-	return to_string(x) + "," + to_string(y);
-}
 
-void GameMap::randomMonster() {
+void GameMap::randomCreatRole() {
 	LOG_INFO("将在随机位置生成怪物");
 	int tmpX = randomNum(0, _maxColumns - 1);
 	int tmpY = randomNum(0, _maxRows - 1);
 	while (1) {
-		auto search = _actors.find(positionToString(tmpX, tmpY));
-		if (search != _actors.end()) {
+		auto search = _mapRoles.find(locationToStringKey(tmpX, tmpY));
+		if (search != _mapRoles.end()) {
 			tmpX = randomNum(0, _maxColumns - 1);
 			tmpY = randomNum(0, _maxRows - 1);
 		}
@@ -187,16 +163,14 @@ void GameMap::randomMonster() {
 		}
 	}
 
-	AutoActor mo1(new Monster(10, 2, 20, 2, tmpX, tmpY, Type::MONSTER, "怪物"));
-	this->addActor(mo1);
+	Autorole mo1(new Monster(10, 2, 20, 2, tmpX, tmpY, Type::MONSTER, "怪物"));
+	this->addRole(mo1);
 	LOG_INFO("生成怪物完成");
 }
 
-
-bool GameMap::getQuit()const {
-	return _isQuit;
+void GameMap::roleCollide(Role& lhs, Role& rhs)
+{
+	lhs.getBehavior()->collide(rhs);
 }
 
-void GameMap::setQuit(bool bl) {
-	_isQuit = bl;
-}
+

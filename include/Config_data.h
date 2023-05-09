@@ -6,7 +6,7 @@
 using std::string;
 
 struct ConfigData {
-    struct Actor {
+    struct Role {
         struct Player {
             string name;
             int health;
@@ -14,14 +14,14 @@ struct ConfigData {
             int attack;
             int defense;  
         } player;
-        struct Monster
+        struct Pokemon 
         {
             string name;
             int health;
             int mana; 
             int attack;
             int defense; 
-        }monster;
+        }pokemon;
     } actor;
     void from_json(const nlohmann::json& j);
 };

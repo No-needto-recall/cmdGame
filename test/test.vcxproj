@@ -135,26 +135,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h" />
+    <ClInclude Include="..\include\Behavior.h" />
     <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
-    <ClInclude Include="..\include\Monster.h" />
-    <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
     <ClInclude Include="..\include\Type.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Actor.cpp" />
+    <ClCompile Include="..\include\Behavior.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
+    <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Monster.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
