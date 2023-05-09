@@ -1,9 +1,15 @@
 ﻿#include "Game.h"
 #include "Config.h"
+#include "Log.h"
+#include "ScreenDrawer.h"
 
 
 
 Game::Game()
+	:_gameMap(
+		Config::instance().getConfigData().game.map.maxRows,
+		Config::instance().getConfigData().game.map.maxColumns
+	)
 {
 	loadMap();
 	loadControl();
@@ -18,6 +24,14 @@ Game::~Game()
 
 void Game::start() {
 	LOG_INFO("\n\ngame start");
+	_gameMap.randomCreatRole();
+	while (1) {
+		Sleep(1000);
+		_gameMap.randomCreatRole();
+		_gameMap.display();
+		ScreenDrawer::getInstance().swapBuffers();
+		ScreenDrawer::getInstance().clearScreen();
+	}
 }
 
 

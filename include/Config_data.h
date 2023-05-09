@@ -13,6 +13,7 @@ struct ConfigData {
             int mana;  
             int attack;
             int defense;  
+            int  icon;
         } player;
         struct Pokemon 
         {
@@ -21,8 +22,15 @@ struct ConfigData {
             int mana; 
             int attack;
             int defense; 
+			int icon;
         }pokemon;
-    } actor;
+    } role;
+    struct Game {
+        struct Map {
+            int maxRows;
+            int maxColumns;
+        }map;
+    }game;
     void from_json(const nlohmann::json& j);
 };
 

@@ -1,15 +1,20 @@
 #include "config_data.h"
 
 void ConfigData::from_json(const nlohmann::json& j) {
-    actor.player.name = j["actor"]["player"]["name"];
-    actor.player.health = j["actor"]["player"]["health"];
-    actor.player.mana = j["actor"]["player"]["mana"]; // 从JSON数据中读取法力值属性
-    actor.player.attack = j["actor"]["player"]["attack"];
-    actor.player.defense = j["actor"]["player"]["defense"]; // 从JSON数据中读取防御力属性
-    actor.pokemon.name = j["actor"]["pokemon"]["name"];
-    actor.pokemon.health = j["actor"]["pokemon"]["health"];
-    actor.pokemon.mana = j["actor"]["pokemon"]["mana"]; // 从JSON数据中读取法力值属性
-    actor.pokemon.attack = j["actor"]["pokemon"]["attack"];
-    actor.pokemon.defense = j["actor"]["pokemon"]["defense"]; // 从JSON数据中读取防御力属性
+    role.player.name = j["role"]["player"]["name"];
+    role.player.health = j["role"]["player"]["health"];
+    role.player.mana = j["role"]["player"]["mana"]; 
+    role.player.attack = j["role"]["player"]["attack"];
+    role.player.defense = j["role"]["player"]["defense"];
+    role.player.icon= j["role"]["player"]["icon"]; 
+    role.pokemon.name = j["role"]["pokemon"]["name"];
+    role.pokemon.health = j["role"]["pokemon"]["health"];
+    role.pokemon.mana = j["role"]["pokemon"]["mana"]; 
+    role.pokemon.attack = j["role"]["pokemon"]["attack"];
+    role.pokemon.defense = j["role"]["pokemon"]["defense"]; 
+    role.pokemon.icon= j["role"]["pokemon"]["icon"]; 
+
+    game.map.maxRows= j["game"]["map"]["maxRows"];
+    game.map.maxColumns = j["game"]["map"]["maxColumns"];
 }
 

@@ -78,7 +78,8 @@ void GameMap::addRole(AutoRole& role ) {
 				tmpLocation.toString()
 				,role});
 			//添加图标
-			_mapData[tmpLocation._y][tmpLocation._x]=role->getAttribute()._icon;
+			char icon = role->getAttribute()._icon;
+			_mapData[tmpLocation._y][tmpLocation._x]=icon;
 
 			LOG_INFO("添加:" + role->getAttribute()._name + "到: " +
 				tmpLocation.toString()
@@ -114,10 +115,8 @@ void GameMap::fight(Role& lhs, Role& rhs) {
 #endif
 
 void GameMap::deleteRole(Role& role) {
+	//依赖倒置
 	LOG_INFO(role.getAttribute()._name + "死亡,将被删除");
-
-	role.getBehavior()->death();
-
 	_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
 	_mapRoles.erase(role.getLocation().toString());
 }
@@ -127,15 +126,14 @@ void GameMap::moveRole(Role& role, const Location& newLocation) {
 	if ((newLocation._x, newLocation._y)) {
 		if (isRole(newLocation))
 		{
-			//fight(*role, *(newX,newY).get());
-			//存在主角死亡的情况
 			roleCollide(role, *getRole(newLocation));
 		}
-		LOG_INFO(role->getName() + " 从 " + role->getPosition() + "->" + locationToStringKey(newX, newY));
-		_mapData[role->getY()][role->getX()] = DEFAULT_MAP;
-		role->setX(newX);
-		role->setY(newY);
-		_mapData[role->getY()][role->getX()] = typeTomap(role->getType());
+		LOG_INFO(role.getAttribute()._name + " 从 " + 
+				role.getLocation().toString() + " 到 "+
+				newLocation.toString());
+		_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
+		role.getLocation() = newLocation;
+		_mapData[role.getLocation()._y][role.getLocation()._x] = role.getAttribute()._icon;
 	}
 }
 
@@ -153,7 +151,7 @@ void GameMap::randomCreatRole() {
 	int tmpX = randomNum(0, _maxColumns - 1);
 	int tmpY = randomNum(0, _maxRows - 1);
 	while (1) {
-		auto search = _mapRoles.find(locationToStringKey(tmpX, tmpY));
+		auto search = _mapRoles.find(Location{ tmpX,tmpY }.toString());
 		if (search != _mapRoles.end()) {
 			tmpX = randomNum(0, _maxColumns - 1);
 			tmpY = randomNum(0, _maxRows - 1);
@@ -162,15 +160,29 @@ void GameMap::randomCreatRole() {
 			break;
 		}
 	}
-
-	Autorole mo1(new Monster(10, 2, 20, 2, tmpX, tmpY, Type::MONSTER, "怪物"));
-	this->addRole(mo1);
+	Location tmpLocation = { tmpX,tmpY };
+	char icon = Config::instance().getConfigData().role.pokemon.icon;
+	Attribute tmpAttribute = {
+		Config::instance().getConfigData().role.pokemon.name,
+		Config::instance().getConfigData().role.pokemon.health,
+		Config::instance().getConfigData().role.pokemon.mana,
+		Config::instance().getConfigData().role.pokemon.attack,
+		Config::instance().getConfigData().role.pokemon.defense,
+		icon
+	};
+	AutoRole tmpPokemon(new PokemonRole(tmpAttribute, tmpLocation,*this));
+	std::unique_ptr<PokemonBehavior> tmpPokemonBehavior(
+		new PokemonBehavior(*tmpPokemon)
+	);
+	//设定行为
+	tmpPokemon->setBehavior(std::move(tmpPokemonBehavior));
+	this->addRole(tmpPokemon);
 	LOG_INFO("生成怪物完成");
 }
 
 void GameMap::roleCollide(Role& lhs, Role& rhs)
 {
-	lhs.getBehavior()->collide(rhs);
+	lhs.collide(rhs);
 }
 
 

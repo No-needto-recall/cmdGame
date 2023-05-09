@@ -19,15 +19,12 @@ Location& BasicRole::getLocation() {
 }
 
 Role::Role(const Attribute& attribute,
-		   const Location& location)
+		   const Location& location,
+			GameMap& gameMap)
 	:BasicRole(location),_attribute(attribute)
+	,_gameMap(gameMap)
 {}
 
-Role::Role(const Attribute& attribute, const Location& location, unique_ptr<Behavior> behavior)
-	:BasicRole(location),_attribute(attribute)
-	,_behavior(std::move(behavior))
-{
-}
 
 Role::~Role()
 {}
@@ -89,13 +86,13 @@ void PlayerRole::collideWithPokemon(Role&)
 	//宝可梦和玩家发生碰撞
 }
 
-void Pokemon::collide(Role& other)
+void PokemonRole::collide(Role& other)
 {
 	//分派
 	other.collideWithPokemon(*this);
 }
 
-void Pokemon::collideWithPlayer(Role& player)
+void PokemonRole::collideWithPlayer(Role& player)
 {
 	//玩家和宝可梦发生碰撞
 	LOG_INFO(
@@ -114,12 +111,12 @@ void Pokemon::collideWithPlayer(Role& player)
 				continue;
 			}
 			else {
-				player.getBehavior()->death();
+				player.getBehavior()->death(player._gameMap);
 				break;
 			}
 		}
 		else {
-			this->getBehavior()->death();
+			this->getBehavior()->death(this->_gameMap);
 			break;
 		}
 	}
@@ -127,7 +124,7 @@ void Pokemon::collideWithPlayer(Role& player)
 	return;
 }
 
-void Pokemon::collideWithPokemon(Role&)
+void PokemonRole::collideWithPokemon(Role&)
 {
 	//宝可梦和宝可梦发生碰撞
 }

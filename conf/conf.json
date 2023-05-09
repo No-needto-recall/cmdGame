@@ -1,12 +1,12 @@
 {
-  "actor": {
+  "role": {
     "player": {
       "name": "玩家",
       "health": 100,
       "mana": 100,
       "attack": 5,
       "defense": 0,
-      "icon": "P"
+      "icon": 80
     },
     "pokemon": {
       "name": "宝可梦",
@@ -14,7 +14,13 @@
       "mana": 10,
       "attack": 5,
       "defense": 0,
-      "icon": "B"
+      "icon": 66
+    }
+  },
+  "game": {
+    "map": {
+      "maxRows": 19,
+      "maxColumns": 9
     }
   }
 }

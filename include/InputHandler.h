@@ -4,13 +4,13 @@
 #include <conio.h>
 #include <memory>
 
-using AutoCmd =  std::unique_ptr<Command>;
 
 //前置声明
 class Command;
 class GameMap;
 class Role;
 
+using AutoCmd =  std::unique_ptr<Command>;
 //命令模式
 class Command {
 public:

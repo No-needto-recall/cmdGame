@@ -7,6 +7,7 @@ using std::string;
 using std::unique_ptr;
 
 
+
 //前置声明
 class Behavior;
 class GameMap;
@@ -52,10 +53,10 @@ protected:
 //角色
 class Role:public BasicRole{
 public:
-	Role(const Attribute& attribute, const Location& location);
+	Role(const Attribute& attribute, 
+		const Location& location,
+		GameMap& gameMap);
 
-	Role(const Attribute& attribute, const Location& location
-		,unique_ptr<Behavior> behavior);
 
 	//析构函数设为虚函数
 	virtual ~Role();
@@ -69,12 +70,17 @@ public:
 	//设置行为
 	void setBehavior(unique_ptr<Behavior> behavior);
 
+	//绑定地图
+	void bindGameMap(GameMap& gamemap);
+
 
 	//碰撞
 	//双分派设计模式
 	virtual void collide(Role& other) = 0;
 	virtual void collideWithPlayer(Role&) = 0;
 	virtual void collideWithPokemon(Role&) = 0;
+public:
+	GameMap& _gameMap;
 
 protected:
 	Attribute _attribute;
@@ -95,7 +101,7 @@ public:
 };
 
 //玩家角色
-class Pokemon:public Role {
+class PokemonRole:public Role {
 public:
 	using Role::Role;
 

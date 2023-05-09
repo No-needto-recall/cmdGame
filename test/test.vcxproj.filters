@@ -27,9 +27,6 @@
     <ClInclude Include="..\include\ScreenDrawer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Type.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -57,12 +54,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Monster.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ScreenDrawer.cpp">

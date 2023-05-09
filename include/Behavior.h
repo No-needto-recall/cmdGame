@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class Role;
 class GameMap;
@@ -8,6 +8,7 @@ class PokemonBehavior;
 //行为类
 class Behavior {
 public:
+	Behavior(Role& myself);
 	virtual ~Behavior() = default;
 
 	//移动
@@ -20,13 +21,15 @@ public:
 	virtual void attack(Role&) = 0;
 
 	//死亡
-	virtual void death() = 0;
 	virtual void death(GameMap& gameMap) = 0;
+protected:
+	Role& _mySelf;
 };
 
 
 //玩家行为
 class PlayerBehavior :public Behavior {
+	using Behavior::Behavior;
 
 	//移动
 	virtual void upMove(GameMap& gameMap)override;
@@ -45,6 +48,8 @@ class PlayerBehavior :public Behavior {
 
 //宝可梦行为
 class PokemonBehavior :public Behavior {
+	using Behavior::Behavior;
+
 	//移动
 	virtual void upMove(GameMap& gameMap)override;
 	virtual void downMove(GameMap& gameMap)override;
