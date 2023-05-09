@@ -70,34 +70,34 @@ void InputHandler::setNothing(AutoCmd cmd)
 	_nothing = std::move(cmd);
 }
 
-void leftMove::execute(Role& actor, GameMap& gameMap)
+void leftMove::execute(Role* actor, GameMap* gameMap)
 {
-	actor.getBehavior()->leftMove(gameMap);
+	actor->getBehavior()->leftMove(*gameMap);
 }
 
-void rightMove::execute(Role& actor, GameMap& gameMap)
+void rightMove::execute(Role* actor, GameMap* gameMap)
 {
-	actor.getBehavior()->rightMove(gameMap);
+	actor->getBehavior()->rightMove(*gameMap);
 }
 
-void upMove::execute(Role& actor, GameMap& gameMap)
+void upMove::execute(Role* actor, GameMap* gameMap)
 {
-	actor.getBehavior()->upMove(gameMap);
+	actor->getBehavior()->upMove(*gameMap);
 }
 
-void downMove::execute(Role& actor, GameMap& gameMap)
+void downMove::execute(Role* actor, GameMap* gameMap)
 {
-	actor.getBehavior()->downMove(gameMap);
+	actor->getBehavior()->downMove(*gameMap);
 }
 
-void Quit::execute(Role& actor, GameMap& gameMap)
+void Quit::execute(Role* actor, GameMap* gameMap)
 {
 	//退出
 	LOG_INFO("主动退出游戏");
 	exit(0);
 }
 
-void Nothing::execute(Role& actor, GameMap& gameMap)
+void Nothing::execute(Role* actor, GameMap* gameMap)
 {
 	LOG_INFO("无效按键");
 }

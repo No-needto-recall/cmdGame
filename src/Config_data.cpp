@@ -7,6 +7,9 @@ void ConfigData::from_json(const nlohmann::json& j) {
     role.player.attack = j["role"]["player"]["attack"];
     role.player.defense = j["role"]["player"]["defense"];
     role.player.icon= j["role"]["player"]["icon"]; 
+    role.player.spawnX= j["role"]["player"]["spawnX"]; 
+    role.player.spawnY= j["role"]["player"]["spawnY"]; 
+
     role.pokemon.name = j["role"]["pokemon"]["name"];
     role.pokemon.health = j["role"]["pokemon"]["health"];
     role.pokemon.mana = j["role"]["pokemon"]["mana"]; 

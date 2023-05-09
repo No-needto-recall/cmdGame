@@ -6,7 +6,9 @@
       "mana": 100,
       "attack": 5,
       "defense": 0,
-      "icon": 80
+      "icon": 80,
+      "spawnX": 5,
+      "spawnY": 5
     },
     "pokemon": {
       "name": "宝可梦",
@@ -19,8 +21,8 @@
   },
   "game": {
     "map": {
-      "maxRows": 19,
-      "maxColumns": 9
+      "maxRows": 10,
+      "maxColumns":20 
     }
   }
 }

@@ -2,6 +2,8 @@
 #include "Config.h"
 #include "Log.h"
 #include "ScreenDrawer.h"
+#include "Role.h"
+#include "Behavior.h"
 
 
 
@@ -25,9 +27,31 @@ Game::~Game()
 void Game::start() {
 	LOG_INFO("\n\ngame start");
 	_gameMap.randomCreatRole();
+	_gameMap.display();
+	ScreenDrawer::getInstance().swapBuffers();
+
+	char icon = Config::instance().getConfigData().role.player.icon;
+	AutoRole player(new PlayerRole(
+		{
+		Config::instance().getConfigData().role.player.name,
+		Config::instance().getConfigData().role.player.health,
+		Config::instance().getConfigData().role.player.mana,
+		Config::instance().getConfigData().role.player.attack,
+		Config::instance().getConfigData().role.player.defense,
+		icon
+		},
+		{
+		Config::instance().getConfigData().role.player.spawnX,
+		Config::instance().getConfigData().role.player.spawnY,
+		},
+		_gameMap
+		));
+
+	std::unique_ptr<Behavior> tmpPlayerBehavior(new PlayerBehavior(*player));
+	player->setBehavior(std::move(tmpPlayerBehavior));
+	_gameMap.addRole(player);
 	while (1) {
-		Sleep(1000);
-		_gameMap.randomCreatRole();
+		_Control.handleInput()->execute(player.get(), &_gameMap);
 		_gameMap.display();
 		ScreenDrawer::getInstance().swapBuffers();
 		ScreenDrawer::getInstance().clearScreen();

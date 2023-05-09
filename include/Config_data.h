@@ -14,6 +14,8 @@ struct ConfigData {
             int attack;
             int defense;  
             int  icon;
+            int spawnX;
+            int spawnY;
         } player;
         struct Pokemon 
         {

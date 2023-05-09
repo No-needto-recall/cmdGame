@@ -88,31 +88,6 @@ void GameMap::addRole(AutoRole& role ) {
 	}
 }
 
-#if 0 
-void GameMap::fight(Role& lhs, Role& rhs) {
-	LOG_INFO("发生战斗");
-
-	while (1) {
-		lhs.getBehavior()->attack(rhs);
-		if (rhs.getAttribute().isAlive()) {
-			rhs.getBehavior()->attack(lhs);
-			if (lhs.getAttribute().isAlive()) {
-				continue;
-			}
-			else {
-				deleteRole(&lhs);
-				break;
-			}
-		}
-		else {
-			deleteRole(&rhs);
-			break;
-		}
-	}
-	LOG_INFO("战斗结束");
-}
-
-#endif
 
 void GameMap::deleteRole(Role& role) {
 	//依赖倒置
@@ -123,7 +98,7 @@ void GameMap::deleteRole(Role& role) {
 
 
 void GameMap::moveRole(Role& role, const Location& newLocation) {
-	if ((newLocation._x, newLocation._y)) {
+	if (isInMap(newLocation)) {
 		if (isRole(newLocation))
 		{
 			roleCollide(role, *getRole(newLocation));

@@ -15,39 +15,39 @@ using AutoCmd =  std::unique_ptr<Command>;
 class Command {
 public:
 	virtual ~Command(){}
-	virtual void execute(Role& actor,GameMap& gameMap) = 0;
+	virtual void execute(Role* actor,GameMap* gameMap) = 0;
 };
 
 
 class leftMove :public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap)override;
+	void execute(Role* actor, GameMap* gameMap)override;
 };
 
 class rightMove :public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap) override;
+	void execute(Role* actor, GameMap* gameMap) override;
 	
 };
 
 class upMove :public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap) override;
+	void execute(Role* actor, GameMap* gameMap) override;
 };
 
 class downMove :public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap) override;
+	void execute(Role* actor, GameMap* gameMap) override;
 };
 
 class Quit:public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap) override;
+	void execute(Role* actor, GameMap* gameMap) override;
 };
 
 class Nothing :public Command {
 public:
-	void execute(Role& actor, GameMap& gameMap)override;
+	void execute(Role* actor, GameMap* gameMap)override;
 };
 
 class InputHandler {
