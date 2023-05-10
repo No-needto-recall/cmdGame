@@ -4,6 +4,7 @@
 #include "ScreenDrawer.h"
 #include "Role.h"
 #include "Behavior.h"
+#include "CreatFromConfig.h"
 
 
 
@@ -30,24 +31,10 @@ void Game::start() {
 	_gameMap.display();
 	ScreenDrawer::getInstance().swapBuffers();
 
-	AutoRole player(new PlayerRole(
-		{
-		Config::instance().getConfigData().role.player.name,
-		Config::instance().getConfigData().role.player.health,
-		Config::instance().getConfigData().role.player.mana,
-		Config::instance().getConfigData().role.player.attack,
-		Config::instance().getConfigData().role.player.defense,
-		Config::instance().getConfigData().role.player.icon
-		},
-		{
-		Config::instance().getConfigData().role.player.spawnX,
-		Config::instance().getConfigData().role.player.spawnY,
-		},
-		_gameMap
-		));
-
-	std::unique_ptr<Behavior> tmpPlayerBehavior(new PlayerBehavior(*player));
+	AutoRole player = CreatRole::creatPlayerFromConfig();
+	AutoBehavior  tmpPlayerBehavior = CreatBehavior::creatPokemonFromConfig(player);
 	player->setBehavior(std::move(tmpPlayerBehavior));
+	player->setGameMap(std::make_shared<GameMap>( _gameMap));
 	_gameMap.addRole(player);
 	while (1) {
 		_Control.handleInput()->execute(player.get(), &_gameMap);

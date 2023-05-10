@@ -1,14 +1,20 @@
 ﻿#pragma once
 
+#include <memory>
+
 class Role;
 class GameMap;
 class PlayerBehavior;
 class PokemonBehavior;
 
+using std::weak_ptr;
+
+using AutoWeakRole = weak_ptr<Role>;
+
 //行为类
 class Behavior {
 public:
-	Behavior(Role& myself);
+	Behavior(AutoWeakRole myself);
 	virtual ~Behavior() = default;
 
 	//移动
@@ -22,8 +28,11 @@ public:
 
 	//死亡
 	virtual void death(GameMap& gameMap) = 0;
+
+	//绑定的对象是否存在
+	bool isExist()const;
 protected:
-	Role& _mySelf;
+	AutoWeakRole _mySelf;
 };
 
 

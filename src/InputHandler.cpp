@@ -8,7 +8,7 @@ AutoCmd& InputHandler::handleInput() {
 	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
 	INPUT_RECORD inputRecord;
 	DWORD numRead;
-	Sleep(500);//避免玩家按键频繁
+	//Sleep(200);//避免玩家按键频繁
 	FlushConsoleInputBuffer(hStdin);
 	WaitForSingleObject(hStdin, INFINITE);
 	if (ReadConsoleInput(hStdin, &inputRecord, 1, &numRead)) {

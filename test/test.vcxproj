@@ -138,6 +138,7 @@
     <ClInclude Include="..\include\Behavior.h" />
     <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
+    <ClInclude Include="..\include\CreatFromConfig.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="..\src\Behavior.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
+    <ClCompile Include="..\src\CreatFromConfig.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />

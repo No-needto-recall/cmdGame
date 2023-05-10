@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "ScreenDrawer.h"
 #include "Behavior.h"
+#include "CreatFromConfig.h"
 
 GameMap::GameMap(int maxRows,int maxColumns)
 	:_maxRows(maxRows),_maxColumns(maxColumns)
@@ -136,19 +137,8 @@ void GameMap::randomCreatRole() {
 		}
 	}
 	Location tmpLocation = { tmpX,tmpY };
-
-	Attribute tmpAttribute = {
-		Config::instance().getConfigData().role.pokemon.name,
-		Config::instance().getConfigData().role.pokemon.health,
-		Config::instance().getConfigData().role.pokemon.mana,
-		Config::instance().getConfigData().role.pokemon.attack,
-		Config::instance().getConfigData().role.pokemon.defense,
-		Config::instance().getConfigData().role.pokemon.icon
-	};
-	AutoRole tmpPokemon(new PokemonRole(tmpAttribute, tmpLocation,*this));
-	std::unique_ptr<PokemonBehavior> tmpPokemonBehavior(
-		new PokemonBehavior(*tmpPokemon)
-	);
+	AutoRole tmpPokemon = CreatRole::creatPokemonFromConfig(tmpLocation);
+	AutoBehavior tmpPokemonBehavior = CreatBehavior::creatPokemonFromConfig(tmpPokemon);
 	//设定行为
 	tmpPokemon->setBehavior(std::move(tmpPokemonBehavior));
 	this->addRole(tmpPokemon);

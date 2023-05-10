@@ -3,14 +3,18 @@
 #include "GameMap.h"
 #include "Log.h"
 
-Behavior::Behavior(Role& myself)
+Behavior::Behavior(AutoWeakRole myself)
 	:_mySelf(myself)
 {}
+
+bool Behavior::isExist()const {
+	return !_mySelf.expired();
+}
 
 /*
   坐标演示
 
-  0----> x
+  0-------> x
   |
   |
   V
@@ -21,40 +25,77 @@ Behavior::Behavior(Role& myself)
 
  //PlayerBehavior
 void PlayerBehavior::upMove(GameMap& gameMap) {
-	gameMap.moveRole(_mySelf, 
-		{ _mySelf.getLocation()._x,_mySelf.getLocation()._y - 1 });
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		gameMap.moveRole(*mySelf,
+		{ mySelf->getLocation()._x,mySelf->getLocation()._y - 1 });
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
 }
 
 void PlayerBehavior::downMove(GameMap& gameMap)
 {
-	gameMap.moveRole(_mySelf, 
-		{ _mySelf.getLocation()._x,_mySelf.getLocation()._y + 1 });
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		gameMap.moveRole(*mySelf,
+		{ mySelf->getLocation()._x,mySelf->getLocation()._y + 1 });
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
 }
 
 void PlayerBehavior::leftMove(GameMap& gameMap)
 {
-	gameMap.moveRole(_mySelf, 
-		{ _mySelf.getLocation()._x - 1,_mySelf.getLocation()._y });
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		gameMap.moveRole(*mySelf,
+			{ mySelf->getLocation()._x - 1,mySelf->getLocation()._y });
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
 }
 
 void PlayerBehavior::rightMove(GameMap& gameMap)
 {
-	gameMap.moveRole(_mySelf, 
-		{ _mySelf.getLocation()._x + 1,_mySelf.getLocation()._y });
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		gameMap.moveRole(*mySelf,
+			{ mySelf->getLocation()._x + 1,mySelf->getLocation()._y });
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
 }
 
 void PlayerBehavior::attack(Role& other)
 {
-	//简单的攻击减去防御力逻辑
-	int number = _mySelf.getAttribute()._attack - other.getAttribute()._defense;
-	number = number < 0 ? 0 : number;
-	other.getAttribute()._health -= number;
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		//简单的攻击减去防御力逻辑
+		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;
+		number = number < 0 ? 0 : number;
+		other.getAttribute()._health -= number;
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
+
 }
 
 void PlayerBehavior::death(GameMap& gameMap)
 {
-	LOG_INFO(this->_mySelf.getAttribute()._name + "死亡");
-	gameMap.deleteRole(this->_mySelf);
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		LOG_INFO(mySelf->getAttribute()._name + "死亡");
+		gameMap.deleteRole(*mySelf);
+	}
+	else {
+		LOG_ERROR("playerBehavior绑定的对象已销毁");
+	}
 }
 
 //PokemonBehavior
@@ -77,14 +118,26 @@ void PokemonBehavior::rightMove(GameMap& gameMap)
 void PokemonBehavior::attack(Role& other)
 {
 	//简单的攻击减去防御力逻辑
-	int number = _mySelf.getAttribute()._attack - other.getAttribute()._defense;
-	number = number < 0 ? 0 : number;
-	other.getAttribute()._health -= number;
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;
+		number = number < 0 ? 0 : number;
+		other.getAttribute()._health -= number;
+	}
+	else {
+		LOG_ERROR("PokemonBehavior绑定的对象已销毁");
+	}
 }
 
 void PokemonBehavior::death(GameMap& gameMap)
 {
-	LOG_INFO(this->_mySelf.getAttribute()._name + "死亡");
-	gameMap.deleteRole(this->_mySelf);
+	auto mySelf = _mySelf.lock();
+	if (mySelf) {
+		LOG_INFO(mySelf->getAttribute()._name + "死亡");
+		gameMap.deleteRole(*mySelf);
+	}
+	else {
+		LOG_ERROR("PokemonBehavior绑定的对象已销毁");
+	}
 }
 

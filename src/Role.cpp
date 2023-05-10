@@ -19,10 +19,8 @@ Location& BasicRole::getLocation() {
 }
 
 Role::Role(const Attribute& attribute,
-		   const Location& location,
-			GameMap& gameMap)
+		   const Location& location)
 	:BasicRole(location),_attribute(attribute)
-	,_gameMap(gameMap)
 {}
 
 
@@ -39,18 +37,24 @@ Attribute& Role::getAttribute()
 	return _attribute;
 }
 
-const unique_ptr<Behavior>& Role::getBehavior() const
+const AutoBehavior& Role::getBehavior() const
 {
 	return _behavior;
 }
 
-void Role::setBehavior(unique_ptr<Behavior> behavior)
+void Role::setBehavior(AutoBehavior behavior)
 {
 	_behavior = std::move(behavior);
 }
 
-void Role::bindGameMap(GameMap& gamemap)
+void Role::setGameMap(AutoGameMap gamemap)
 {
+	_gameMap = gamemap;
+}
+
+AutoGameMap& Role::getGameMap()
+{
+	return _gameMap;
 }
 
 bool Attribute::isAlive() const
@@ -115,12 +119,12 @@ void PokemonRole::collideWithPlayer(Role& player)
 				continue;
 			}
 			else {
-				player.getBehavior()->death(player._gameMap);
+				player.getBehavior()->death(*(player.getGameMap().get()));
 				break;
 			}
 		}
 		else {
-			this->getBehavior()->death(this->_gameMap);
+			this->getBehavior()->death(*(this->getGameMap().get()));
 			break;
 		}
 	}

@@ -5,12 +5,18 @@
 
 using std::string;
 using std::unique_ptr;
+using std::shared_ptr;
 
 
 
 //前置声明
 class Behavior;
 class GameMap;
+class Role;
+
+using AutoGameMap = shared_ptr<GameMap>;
+using AutoBehavior = unique_ptr<Behavior>;
+using AutoRole = shared_ptr<Role>;
 
 //位置信息
 struct Location
@@ -53,9 +59,8 @@ protected:
 //角色
 class Role:public BasicRole{
 public:
-	Role(const Attribute& attribute, 
-		const Location& location,
-		GameMap& gameMap);
+	Role(const Attribute& attribute,
+		const Location& location);
 
 
 	//析构函数设为虚函数
@@ -66,12 +71,14 @@ public:
 	Attribute& getAttribute();
 
 	//获取行为
-	const unique_ptr<Behavior>& getBehavior()const;
+	const AutoBehavior& getBehavior()const;
 	//设置行为
-	void setBehavior(unique_ptr<Behavior> behavior);
+	void setBehavior(AutoBehavior  behavior);
 
 	//绑定地图
-	void bindGameMap(GameMap& gamemap);
+	void setGameMap(AutoGameMap gamemap);
+	//获取地图
+	AutoGameMap& getGameMap();
 
 
 	//碰撞
@@ -79,12 +86,11 @@ public:
 	virtual void collide(Role& other) = 0;
 	virtual void collideWithPlayer(Role&) = 0;
 	virtual void collideWithPokemon(Role&) = 0;
-public:
-	GameMap& _gameMap;
 
 protected:
 	Attribute _attribute;
-	unique_ptr<Behavior> _behavior;
+	AutoBehavior _behavior;
+	AutoGameMap _gameMap;
 	
 };
 
@@ -111,5 +117,7 @@ public:
 	virtual void collideWithPlayer(Role&)  override;
 	virtual void collideWithPokemon(Role&) override;
 };
+
+
 
 
