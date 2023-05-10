@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="第三方库">
+      <UniqueIdentifier>{9d5fe1af-fe2e-4f7b-95cf-3eefe1e72c77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Game.h">
@@ -41,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Behavior.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\nlohmann\json.hpp">
+      <Filter>第三方库</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

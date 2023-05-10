@@ -49,6 +49,10 @@ void Role::setBehavior(unique_ptr<Behavior> behavior)
 	_behavior = std::move(behavior);
 }
 
+void Role::bindGameMap(GameMap& gamemap)
+{
+}
+
 bool Attribute::isAlive() const
 {
 	return _health>0;

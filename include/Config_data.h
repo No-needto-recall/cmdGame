@@ -13,9 +13,9 @@ struct ConfigData {
             int mana;  
             int attack;
             int defense;  
-            int  icon;
             int spawnX;
             int spawnY;
+            char icon;
         } player;
         struct Pokemon 
         {
@@ -24,7 +24,7 @@ struct ConfigData {
             int mana; 
             int attack;
             int defense; 
-			int icon;
+            char icon;
         }pokemon;
     } role;
     struct Game {

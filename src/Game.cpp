@@ -30,7 +30,6 @@ void Game::start() {
 	_gameMap.display();
 	ScreenDrawer::getInstance().swapBuffers();
 
-	char icon = Config::instance().getConfigData().role.player.icon;
 	AutoRole player(new PlayerRole(
 		{
 		Config::instance().getConfigData().role.player.name,
@@ -38,7 +37,7 @@ void Game::start() {
 		Config::instance().getConfigData().role.player.mana,
 		Config::instance().getConfigData().role.player.attack,
 		Config::instance().getConfigData().role.player.defense,
-		icon
+		Config::instance().getConfigData().role.player.icon
 		},
 		{
 		Config::instance().getConfigData().role.player.spawnX,

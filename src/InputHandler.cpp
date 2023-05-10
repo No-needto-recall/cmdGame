@@ -6,9 +6,10 @@
 
 AutoCmd& InputHandler::handleInput() {
 	HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
-	FlushConsoleInputBuffer(hStdin);
 	INPUT_RECORD inputRecord;
 	DWORD numRead;
+	Sleep(500);//避免玩家按键频繁
+	FlushConsoleInputBuffer(hStdin);
 	WaitForSingleObject(hStdin, INFINITE);
 	if (ReadConsoleInput(hStdin, &inputRecord, 1, &numRead)) {
 		if (inputRecord.EventType == KEY_EVENT) {
@@ -31,7 +32,6 @@ AutoCmd& InputHandler::handleInput() {
 					//LOG_INFO("Q");
 					return _buttonQ;
 				default:
-					LOG_INFO("nothing");
 					return _nothing;
 				}
 			}

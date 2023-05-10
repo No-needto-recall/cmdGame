@@ -91,7 +91,7 @@ void GameMap::addRole(AutoRole& role ) {
 
 void GameMap::deleteRole(Role& role) {
 	//依赖倒置
-	LOG_INFO(role.getAttribute()._name + "死亡,将被删除");
+	LOG_INFO(role.getAttribute()._name + "将被删除");
 	_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
 	_mapRoles.erase(role.getLocation().toString());
 }
@@ -136,14 +136,14 @@ void GameMap::randomCreatRole() {
 		}
 	}
 	Location tmpLocation = { tmpX,tmpY };
-	char icon = Config::instance().getConfigData().role.pokemon.icon;
+
 	Attribute tmpAttribute = {
 		Config::instance().getConfigData().role.pokemon.name,
 		Config::instance().getConfigData().role.pokemon.health,
 		Config::instance().getConfigData().role.pokemon.mana,
 		Config::instance().getConfigData().role.pokemon.attack,
 		Config::instance().getConfigData().role.pokemon.defense,
-		icon
+		Config::instance().getConfigData().role.pokemon.icon
 	};
 	AutoRole tmpPokemon(new PokemonRole(tmpAttribute, tmpLocation,*this));
 	std::unique_ptr<PokemonBehavior> tmpPokemonBehavior(
