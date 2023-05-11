@@ -1,4 +1,4 @@
-﻿#include "InputHandler.h"
+#include "InputHandler.h"
 #include "Log.h"
 #include "Role.h"
 #include "Behavior.h"

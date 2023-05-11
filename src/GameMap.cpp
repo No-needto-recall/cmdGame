@@ -1,4 +1,4 @@
-﻿#include "GameMap.h"
+#include "GameMap.h"
 #include "Log.h"
 #include "Role.h"
 #include "Config.h"

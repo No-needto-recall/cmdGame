@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "GameMap.h"
 #include "InputHandler.h"

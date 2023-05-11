@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+#include "Game.h"
 #include "Config.h"
 #include "Log.h"
 #include "ScreenDrawer.h"

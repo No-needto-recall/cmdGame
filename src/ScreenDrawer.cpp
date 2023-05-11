@@ -1,4 +1,4 @@
-﻿#include "ScreenDrawer.h"
+#include "ScreenDrawer.h"
 
 
 ScreenDrawer::ScreenDrawer(int width,int height)

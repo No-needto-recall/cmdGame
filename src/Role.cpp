@@ -79,36 +79,36 @@ string Location::toString() const
 
 void PlayerRole::collide(Role& other)
 {
-	//·ÖÅÉ
+	//ï¿½ï¿½ï¿½ï¿½
 	other.collideWithPlayer(*this);
 }
 
 void PlayerRole::collideWithPlayer(Role& other)
 {
-	//Íæ¼ÒºÍÍæ¼Ò·¢ÉúÅö×²
+	//ï¿½ï¿½Òºï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½×²
 
 }
 
 void PlayerRole::collideWithPokemon(Role&)
 {
-	//±¦¿ÉÃÎºÍÍæ¼Ò·¢ÉúÅö×²
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½×²
 }
 
 void PokemonRole::collide(Role& other)
 {
-	//·ÖÅÉ
+	//ï¿½ï¿½ï¿½ï¿½
 	other.collideWithPokemon(*this);
 }
 
 void PokemonRole::collideWithPlayer(Role& player)
 {
-	//Íæ¼ÒºÍ±¦¿ÉÃÎ·¢ÉúÅö×²
+	//ï¿½ï¿½ÒºÍ±ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½×²
 	LOG_INFO(
-		player.getAttribute()._name +" ºÍ "+
-		this->getAttribute()._name+" ·¢ÉúÅö×²"
+		player.getAttribute()._name +" ï¿½ï¿½ "+
+		this->getAttribute()._name+" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²"
 	);
 
-	//·¢ÉúÕ½¶·
+	//ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½
 	while (1) {
 		player.getBehavior()->attack(*this);
 		if (this->getAttribute().isAlive()) {
@@ -134,5 +134,5 @@ void PokemonRole::collideWithPlayer(Role& player)
 
 void PokemonRole::collideWithPokemon(Role&)
 {
-	//±¦¿ÉÃÎºÍ±¦¿ÉÃÎ·¢ÉúÅö×²
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÍ±ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½×²
 }

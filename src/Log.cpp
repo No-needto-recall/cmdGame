@@ -1,4 +1,4 @@
-﻿#include "Log.h"
+#include "Log.h"
 
 Log& Log::getInstance() {
     static Log instance;

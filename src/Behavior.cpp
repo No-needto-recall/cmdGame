@@ -12,7 +12,7 @@ bool Behavior::isExist()const {
 }
 
 /*
-  ×ø±êÑİÊ¾
+  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 
   0-------> x
   |
@@ -31,7 +31,7 @@ void PlayerBehavior::upMove(GameMap& gameMap) {
 		{ mySelf->getLocation()._x,mySelf->getLocation()._y - 1 });
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -43,7 +43,7 @@ void PlayerBehavior::downMove(GameMap& gameMap)
 		{ mySelf->getLocation()._x,mySelf->getLocation()._y + 1 });
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -55,7 +55,7 @@ void PlayerBehavior::leftMove(GameMap& gameMap)
 			{ mySelf->getLocation()._x - 1,mySelf->getLocation()._y });
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -67,7 +67,7 @@ void PlayerBehavior::rightMove(GameMap& gameMap)
 			{ mySelf->getLocation()._x + 1,mySelf->getLocation()._y });
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -75,13 +75,13 @@ void PlayerBehavior::attack(Role& other)
 {
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
-		//¼òµ¥µÄ¹¥»÷¼õÈ¥·ÀÓùÁ¦Âß¼­
+		//ï¿½òµ¥µÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;
 		number = number < 0 ? 0 : number;
 		other.getAttribute()._health -= number;
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 
 }
@@ -90,11 +90,11 @@ void PlayerBehavior::death(GameMap& gameMap)
 {
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
-		LOG_INFO(mySelf->getAttribute()._name + "ËÀÍö");
+		LOG_INFO(mySelf->getAttribute()._name + "æ­»äº¡");
 		gameMap.deleteRole(*mySelf);
 	}
 	else {
-		LOG_ERROR("playerBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("playerBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -117,7 +117,7 @@ void PokemonBehavior::rightMove(GameMap& gameMap)
 
 void PokemonBehavior::attack(Role& other)
 {
-	//¼òµ¥µÄ¹¥»÷¼õÈ¥·ÀÓùÁ¦Âß¼­
+	//ï¿½òµ¥µÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
 		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;
@@ -125,7 +125,7 @@ void PokemonBehavior::attack(Role& other)
 		other.getAttribute()._health -= number;
 	}
 	else {
-		LOG_ERROR("PokemonBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("PokemonBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
@@ -133,11 +133,11 @@ void PokemonBehavior::death(GameMap& gameMap)
 {
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
-		LOG_INFO(mySelf->getAttribute()._name + "ËÀÍö");
+		LOG_INFO(mySelf->getAttribute()._name + "æ­»äº¡");
 		gameMap.deleteRole(*mySelf);
 	}
 	else {
-		LOG_ERROR("PokemonBehavior°ó¶¨µÄ¶ÔÏóÒÑÏú»Ù");
+		LOG_ERROR("PokemonBehavior çš„å¯¹è±¡å·²é”€æ¯");
 	}
 }
 
