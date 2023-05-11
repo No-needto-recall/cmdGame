@@ -141,6 +141,7 @@ void GameMap::randomCreatRole() {
 	AutoBehavior tmpPokemonBehavior = CreatBehavior::creatPokemonFromConfig(tmpPokemon);
 	//设定行为
 	tmpPokemon->setBehavior(std::move(tmpPokemonBehavior));
+	tmpPokemon->setGameMap(std::make_shared<GameMap>(*this));
 	this->addRole(tmpPokemon);
 	LOG_INFO("生成怪物完成");
 }

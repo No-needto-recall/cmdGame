@@ -75,7 +75,7 @@ void PlayerBehavior::attack(Role& other)
 {
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
-		//�򵥵Ĺ�����ȥ�������߼�
+		//玩家攻击
 		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;
 		number = number < 0 ? 0 : number;
 		other.getAttribute()._health -= number;
@@ -117,7 +117,7 @@ void PokemonBehavior::rightMove(GameMap& gameMap)
 
 void PokemonBehavior::attack(Role& other)
 {
-	//�򵥵Ĺ�����ȥ�������߼�
+	//宝可梦攻击
 	auto mySelf = _mySelf.lock();
 	if (mySelf) {
 		int number = mySelf->getAttribute()._attack - other.getAttribute()._defense;

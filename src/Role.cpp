@@ -79,36 +79,36 @@ string Location::toString() const
 
 void PlayerRole::collide(Role& other)
 {
-	//����
+	//第一次分派
 	other.collideWithPlayer(*this);
 }
 
 void PlayerRole::collideWithPlayer(Role& other)
 {
-	//��Һ���ҷ�����ײ
+	//玩家碰撞到玩家
 
 }
 
 void PlayerRole::collideWithPokemon(Role&)
 {
-	//�����κ���ҷ�����ײ
+	//宝可梦碰撞到玩家
 }
 
 void PokemonRole::collide(Role& other)
 {
-	//����
+	//第一次分派
 	other.collideWithPokemon(*this);
 }
 
 void PokemonRole::collideWithPlayer(Role& player)
 {
-	//��Һͱ����η�����ײ
+	//玩家碰撞到宝可梦
 	LOG_INFO(
-		player.getAttribute()._name +" �� "+
-		this->getAttribute()._name+" ������ײ"
+		player.getAttribute()._name +" 与 "+
+		this->getAttribute()._name+" 发生战斗 "
 	);
 
-	//����ս��
+	//简单的战斗逻辑
 	while (1) {
 		player.getBehavior()->attack(*this);
 		if (this->getAttribute().isAlive()) {
@@ -134,5 +134,5 @@ void PokemonRole::collideWithPlayer(Role& player)
 
 void PokemonRole::collideWithPokemon(Role&)
 {
-	//�����κͱ����η�����ײ
+	//宝可梦碰撞到宝可梦
 }
