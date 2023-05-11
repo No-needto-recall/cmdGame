@@ -11,43 +11,45 @@ class GameMap;
 class Role;
 
 using AutoCmd =  std::unique_ptr<Command>;
+using AutoRole = std::shared_ptr<Role>;
+
 //命令模式
 class Command {
 public:
 	virtual ~Command(){}
-	virtual void execute(Role* actor,GameMap* gameMap) = 0;
+	virtual void execute(AutoRole actor,GameMap* gameMap) = 0;
 };
 
 
 class leftMove :public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap)override;
+	void execute(AutoRole actor, GameMap* gameMap)override;
 };
 
 class rightMove :public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap) override;
+	void execute(AutoRole actor, GameMap* gameMap) override;
 	
 };
 
 class upMove :public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap) override;
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class downMove :public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap) override;
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class Quit:public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap) override;
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class Nothing :public Command {
 public:
-	void execute(Role* actor, GameMap* gameMap)override;
+	void execute(AutoRole actor, GameMap* gameMap)override;
 };
 
 class InputHandler {

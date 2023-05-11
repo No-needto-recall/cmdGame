@@ -32,12 +32,12 @@ void Game::start() {
 	ScreenDrawer::getInstance().swapBuffers();
 
 	AutoRole player = CreatRole::creatPlayerFromConfig();
-	AutoBehavior  tmpPlayerBehavior = CreatBehavior::creatPokemonFromConfig(player);
+	AutoBehavior  tmpPlayerBehavior = CreatBehavior::creatPlayerBehaviorFromConfig(player);
 	player->setBehavior(std::move(tmpPlayerBehavior));
 	player->setGameMap(std::make_shared<GameMap>( _gameMap));
 	_gameMap.addRole(player);
 	while (1) {
-		_Control.handleInput()->execute(player.get(), &_gameMap);
+		_Control.handleInput()->execute(player, &_gameMap);
 		_gameMap.display();
 		ScreenDrawer::getInstance().swapBuffers();
 		ScreenDrawer::getInstance().clearScreen();
