@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="第三方库">
+      <UniqueIdentifier>{9d5fe1af-fe2e-4f7b-95cf-3eefe1e72c77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Game.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -27,26 +27,32 @@
     <ClInclude Include="..\include\InputHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Monster.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Player.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\ScreenDrawer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Type.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Log.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Config_data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Role.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Behavior.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\nlohmann\json.hpp">
+      <Filter>第三方库</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CreatFromConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Actor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Game.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -59,13 +65,25 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Monster.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ScreenDrawer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Config_data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Role.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Log.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Behavior.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CreatFromConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,5 +91,10 @@
     <Text Include="..\log\log.txt">
       <Filter>资源文件</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\conf\conf.json">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,76 +1,67 @@
-﻿#pragma once
+#pragma once
 
 #include <Windows.h>
 #include <conio.h>
 #include <memory>
-#include "GameMap.h"
-#include "Player.h"
 
 
+//前置声明
 class Command;
+class GameMap;
+class Role;
+
 using AutoCmd =  std::unique_ptr<Command>;
+using AutoRole = std::shared_ptr<Role>;
 
 //命令模式
 class Command {
 public:
 	virtual ~Command(){}
-	virtual void execute(Actor& Gmap) = 0;
+	virtual void execute(AutoRole actor,GameMap* gameMap) = 0;
 };
 
 
 class leftMove :public Command {
 public:
-	void execute(Actor& actor)override {
-		actor.left();
-	}
+	void execute(AutoRole actor, GameMap* gameMap)override;
 };
 
 class rightMove :public Command {
 public:
-	void execute(Actor& actor) override{
-		actor.right();
-	}
+	void execute(AutoRole actor, GameMap* gameMap) override;
+	
 };
 
 class upMove :public Command {
 public:
-	void execute(Actor& actor) override{
-		actor.up();
-	}
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class downMove :public Command {
 public:
-	void execute(Actor& actor) override{
-		actor.down();
-	}
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class Quit:public Command {
 public:
-	void execute(Actor& actor) override{
-		LOG_INFO("主动退出游戏");
-		actor.getMap()->setQuit(false);
-	}
+	void execute(AutoRole actor, GameMap* gameMap) override;
 };
 
 class Nothing :public Command {
 public:
-	void execute(Actor& actor)override {
-
-	}
+	void execute(AutoRole actor, GameMap* gameMap)override;
 };
 
 class InputHandler {
 
 public:
 	AutoCmd& handleInput();
-	void setButtonA(AutoCmd cmd) { _buttonA = move(cmd); }
-	void setButtonD(AutoCmd cmd) { _buttonD = move(cmd); }
-	void setButtonW(AutoCmd cmd) { _buttonW = move(cmd); }
-	void setButtonS(AutoCmd cmd) { _buttonS = move(cmd); }
-	void setButtonQ(AutoCmd cmd) { _buttonQ = move(cmd); }
-	void setNothing(AutoCmd cmd) { _nothing= move(cmd); }
+	void setButtonA(AutoCmd cmd);
+	void setButtonD(AutoCmd cmd);
+	void setButtonW(AutoCmd cmd);
+	void setButtonS(AutoCmd cmd);
+	void setButtonQ(AutoCmd cmd);
+	void setNothing(AutoCmd cmd);
 
 private:
 	AutoCmd _buttonA;

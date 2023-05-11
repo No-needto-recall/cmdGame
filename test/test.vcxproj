@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -135,30 +135,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Actor.h" />
+    <ClInclude Include="..\include\Behavior.h" />
+    <ClInclude Include="..\include\Config.h" />
+    <ClInclude Include="..\include\Config_data.h" />
+    <ClInclude Include="..\include\CreatFromConfig.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
-    <ClInclude Include="..\include\Monster.h" />
-    <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
-    <ClInclude Include="..\include\Type.h" />
+    <ClInclude Include="..\lib\nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Actor.cpp" />
+    <ClCompile Include="..\src\Behavior.cpp" />
+    <ClCompile Include="..\src\Config.cpp" />
+    <ClCompile Include="..\src\Config_data.cpp" />
+    <ClCompile Include="..\src\CreatFromConfig.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
+    <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Monster.cpp" />
-    <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\Role.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\log\log.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\conf\conf.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties _1_1_4conf_4conf_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

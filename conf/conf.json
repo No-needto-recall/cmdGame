@@ -1,0 +1,28 @@
+﻿{
+  "role": {
+    "player": {
+      "name": "玩家",
+      "health": 100,
+      "mana": 100,
+      "attack": 5,
+      "defense": 0,
+      "icon": 80,
+      "spawnX": 5,
+      "spawnY": 5
+    },
+    "pokemon": {
+      "name": "宝可梦",
+      "health": 10,
+      "mana": 10,
+      "attack": 5,
+      "defense": 0,
+      "icon": 66
+    }
+  },
+  "game": {
+    "map": {
+      "maxRows": 10,
+      "maxColumns":20 
+    }
+  }
+}

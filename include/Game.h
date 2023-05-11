@@ -1,7 +1,5 @@
-﻿#pragma once
+#pragma once
 
-#include "Player.h"
-#include "Monster.h"
 #include "GameMap.h"
 #include "InputHandler.h"
 

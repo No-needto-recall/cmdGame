@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include "Game.h"
 
 using namespace std;

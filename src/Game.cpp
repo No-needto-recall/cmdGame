@@ -1,8 +1,18 @@
-﻿#include "Game.h"
+#include "Game.h"
+#include "Config.h"
+#include "Log.h"
+#include "ScreenDrawer.h"
+#include "Role.h"
+#include "Behavior.h"
+#include "CreatFromConfig.h"
 
 
 
 Game::Game()
+	:_gameMap(
+		Config::instance().getConfigData().game.map.maxRows,
+		Config::instance().getConfigData().game.map.maxColumns
+	)
 {
 	loadMap();
 	loadControl();
@@ -17,17 +27,23 @@ Game::~Game()
 
 void Game::start() {
 	LOG_INFO("\n\ngame start");
-	AutoActor player(new Player(100, 100, 5, 0, 5, 5, Type::PLAYER, "玩家"));
-	_gameMap.addActor(player);
-	_gameMap.randomMonster();
+	_gameMap.randomCreatRole();
 	_gameMap.display();
-	while (_gameMap.getQuit()) {
-		_Control.handleInput().get()->execute(*player);
+	ScreenDrawer::getInstance().swapBuffers();
+	
+	//创建角色
+	AutoRole player = CreatRole::creatPlayerFromConfig();
+	AutoBehavior  tmpPlayerBehavior = CreatBehavior::creatPlayerBehaviorFromConfig(player);
+	player->setBehavior(std::move(tmpPlayerBehavior));
+	player->setGameMap(std::make_shared<GameMap>( _gameMap));
+	//添加到地图
+	_gameMap.addRole(player);
+	while (1) {
+		_Control.handleInput()->execute(player, &_gameMap);
 		_gameMap.display();
 		ScreenDrawer::getInstance().swapBuffers();
 		ScreenDrawer::getInstance().clearScreen();
 	}
-	system("pause");
 }
 
 
