@@ -20,9 +20,12 @@
     }
   },
   "game": {
-    "map": {
-      "maxRows": 10,
-      "maxColumns":20 
-    }
+    "maps": [
+      {
+        "mapid": "新手村",
+        "maxRows": 10,
+        "maxColumns": 20
+      }
+    ]
   }
 }

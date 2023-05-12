@@ -39,7 +39,13 @@ void ConfigData::from_json(const nlohmann::json& j) {
 	role.pokemon.defense = j["role"]["pokemon"]["defense"];
 	role.pokemon.icon = static_cast<char>(j["role"]["pokemon"]["icon"].get<int>());
 
-	game.map.maxRows = j["game"]["map"]["maxRows"];
-	game.map.maxColumns = j["game"]["map"]["maxColumns"];
+	for (auto& mapJson: j["game"]["maps"]) {
+		game.maps.push_back({
+		 utf8_to_local(mapJson["mapid"].get<string>()),
+		 mapJson["maxRows"],
+		 mapJson["maxColumns"]
+		});
+		
+	}
 }
 

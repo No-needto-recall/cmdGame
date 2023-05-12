@@ -6,8 +6,9 @@
 #include "Behavior.h"
 #include "CreatFromConfig.h"
 
-GameMap::GameMap(int maxRows,int maxColumns)
+GameMap::GameMap(int maxRows,int maxColumns,const MapID& mapid)
 	:_maxRows(maxRows),_maxColumns(maxColumns)
+	,_mapID(mapid)
 {
 }
 
@@ -21,6 +22,16 @@ int GameMap::getMaxRows()const {
 
 int GameMap::getMaxColumns()const {
 	return _maxColumns;
+}
+
+MapID GameMap::getMapID() const
+{
+	return _mapID;
+}
+
+void GameMap::setMapID(const MapID& mapid)
+{
+	_mapID = mapid;
 }
 
 void GameMap::initMap() {

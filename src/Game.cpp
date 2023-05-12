@@ -10,8 +10,9 @@
 
 Game::Game()
 	:_gameMap(
-		Config::instance().getConfigData().game.map.maxRows,
-		Config::instance().getConfigData().game.map.maxColumns
+		Config::instance().getConfigData().game.maps[0].maxRows,
+		Config::instance().getConfigData().game.maps[0].maxColumns,
+		Config::instance().getConfigData().game.maps[0].mapid
 	)
 {
 	loadMap();

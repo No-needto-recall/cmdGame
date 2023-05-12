@@ -142,6 +142,7 @@
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
+    <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />

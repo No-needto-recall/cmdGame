@@ -12,8 +12,6 @@ bool Behavior::isExist()const {
 }
 
 /*
-  ������ʾ
-
   0-------> x
   |
   |
