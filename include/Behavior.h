@@ -29,8 +29,11 @@ public:
 	//死亡
 	virtual void death(GameMap& gameMap) = 0;
 
+	
+protected:
 	//绑定的对象是否存在
 	bool isExist()const;
+
 protected:
 	AutoWeakRole _mySelf;
 };

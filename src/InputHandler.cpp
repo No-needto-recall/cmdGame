@@ -73,33 +73,33 @@ void InputHandler::setNothing(AutoCmd cmd)
 	_nothing = std::move(cmd);
 }
 
-void leftMove::execute(AutoRole actor, GameMap* gameMap)
+void leftMove::execute(AutoRole actor)
 {
-	actor->getBehavior()->leftMove(*gameMap);
+	actor->leftMove();
 }
 
-void rightMove::execute(AutoRole actor, GameMap* gameMap)
+void rightMove::execute(AutoRole actor)
 {
-	actor->getBehavior()->rightMove(*gameMap);
+	actor->rightMove();
 }
 
-void upMove::execute(AutoRole actor, GameMap* gameMap)
+void upMove::execute(AutoRole actor)
 {
-	actor->getBehavior()->upMove(*gameMap);
+	actor->upMove();
 }
 
-void downMove::execute(AutoRole actor, GameMap* gameMap)
+void downMove::execute(AutoRole actor)
 {
-	actor->getBehavior()->downMove(*gameMap);
+	actor->downMove();
 }
 
-void Quit::execute(AutoRole actor, GameMap* gameMap)
+void Quit::execute(AutoRole actor)
 {
 	//退出
 	LOG_INFO("主动退出游戏");
 	exit(0);
 }
 
-void Nothing::execute(AutoRole actor, GameMap* gameMap)
+void Nothing::execute(AutoRole actor)
 {
 }

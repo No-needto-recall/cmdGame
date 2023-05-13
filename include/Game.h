@@ -3,6 +3,10 @@
 #include "GameMap.h"
 #include "InputHandler.h"
 
+using std::shared_ptr;
+
+using AutoGameMap = shared_ptr<GameMap>;
+
 class Game
 {
 public:
@@ -18,7 +22,7 @@ public:
 	void loadControl();
 
 private:
-	GameMap _gameMap;
+	AutoGameMap _gameMap;
 	InputHandler _Control;
 };
 
