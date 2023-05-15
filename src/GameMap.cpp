@@ -64,19 +64,19 @@ bool GameMap::isRole(const Location & location){
 	return _mapRoles.count(location.toString()) > 0;
 }
 
-AutoRole& GameMap::getRole(const Location & location) {
+AutoRole GameMap::getRole(const Location & location) {
 	auto search = _mapRoles.find(location.toString());
 	if (search != _mapRoles.end()) {
 		return search->second;
 	}
 	else {
 		LOG_ERROR("获取了错误的对象");
-		exit(1);
+		::exit(1);
 	}
 }
 
 
-void GameMap::addRole(AutoRole& role ) {
+void GameMap::addRole(AutoRole role ) {
 	Location tmpLocation= role->getLocation();
 	if (isRole(tmpLocation)) {
 		LOG_ERROR(tmpLocation.toString() + "已有对象");

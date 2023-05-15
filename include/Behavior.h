@@ -14,7 +14,12 @@ using AutoWeakRole = weak_ptr<Role>;
 //行为类
 class Behavior {
 public:
+	Behavior();
 	Behavior(AutoWeakRole myself);
+
+	//绑定自身
+	void bindRole(AutoWeakRole myself);
+
 	virtual ~Behavior() = default;
 
 	//移动

@@ -62,6 +62,16 @@ public:
 	Role(const Attribute& attribute,
 		const Location& location);
 
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoBehavior behavior);
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoGameMap gamemap);
+
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoBehavior behavior,AutoGameMap gamemap);
 
 	//析构函数设为虚函数
 	virtual ~Role();

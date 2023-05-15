@@ -42,7 +42,7 @@ public:
 	void display();
 	
 	//添加角色
-	void addRole(AutoRole& actor);
+	void addRole(AutoRole actor);
 	//删除角色
 	void deleteRole(Role& actor);
 	//移动角色
@@ -52,7 +52,7 @@ public:
 	//如果有返回该对象的指针，如果没有返回nullptr
 	bool isRole(const Location & location);
 	//获取该位置的对象
-	AutoRole& getRole(const Location & location);
+	AutoRole getRole(const Location & location);
 	//判断该位置是否在地图内
 	bool isInMap(const Location & location)const;
 

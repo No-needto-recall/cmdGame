@@ -3,6 +3,7 @@
 #include <memory>
 #include "Role.h"
 #include "Behavior.h"
+#include "GameMap.h"
 
 
 using std::shared_ptr;
@@ -10,7 +11,7 @@ using std::unique_ptr;
 
 
 namespace CreatRole {
-	AutoRole creatPlayerFromConfig();
+	AutoRole creatPlayerRoleFromConfig(AutoGameMap gamemap);
 	AutoRole creatPokemonFromConfig(const Location&);
 };//end of CreatRole
 

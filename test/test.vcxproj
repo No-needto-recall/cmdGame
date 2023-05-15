@@ -156,6 +156,7 @@
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
+    <ClCompile Include="..\src\Level.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Role.cpp" />

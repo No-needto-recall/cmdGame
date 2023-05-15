@@ -23,6 +23,25 @@ Role::Role(const Attribute& attribute,
 	:BasicRole(location),_attribute(attribute)
 {}
 
+Role::Role(const Attribute & attribute, const Location & location, AutoBehavior behavior)
+	:BasicRole(location),_attribute(attribute)
+	,_behavior(std::move(behavior))
+{
+}
+
+Role::Role(const Attribute& attribute, const Location& location, AutoGameMap gamemap)
+	:BasicRole(location),_attribute(attribute)
+	,_gameMap(gamemap)
+{
+}
+
+Role::Role(const Attribute& attribute, const Location& location, AutoBehavior behavior, AutoGameMap gamemap)
+	:BasicRole(location),_attribute(attribute)
+	,_behavior(std::move(behavior))
+	,_gameMap(gamemap)
+{
+}
+
 
 Role::~Role()
 {}

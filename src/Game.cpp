@@ -34,10 +34,7 @@ void Game::start() {
 	ScreenDrawer::getInstance().swapBuffers();
 	
 	//创建角色
-	AutoRole player = CreatRole::creatPlayerFromConfig();
-	AutoBehavior  tmpPlayerBehavior = CreatBehavior::creatPlayerBehaviorFromConfig(player);
-	player->setBehavior(std::move(tmpPlayerBehavior));
-	player->setGameMap(_gameMap);
+	AutoRole player = CreatRole::creatPlayerRoleFromConfig(_gameMap);
 	//添加到地图
 	_gameMap->addRole(player);
 	while (1) {
