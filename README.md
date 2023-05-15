@@ -25,13 +25,13 @@
 
 # 仓库目录
 
-bin:可执行程序
-conf:配置文件
-include:头文件
-lib:库
-log:日志文件
-src:源文件
-test:visual studio2022的测试目录
++ bin:可执行程序
++ conf:配置文件
++ include:头文件
++ lib:库
++ log:日志文件
++ src:源文件
++ test:visual studio2022的测试目录
 
 # 说明
 
