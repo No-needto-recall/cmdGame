@@ -3,9 +3,9 @@
 #include "config.h"
 #include "Log.h"
 
-AutoRole CreatRole::creatPlayerFromConfig()
+AutoRole CreatRole::creatPlayerRoleFromConfig(AutoGameMap gamemap)
 {
-	return	AutoRole (new PlayerRole(
+	AutoRole role(new PlayerRole(
 		{
 		Config::instance().getConfigData().role.player.name,
 		Config::instance().getConfigData().role.player.health,
@@ -19,6 +19,9 @@ AutoRole CreatRole::creatPlayerFromConfig()
 		Config::instance().getConfigData().role.player.spawnY
 		}
 		));
+		role->setBehavior(AutoBehavior(new PlayerBehavior(role)));
+		role->setGameMap(gamemap);
+		return role;
 }
 
 AutoRole CreatRole::creatPokemonFromConfig(const Location& location)

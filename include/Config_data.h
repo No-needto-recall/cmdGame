@@ -1,9 +1,17 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "../lib/nlohmann/json.hpp"
 
 using std::string;
+using std::vector;
+
+struct MapData {
+    string mapid;
+	int maxRows;
+	int maxColumns;
+};
 
 struct ConfigData {
     struct Role {
@@ -28,10 +36,7 @@ struct ConfigData {
         }pokemon;
     } role;
     struct Game {
-        struct Map {
-            int maxRows;
-            int maxColumns;
-        }map;
+        vector<MapData> maps;
     }game;
     void from_json(const nlohmann::json& j);
 };

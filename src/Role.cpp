@@ -23,6 +23,25 @@ Role::Role(const Attribute& attribute,
 	:BasicRole(location),_attribute(attribute)
 {}
 
+Role::Role(const Attribute & attribute, const Location & location, AutoBehavior behavior)
+	:BasicRole(location),_attribute(attribute)
+	,_behavior(std::move(behavior))
+{
+}
+
+Role::Role(const Attribute& attribute, const Location& location, AutoGameMap gamemap)
+	:BasicRole(location),_attribute(attribute)
+	,_gameMap(gamemap)
+{
+}
+
+Role::Role(const Attribute& attribute, const Location& location, AutoBehavior behavior, AutoGameMap gamemap)
+	:BasicRole(location),_attribute(attribute)
+	,_behavior(std::move(behavior))
+	,_gameMap(gamemap)
+{
+}
+
 
 Role::~Role()
 {}
@@ -37,14 +56,51 @@ Attribute& Role::getAttribute()
 	return _attribute;
 }
 
-const AutoBehavior& Role::getBehavior() const
+bool Role::isAlive() const
 {
-	return _behavior;
+	return _attribute.isAlive();
 }
+
+bool Role::isDeath() const
+{
+	return _attribute.isDeath();
+}
+
 
 void Role::setBehavior(AutoBehavior behavior)
 {
 	_behavior = std::move(behavior);
+}
+
+//上移
+void Role::upMove()
+{
+	_behavior->upMove(*_gameMap);
+}
+//下移
+void Role::downMove()
+{
+	_behavior->downMove(*_gameMap);
+}
+//左移
+void Role::leftMove()
+{
+	_behavior->leftMove(*_gameMap);
+}
+//右移
+void Role::rightMove()
+{
+	_behavior->rightMove(*_gameMap);
+}
+
+void Role::death()
+{
+	_behavior->death(*_gameMap);
+}
+
+void Role::attack(Role& target)
+{
+	_behavior->attack(target);
 }
 
 void Role::setGameMap(AutoGameMap gamemap)
@@ -110,21 +166,21 @@ void PokemonRole::collideWithPlayer(Role& player)
 
 	//简单的战斗逻辑
 	while (1) {
-		player.getBehavior()->attack(*this);
-		if (this->getAttribute().isAlive()) {
+		player.attack(*this);
+		if (this->isAlive()) {
 
-			this->getBehavior()->attack(player);
+			this->attack(player);
 
-			if (player.getAttribute().isAlive()) {
+			if (player.isAlive()) {
 				continue;
 			}
 			else {
-				player.getBehavior()->death(*(player.getGameMap().get()));
+				player.death();
 				break;
 			}
 		}
 		else {
-			this->getBehavior()->death(*(this->getGameMap().get()));
+			this->death();
 			break;
 		}
 	}

@@ -6,50 +6,52 @@
 
 
 //前置声明
-class Command;
+class RoleCommand;
 class GameMap;
 class Role;
 
-using AutoCmd =  std::unique_ptr<Command>;
+using AutoCmd =  std::unique_ptr<RoleCommand>;
 using AutoRole = std::shared_ptr<Role>;
 
-//命令模式
-class Command {
+ //命令模式
+
+//角色命令
+class RoleCommand {
 public:
-	virtual ~Command(){}
-	virtual void execute(AutoRole actor,GameMap* gameMap) = 0;
+	virtual ~RoleCommand(){}
+	virtual void execute(AutoRole actor ) = 0;
 };
 
 
-class leftMove :public Command {
+class leftMove :public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap)override;
+	void execute(AutoRole actor)override;
 };
 
-class rightMove :public Command {
+class rightMove :public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap) override;
+	void execute(AutoRole actor) override;
 	
 };
 
-class upMove :public Command {
+class upMove :public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap) override;
+	void execute(AutoRole actor) override;
 };
 
-class downMove :public Command {
+class downMove :public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap) override;
+	void execute(AutoRole actor) override;
 };
 
-class Quit:public Command {
+class Quit:public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap) override;
+	void execute(AutoRole actor) override;
 };
 
-class Nothing :public Command {
+class Nothing :public RoleCommand {
 public:
-	void execute(AutoRole actor, GameMap* gameMap)override;
+	void execute(AutoRole actor)override;
 };
 
 class InputHandler {

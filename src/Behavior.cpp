@@ -3,17 +3,24 @@
 #include "GameMap.h"
 #include "Log.h"
 
+Behavior::Behavior()
+{
+}
+
 Behavior::Behavior(AutoWeakRole myself)
 	:_mySelf(myself)
 {}
+
+void Behavior::bindRole(AutoWeakRole myself)
+{
+	_mySelf = myself;
+}
 
 bool Behavior::isExist()const {
 	return !_mySelf.expired();
 }
 
 /*
-  ������ʾ
-
   0-------> x
   |
   |

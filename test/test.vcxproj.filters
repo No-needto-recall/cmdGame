@@ -51,6 +51,9 @@
     <ClInclude Include="..\include\CreatFromConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Level.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Game.cpp">
@@ -84,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CreatFromConfig.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

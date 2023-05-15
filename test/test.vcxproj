@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -142,6 +142,7 @@
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\InputHandler.h" />
+    <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
+    <ClCompile Include="..\src\Level.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Role.cpp" />

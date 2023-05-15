@@ -14,7 +14,12 @@ using AutoWeakRole = weak_ptr<Role>;
 //行为类
 class Behavior {
 public:
+	Behavior();
 	Behavior(AutoWeakRole myself);
+
+	//绑定自身
+	void bindRole(AutoWeakRole myself);
+
 	virtual ~Behavior() = default;
 
 	//移动
@@ -29,8 +34,11 @@ public:
 	//死亡
 	virtual void death(GameMap& gameMap) = 0;
 
+	
+protected:
 	//绑定的对象是否存在
 	bool isExist()const;
+
 protected:
 	AutoWeakRole _mySelf;
 };

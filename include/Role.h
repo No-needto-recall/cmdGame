@@ -62,6 +62,16 @@ public:
 	Role(const Attribute& attribute,
 		const Location& location);
 
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoBehavior behavior);
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoGameMap gamemap);
+
+	Role(const Attribute& attribute,
+		const Location& location,
+		AutoBehavior behavior,AutoGameMap gamemap);
 
 	//析构函数设为虚函数
 	virtual ~Role();
@@ -69,11 +79,21 @@ public:
 	//获取属性
 	const Attribute& getAttribute()const;
 	Attribute& getAttribute();
+	//属性接口
+	bool isAlive()const;
+	bool isDeath()const;
 
-	//获取行为
-	const AutoBehavior& getBehavior()const;
+
 	//设置行为
 	void setBehavior(AutoBehavior  behavior);
+	//行为接口
+	void upMove();
+	void downMove();
+	void leftMove();
+	void rightMove();
+	void death();
+	void attack(Role& target);
+
 
 	//绑定地图
 	void setGameMap(AutoGameMap gamemap);
