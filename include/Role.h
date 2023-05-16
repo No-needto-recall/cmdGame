@@ -50,6 +50,8 @@ public:
 	//获取位置
 	const Location& getLocation()const;
 	Location& getLocation();
+	//设置位置
+	void setLocation(const Location&);
 
 protected:
 	Location _location;
@@ -79,6 +81,8 @@ public:
 	//获取属性
 	const Attribute& getAttribute()const;
 	Attribute& getAttribute();
+	//设置属性
+	void setAttribute(const Attribute&);
 	//属性接口
 	bool isAlive()const;
 	bool isDeath()const;

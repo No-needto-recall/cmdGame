@@ -3,7 +3,6 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
-#include <random>
 #include <string>
 
 using namespace std;
@@ -56,12 +55,10 @@ public:
 	//判断该位置是否在地图内
 	bool isInMap(const Location & location)const;
 
-	//生成a,b闭区间内的随机数
-	int randomNum(int a, int b);
-
-	//随机生成角色
-	//保障不重叠
-	void randomCreatRole();
+	//获取一个地图中没有碰撞的位置
+	Location randomCollisionFreePosition();
+	//在随机无碰撞位置添加角色
+	void randomAddRoleWithNoCollision(AutoRole role);
 
 	//发生碰撞
 	//lhs 主动碰撞到 rhs

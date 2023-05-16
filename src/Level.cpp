@@ -3,10 +3,19 @@
 #include "GameMap.h"
 #include "Role.h"
 
-void Level::addMap(const MapID& mapId, const AutoGameMap map)
+Level::Level(const LevelID levelid)
+	:_maps(),_levelID(levelid)
 {
-	_maps.insert({mapId,map});
-	LOG_INFO("添加"+mapId+" 地图到 "+ _levelID+" 关卡");
+}
+
+Level::~Level()
+{
+}
+
+void Level::addMap(const AutoGameMap map)
+{
+	_maps.insert({map->getMapID(),map});
+	LOG_INFO("添加"+map->getMapID() + " 地图到 " + _levelID + " 关卡");
 }
 
 void Level::removeMap(const MapID& mapId)

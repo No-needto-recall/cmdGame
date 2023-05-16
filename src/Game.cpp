@@ -16,6 +16,7 @@ Game::Game()
 		)
 	)
 {
+	LOG_INFO("\r\n\nNEW GAME");
 	loadMap();
 	loadControl();
 }
@@ -28,13 +29,15 @@ Game::~Game()
 
 
 void Game::start() {
-	LOG_INFO("\n\ngame start");
-	_gameMap->randomCreatRole();
+	LOG_INFO("game start");
+	_gameMap->randomAddRoleWithNoCollision(
+		CreatRoleFromConfig::PokemonRoleWithOutMap(_gameMap)
+			 );
 	_gameMap->display();
 	ScreenDrawer::getInstance().swapBuffers();
 	
 	//创建角色
-	AutoRole player = CreatRole::creatPlayerRoleFromConfig(_gameMap);
+	AutoRole player = CreatRoleFromConfig::PlayerRoleWithOutMap(_gameMap);
 	//添加到地图
 	_gameMap->addRole(player);
 	while (1) {
@@ -48,6 +51,7 @@ void Game::start() {
 
 void Game::loadMap() {
 	_gameMap->initMap();
+	LOG_INFO("加载地图完成");
 }
 
 
@@ -58,4 +62,5 @@ void Game::loadControl() {
 	_Control.setButtonS(std::make_unique<downMove>());
 	_Control.setButtonQ(std::make_unique<Quit>());
 	_Control.setNothing(std::make_unique<Nothing>());
+	LOG_INFO("加载控制器完成");
 }

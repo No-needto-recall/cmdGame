@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <Windows.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -39,6 +40,9 @@ private:
 
     // 计算日志文件中的行数
     size_t countLines();
+
+    //处理路径
+    string extractFileName(const string& path);
 
     ofstream logFile_;
     size_t currentLine_; // 当前行

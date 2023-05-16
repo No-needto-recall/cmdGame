@@ -10,9 +10,14 @@ using std::shared_ptr;
 using std::unique_ptr;
 
 
-namespace CreatRole {
-	AutoRole creatPlayerRoleFromConfig(AutoGameMap gamemap);
-	AutoRole creatPokemonFromConfig(const Location&);
+namespace CreatRoleFromConfig {
+	//创建不带地图绑定的配置玩家
+	AutoRole PlayerRoleWithOutMap();
+	AutoRole PlayerRoleWithOutMap(AutoGameMap gamemap);
+
+	//创建不带地图绑定的配置宝可梦
+	//宝可梦的创建需要附带位置信息
+	AutoRole PokemonRoleWithOutMap(AutoGameMap gamemap);
 };//end of CreatRole
 
 

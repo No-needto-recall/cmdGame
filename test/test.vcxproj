@@ -144,6 +144,7 @@
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
+    <ClInclude Include="..\include\Mytool.h" />
     <ClInclude Include="..\include\Role.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="..\src\Level.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Mytool.cpp" />
     <ClCompile Include="..\src\Role.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>

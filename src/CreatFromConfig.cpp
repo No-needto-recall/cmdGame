@@ -3,9 +3,9 @@
 #include "config.h"
 #include "Log.h"
 
-AutoRole CreatRole::creatPlayerRoleFromConfig(AutoGameMap gamemap)
+AutoRole CreatRoleFromConfig::PlayerRoleWithOutMap()
 {
-	AutoRole role(new PlayerRole(
+		AutoRole role(new PlayerRole(
 		{
 		Config::instance().getConfigData().role.player.name,
 		Config::instance().getConfigData().role.player.health,
@@ -20,13 +20,21 @@ AutoRole CreatRole::creatPlayerRoleFromConfig(AutoGameMap gamemap)
 		}
 		));
 		role->setBehavior(AutoBehavior(new PlayerBehavior(role)));
+		return role;
+
+}
+
+AutoRole CreatRoleFromConfig::PlayerRoleWithOutMap(AutoGameMap gamemap)
+{
+		AutoRole role = PlayerRoleWithOutMap();
 		role->setGameMap(gamemap);
 		return role;
 }
 
-AutoRole CreatRole::creatPokemonFromConfig(const Location& location)
+
+AutoRole CreatRoleFromConfig::PokemonRoleWithOutMap(AutoGameMap gamemap)
 {
-	return AutoRole(new PokemonRole(
+	AutoRole role(new PokemonRole(
 		{
 		Config::instance().getConfigData().role.pokemon.name,
 		Config::instance().getConfigData().role.pokemon.health,
@@ -35,8 +43,11 @@ AutoRole CreatRole::creatPokemonFromConfig(const Location& location)
 		Config::instance().getConfigData().role.pokemon.defense,
 		Config::instance().getConfigData().role.pokemon.icon,
 		},
-		location
+		gamemap->randomCollisionFreePosition()
 	));
+	role->setBehavior(AutoBehavior(new PokemonBehavior(role)));
+	role->setGameMap(gamemap);
+	return role;
 }
 
 AutoBehavior CreatBehavior::creatPlayerBehaviorFromConfig(AutoWeakRole role)

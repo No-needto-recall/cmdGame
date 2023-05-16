@@ -18,16 +18,19 @@ void Log::writeToFile(const string& message) {
     }
     else {
         cerr << "Unable to write to log file." << endl;
+        ::exit(1);
     }
 }
 
 void Log::logError(const string& message, const string& functionName, const string& filePath, int lineNumber) {
-    string errorMessage = "Error: " + message + " in function " + functionName + " at " + filePath + ":" + std::to_string(lineNumber);
+    string filename = extractFileName(filePath);
+    string errorMessage = "Error: " + message + " in " + functionName + " at " + filename+ ":" + std::to_string(lineNumber);
     writeToFile(errorMessage);
 }
 
 void Log::logInfo(const string& message, const string& functionName, const string& filePath, int lineNumber) {
-    string infoMessage = "Info: " + message + " in function " + functionName + " at " + filePath + ":" + std::to_string(lineNumber);
+    string filename = extractFileName(filePath);
+    string infoMessage = "Info: " + message + " in " + functionName + " at " + filename+ ":" + std::to_string(lineNumber);
     writeToFile(infoMessage);
 }
 
@@ -77,4 +80,15 @@ size_t Log::countLines() {
 
     inFile.close();
     return count;
+}
+
+string Log::extractFileName(const string& path)
+{
+    size_t lastSlash = path.rfind('/');
+    size_t lastBackslash = path.rfind('\\');
+    size_t pos = (lastSlash != std::string::npos && lastSlash > lastBackslash) ? lastSlash : lastBackslash;
+    if (pos != std::string::npos)
+        return path.substr(pos + 1);
+    else
+        return path;
 }

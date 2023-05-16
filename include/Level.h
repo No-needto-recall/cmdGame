@@ -26,11 +26,11 @@ using LevelID = string;
 
 class Level {
 public:
-    Level();
+    Level(const LevelID levelid);
     ~Level();
 
     // 添加地图到关卡
-    void addMap(const MapID& mapId, const AutoGameMap map);
+    void addMap(const AutoGameMap map);
 
     // 删除地图
     void removeMap(const MapID& mapId);

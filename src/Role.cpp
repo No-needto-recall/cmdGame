@@ -18,6 +18,11 @@ Location& BasicRole::getLocation() {
 	return _location;
 }
 
+void BasicRole::setLocation(const Location& location)
+{
+	_location = location;
+}
+
 Role::Role(const Attribute& attribute,
 		   const Location& location)
 	:BasicRole(location),_attribute(attribute)
@@ -54,6 +59,11 @@ const Attribute& Role::getAttribute() const
 Attribute& Role::getAttribute()
 {
 	return _attribute;
+}
+
+void Role::setAttribute(const Attribute& attribute)
+{
+	_attribute = attribute;
 }
 
 bool Role::isAlive() const

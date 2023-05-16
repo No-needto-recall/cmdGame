@@ -5,6 +5,7 @@
 #include "ScreenDrawer.h"
 #include "Behavior.h"
 #include "CreatFromConfig.h"
+#include "Mytool.h"
 
 GameMap::GameMap(int maxRows,int maxColumns,const MapID& mapid)
 	:_maxRows(maxRows),_maxColumns(maxColumns)
@@ -124,42 +125,47 @@ void GameMap::moveRole(Role& role, const Location& newLocation) {
 	}
 }
 
+void GameMap::randomAddRoleWithNoCollision(AutoRole role) {
 
-
-
-int GameMap::randomNum(int a, int b) {
-	::srand(std::random_device()());
-	return a + ::rand() % (b - a + 1);
+	role->setLocation(randomCollisionFreePosition());
+	//设定行为
+	role->setGameMap(std::make_shared<GameMap>(*this));
+	this->addRole(role);
+	LOG_INFO("已在随机位置:"+role->getLocation().toString() + "添加角色:" + role->getAttribute()._name);
 }
 
-
-void GameMap::randomCreatRole() {
-	LOG_INFO("将在随机位置生成怪物");
-	int tmpX = randomNum(0, _maxColumns - 1);
-	int tmpY = randomNum(0, _maxRows - 1);
+Location GameMap::randomCollisionFreePosition()
+{
+	//存在地图中没有无碰撞的位置情况
+	//暂时通过计数判断是否有解决的需求
+	int tmpX = Mytool::randomNum(0, _maxColumns - 1);
+	int tmpY = Mytool::randomNum(0, _maxRows - 1);
+	int count = 0;
 	while (1) {
 		auto search = _mapRoles.find(Location{ tmpX,tmpY }.toString());
 		if (search != _mapRoles.end()) {
-			tmpX = randomNum(0, _maxColumns - 1);
-			tmpY = randomNum(0, _maxRows - 1);
+			tmpX = Mytool::randomNum(0, _maxColumns - 1);
+			tmpY = Mytool::randomNum(0, _maxRows - 1);
+		}
+		else if(count++ > _maxColumns*_maxRows){
+			LOG_ERROR("随机无碰撞位置获取超出次数");
+			::exit(1);
 		}
 		else {
 			break;
 		}
 	}
-	Location tmpLocation = { tmpX,tmpY };
-	AutoRole tmpPokemon = CreatRole::creatPokemonFromConfig(tmpLocation);
-	AutoBehavior tmpPokemonBehavior = CreatBehavior::creatPokemonFromConfig(tmpPokemon);
-	//设定行为
-	tmpPokemon->setBehavior(std::move(tmpPokemonBehavior));
-	tmpPokemon->setGameMap(std::make_shared<GameMap>(*this));
-	this->addRole(tmpPokemon);
-	LOG_INFO("生成怪物完成");
+	return Location({ tmpX,tmpY });
 }
 
 void GameMap::roleCollide(Role& lhs, Role& rhs)
 {
 	lhs.collide(rhs);
+#if 0
+	randomAddRoleWithNoCollision(
+		CreatRoleFromConfig::PokemonRoleWithOutMap(AutoGameMap(this))
+	);
+#endif
 }
 
 
