@@ -58,7 +58,7 @@ public:
     AutoRole getRole(const MapID& mapId, const Location& location) const;
 
     // 随机生成角色
-    void randomCreateRole(const MapID& mapId,Role& role);
+    void randomCreateRole(const MapID& mapId,AutoRole role);
 
     // 更新关卡逻辑
     void update(float deltaTime);
