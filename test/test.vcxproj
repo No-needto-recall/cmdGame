@@ -141,6 +141,7 @@
     <ClInclude Include="..\include\CreatFromConfig.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
+    <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
