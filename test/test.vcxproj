@@ -136,12 +136,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Behavior.h" />
+    <ClInclude Include="..\include\CollisionManager.h" />
     <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\CreatFromConfig.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\GamePlayer.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
@@ -151,11 +153,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Behavior.cpp" />
+    <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
     <ClCompile Include="..\src\CreatFromConfig.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
+    <ClCompile Include="..\src\GameObject.cpp" />
+    <ClCompile Include="..\src\GamePlayer.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
     <ClCompile Include="..\src\Level.cpp" />
     <ClCompile Include="..\src\Log.cpp" />

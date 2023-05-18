@@ -1,30 +1,34 @@
 ﻿{
-  "role": {
-    "player": {
-      "name": "玩家",
-      "health": 100,
-      "mana": 100,
-      "attack": 5,
-      "defense": 0,
-      "icon": 80,
-      "spawnX": 5,
-      "spawnY": 5
-    },
-    "pokemon": {
-      "name": "宝可梦",
-      "health": 10,
-      "mana": 10,
-      "attack": 5,
-      "defense": 0,
-      "icon": 66
-    }
-  },
   "game": {
     "maps": [
       {
         "mapid": "新手村",
         "maxRows": 10,
         "maxColumns": 20
+      }
+    ]
+  },
+  "object": {
+    "types": [
+      {
+        "name": "玩家",
+        "icon": 80//'P'
+      },
+      {
+        "name": "地面",
+        "icon": 32 //空白字符 ' '
+      },
+      {
+        "name": "墙壁",
+        "icon": 42 //'*'
+      },
+      {
+        "name": "传送门",
+        "icon": 63 //'?'
+      },
+      {
+        "name": "草丛",
+        "icon":109 //'m' 
       }
     ]
   }

@@ -22,30 +22,19 @@ std::string utf8_to_local(const std::string& utf8_str) {
 
 
 void ConfigData::from_json(const nlohmann::json& j) {
-
-	role.player.name = utf8_to_local(j["role"]["player"]["name"].get<string>());
-	role.player.health = j["role"]["player"]["health"];
-	role.player.mana = j["role"]["player"]["mana"];
-	role.player.attack = j["role"]["player"]["attack"];
-	role.player.defense = j["role"]["player"]["defense"];
-	role.player.spawnX = j["role"]["player"]["spawnX"];
-	role.player.spawnY = j["role"]["player"]["spawnY"];
-	role.player.icon = static_cast<char>(j["role"]["player"]["icon"].get<int>());
-
-	role.pokemon.name = utf8_to_local(j["role"]["pokemon"]["name"].get<string>());
-	role.pokemon.health = j["role"]["pokemon"]["health"];
-	role.pokemon.mana = j["role"]["pokemon"]["mana"];
-	role.pokemon.attack = j["role"]["pokemon"]["attack"];
-	role.pokemon.defense = j["role"]["pokemon"]["defense"];
-	role.pokemon.icon = static_cast<char>(j["role"]["pokemon"]["icon"].get<int>());
-
 	for (auto& mapJson: j["game"]["maps"]) {
 		game.maps.push_back({
-		 utf8_to_local(mapJson["mapid"].get<string>()),
-		 mapJson["maxRows"],
-		 mapJson["maxColumns"]
+			utf8_to_local(mapJson["mapid"].get<string>()),
+			mapJson["maxRows"],
+			mapJson["maxColumns"]
 		});
 		
+	}
+	for (auto& mapJson : j["object"]["types"]) {
+		object.types.push_back({
+			utf8_to_local(mapJson["name"].get<string>()),
+			static_cast<char>(mapJson["icon"].get<int>())
+			});
 	}
 }
 

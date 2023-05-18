@@ -13,31 +13,21 @@ struct MapData {
 	int maxColumns;
 };
 
+struct TypeData 
+{
+    string name;
+    char icon;
+};
+
 struct ConfigData {
-    struct Role {
-        struct Player {
-            string name;
-            int health;
-            int mana;  
-            int attack;
-            int defense;  
-            int spawnX;
-            int spawnY;
-            char icon;
-        } player;
-        struct Pokemon 
-        {
-            string name;
-            int health;
-            int mana; 
-            int attack;
-            int defense; 
-            char icon;
-        }pokemon;
-    } role;
-    struct Game {
+	struct Game {
         vector<MapData> maps;
     }game;
+    
+    struct Object {
+        vector<TypeData> types;
+    }object;
+
     void from_json(const nlohmann::json& j);
 };
 

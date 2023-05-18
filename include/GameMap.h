@@ -2,79 +2,68 @@
 
 #include <vector>
 #include <unordered_map>
-#include <memory>
-#include <random>
-#include <string>
+#include "GameObject.h"
 
-using namespace std;
+using std::vector;
+using std::unordered_map;
 
-#define DEFAULT_MAP  '_'
+class GameMap;
 
-//前置声明
-class Role;
-class ScreenDrawer;
-struct Location;
-
-using AutoRole = shared_ptr<Role>;
-using LocationString = string;
 using MapID = string;
+using AutoGameObject = shared_ptr<GameObject>;
+using AutoGameMap = unique_ptr<GameMap>;
+using GameMapGrid= vector<vector<AutoGameObject>> ;
 
-
-class GameMap
-{
+class GameMap {
 public:
-	GameMap(int maxRows, int maxColumns,const MapID& mapid);
-	~GameMap();
-	//获取行
-	int getMaxRows()const;
-	//获取列
-	int getMaxColumns()const;
+    GameMap(const MapID& id, int rows, int cols);
+    // 获取地图的ID
+    const MapID& GetID() const;
+    // 获取地图的行数
+    int GetRows() const;
+    // 获取地图的列数
+    int GetCols() const;
 
-	//获取地图ID
-	MapID getMapID()const;
-	//设置地图ID
-	void setMapID(const MapID& mapid);
+    // 检查某个位置是否有GameObject
+    bool HasGameObject(const Location& location) const;
 
+    //检测这个位置是否在地图内
+    bool InGameMap(const Location& location)const;
 
-	//初始化地图
-	void initMap();
-	//打印地图
-	void display();
-	
-	//添加角色
-	void addRole(AutoRole actor);
-	//删除角色
-	void deleteRole(Role& actor);
-	//移动角色
-	void moveRole(Role& role, const Location& newLocation);
+    //获取某个位置的GameObject
+    AutoGameObject GetGameObject(const Location& location)const;
 
-	//判断该坐标是否有角色
-	//如果有返回该对象的指针，如果没有返回nullptr
-	bool isRole(const Location & location);
-	//获取该位置的对象
-	AutoRole getRole(const Location & location);
-	//判断该位置是否在地图内
-	bool isInMap(const Location & location)const;
+    // 在某个位置上移动GameObject
+    void MoveGameObject(const Location& from, const Location& to);
 
-	//生成a,b闭区间内的随机数
-	int randomNum(int a, int b);
+    // 在某个位置上删除GameObject
+    void RemoveGameObject(const Location& location);
 
-	//随机生成角色
-	//保障不重叠
-	void randomCreatRole();
+    // 在某个位置上添加GameObject
+    void AddGameObject(AutoGameObject object, const Location& location);
 
-	//发生碰撞
-	//lhs 主动碰撞到 rhs
-	void roleCollide(Role& lhs, Role& rhs);
-	
+    // 在某个位置上替换GameObject
+    void ReplaceGameObject(AutoGameObject object, const Location& location);
+
+    // 打印地图
+    void Print() const;
+
 
 private:
-
-	int _maxRows;//最大行数
-	int _maxColumns;//最大列数
-	MapID _mapID;//地图名称
-	vector < vector<char> > _mapData;//地图数据
-	unordered_map<LocationString, AutoRole> _mapRoles;//角色信息
-
+    MapID _id;
+    int _rows, _cols;
+    GameMapGrid _grid;
 };
+
+// 地图的工厂类
+class GameMapFactory {
+public:
+    //创建地图
+    AutoGameMap Create(const MapID& id, int rows, int cols);
+
+private:
+    //存储已创建的地图
+    unordered_map<MapID, AutoGameMap> _maps;
+};
+
 
