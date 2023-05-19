@@ -1,7 +1,6 @@
 #include "InputHandler.h"
 #include "Log.h"
-#include "Role.h"
-#include "Behavior.h"
+#include "GamePlayer.h"
 
 
 AutoCmd& InputHandler::handleInput() {
@@ -73,33 +72,32 @@ void InputHandler::setNothing(AutoCmd cmd)
 	_nothing = std::move(cmd);
 }
 
-void leftMove::execute(AutoRole actor)
+void leftMove::execute(AutoGamePlayer actor)
 {
-	actor->leftMove();
+	actor->LeftMove();
 }
 
-void rightMove::execute(AutoRole actor)
+void rightMove::execute(AutoGamePlayer actor)
 {
-	actor->rightMove();
+	actor->RightMove();
 }
 
-void upMove::execute(AutoRole actor)
+void upMove::execute(AutoGamePlayer actor)
 {
-	actor->upMove();
+	actor->UpMove();
 }
 
-void downMove::execute(AutoRole actor)
+void downMove::execute(AutoGamePlayer actor)
 {
-	actor->downMove();
+	actor->DownMove();
 }
 
-void Quit::execute(AutoRole actor)
+void Quit::execute(AutoGamePlayer actor)
 {
-	//退出
+	exit(1);
 	LOG_INFO("主动退出游戏");
-	exit(0);
 }
 
-void Nothing::execute(AutoRole actor)
+void Nothing::execute(AutoGamePlayer actor)
 {
 }

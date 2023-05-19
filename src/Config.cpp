@@ -22,8 +22,6 @@ Config::Config() {
 
         std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-        // 移除UTF-8 BOM签名
-        remove_utf8_bom(content);
 
         // 使用已移除BOM签名的字符串创建JSON对象
         nlohmann::json j = nlohmann::json::parse(content);

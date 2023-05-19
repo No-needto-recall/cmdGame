@@ -33,7 +33,7 @@ public:
 	AutoGameObject GetObjectWithLocation(const Location&)const;
 
 	//移动
-
+	void MoveToLocation(const Location&);
 	void UpMove();
 	void DownMove();
 	void LeftMove();
@@ -45,6 +45,6 @@ private:
 	string _name;
 	GameLevel* _levelNow;//当前所在的关卡
 	GameMap* _mapNow;//当前所在的地图
-	AutoGameObject _myObject;
+	AutoGameObject _myObject;//自身的object
 	AutoCollisionManager _myCollision;
 };
