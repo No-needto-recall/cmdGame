@@ -46,5 +46,5 @@ private:
 	GameLevel* _levelNow;//当前所在的关卡
 	GameMap* _mapNow;//当前所在的地图
 	AutoGameObject _myObject;//自身的object
-	AutoCollisionManager _myCollision;
+	AutoCollisionManager _myCollision;//绑定的碰撞逻辑
 };
