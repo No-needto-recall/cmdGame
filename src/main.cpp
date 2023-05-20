@@ -1,5 +1,7 @@
 #include <iostream>
 #include "GameMap.h"
+#include "GamePlayer.h"
+#include "InputHandler.h"
 #include "ScreenDrawer.h"
 
 using namespace std;
@@ -12,7 +14,6 @@ void func() {
 }
 
 int main(int argc,char* argv[]) {
-	func();
 #if 1
 
 	auto map = GameMapFactory::getInstance().createFromConf();

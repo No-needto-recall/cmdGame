@@ -40,6 +40,12 @@ private:
     // 计算日志文件中的行数
     size_t countLines();
 
+    //获取当前系统时间
+    string getCurrentTiem();
+
+        //处理路径
+    string extractFileName(const string& path);
+
     ofstream logFile_;
     size_t currentLine_; // 当前行
     const size_t maxLines_ = 5000; // 最大行数

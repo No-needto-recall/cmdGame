@@ -139,6 +139,7 @@
     <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
+    <ClInclude Include="..\include\GameLevel.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GamePlayer.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\GameLevel.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />

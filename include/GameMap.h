@@ -80,10 +80,10 @@ public:
     //获取地图网格
     const GameMapGrid& GetMapGrid()const;
 private:
-    MapID _id;
-    int _rows, _cols;
-    GameMapGrid _grid;
-    AutoMapInit _initFunc;
+    MapID _id;//地图id
+    const int _rows, _cols;//行、列
+    GameMapGrid _grid;//地图网格
+    AutoMapInit _initFunc;//初始化
 
 };
 
@@ -94,6 +94,7 @@ public:
     virtual void initialize(GameMap& map) = 0;
 };
 
+//默认地图
 class DefaultMapInitializer : public MapInitializer {
 public:
     void initialize(GameMap& map) override;
@@ -108,7 +109,7 @@ public:
     static GameMapFactory& getInstance();
     //创建地图
     AutoGameMap Create(const MapID& id, int rows, int cols,AutoMapInit init);
-    //根据配置文件创建
+    //根据配置文件创建地图
     AutoGameMap createFromConf();
 
 

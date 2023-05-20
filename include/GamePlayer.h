@@ -48,3 +48,8 @@ private:
 	AutoGameObject _myObject;//自身的object
 	AutoCollisionManager _myCollision;//绑定的碰撞逻辑
 };
+
+//玩家类单例工厂
+class GamePlayerFactory {
+
+};
