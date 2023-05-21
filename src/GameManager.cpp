@@ -162,11 +162,15 @@ void GameManager::CurrentMoveToOtherMap(const LevelID& toLevelId, const MapID& t
 			auto to_level = _levels.find(toLevelId);
 			if (to_level != _levels.end()) {
 				//在另一个关卡中添加
-				to_level->second->AddObjectWith(_currentMap->GetID(), to,
+				to_level->second->AddObjectWith(toMapID, to,
 					_currentMap->GetGameObject(_currentLocation)
 					);
 				//删除原来的
 				_currentMap->RemoveGameObject(_currentLocation);
+				//设置当前关卡、地图、位置
+				SetCurrentLevel(to_level->second.get());
+				SetCurrentMap(to_level->second->GetNonConstMap(toMapID));
+				SetCurrentLocation(to);
 			}
 			else {
 				LOG_ERROR("不存在关卡:" +toLevelId+"移动object失败");
@@ -201,7 +205,12 @@ const GameLevel& GameManager::GetCurrentLevel() const
 
 void GameManager::SetCurrentLevel(GameLevel* newLevel)
 {
-	_currentLevel = newLevel;
+	if (newLevel) {
+		_currentLevel = newLevel;
+	}
+	else {
+		LOG_ERROR("试图将当前关卡绑定为nullptr");
+	}
 }
 
 const GameMap& GameManager::GetCurrentMap() const
@@ -211,7 +220,12 @@ const GameMap& GameManager::GetCurrentMap() const
 
 void GameManager::SetCurrentMap(GameMap* newGameMap)
 {
-	_currentMap = newGameMap;
+	if (newGameMap) {
+		_currentMap = newGameMap;
+	}
+	else {
+		LOG_ERROR("试图将当前地图绑定为nullptr");
+	}
 }
 
 const Location& GameManager::GetCurrentLocation() const

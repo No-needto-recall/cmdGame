@@ -20,6 +20,8 @@ public:
 	void DelMap(const MapID&);
 	//获取地图
 	const GameMap* GetMap(const MapID&)const;
+	//获取可被修改的地图
+	GameMap* GetNonConstMap(const MapID& id);
 	//获取地图的行数
 	int GetMapRows(const MapID&)const;
 	//获取地图的列数

@@ -50,6 +50,18 @@ const GameMap* GameLevel::GetMap(const MapID& id) const
 	}
 }
 
+GameMap* GameLevel::GetNonConstMap(const MapID& id)
+{
+	auto ret = _maps.find(id);
+	if (ret != _maps.end()) {
+		return ret->second.get();
+	}
+	else {
+		return nullptr;
+	}
+	
+}
+
 int GameLevel::GetMapRows(const MapID& id) const
 {
 	return GetMap(id)->GetRows();
