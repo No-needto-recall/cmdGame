@@ -10,6 +10,11 @@ GameLevel::~GameLevel()
 {
 }
 
+const LevelID& GameLevel::GetID() const
+{
+	return _id;
+}
+
 void GameLevel::AddMap(AutoGameMap map)
 {
 	MapID tmpID = map->GetID();

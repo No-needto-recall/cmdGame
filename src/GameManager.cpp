@@ -155,3 +155,94 @@ void GameManager::MoveObjectMapToMap(const LevelID& fromLevelId, const MapID& fr
 	}
 }
 
+void GameManager::CurrentMoveToOtherMap(const LevelID& toLevelId, const MapID& toMapID, const Location to)
+{
+	if (_currentLevel) {
+		if (_currentMap) {
+			auto to_level = _levels.find(toLevelId);
+			if (to_level != _levels.end()) {
+				//在另一个关卡中添加
+				to_level->second->AddObjectWith(_currentMap->GetID(), to,
+					_currentMap->GetGameObject(_currentLocation)
+					);
+				//删除原来的
+				_currentMap->RemoveGameObject(_currentLocation);
+			}
+			else {
+				LOG_ERROR("不存在关卡:" +toLevelId+"移动object失败");
+			}
+		}
+		else {
+			LOG_ERROR("当前地图为nullptr");
+		}
+	}
+	else {
+		LOG_ERROR("当前关卡为nullptr");
+	}
+}
+
+GameManager::GameManager(GameLevel* currentLevel, GameMap* currentMap, const Location& currentLocation)
+	:_currentLevel(currentLevel)
+	,_currentMap(currentMap)
+	,_currentLocation(currentLocation)
+{
+}
+
+GameManager::~GameManager()
+{
+	_currentMap = nullptr;
+	_currentLevel = nullptr;
+}
+
+const GameLevel& GameManager::GetCurrentLevel() const
+{
+	return *_currentLevel;
+}
+
+void GameManager::SetCurrentLevel(GameLevel* newLevel)
+{
+	_currentLevel = newLevel;
+}
+
+const GameMap& GameManager::GetCurrentMap() const
+{
+	return *_currentMap;
+}
+
+void GameManager::SetCurrentMap(GameMap* newGameMap)
+{
+	_currentMap = newGameMap;
+}
+
+const Location& GameManager::GetCurrentLocation() const
+{
+	return _currentLocation;
+}
+
+void GameManager::SetCurrentLocation(const Location& newLocation)
+{
+	_currentLocation = newLocation;
+}
+
+void GameManager::AddLevel(AutoGameLevel newLevel)
+{
+	LevelID tmpID = newLevel->GetID();
+	auto ret = _levels.insert({tmpID,std::move(newLevel)});
+	if (ret.second) {
+		LOG_INFO("添加关卡:"+tmpID+" 成功");
+	}
+	else {
+		LOG_ERROR("添加关卡:"+tmpID+" 失败(重复)");
+	}
+}
+
+void GameManager::DelLevel(const LevelID& id)
+{
+	auto ret = _levels.erase(id);
+	if (ret) {
+		LOG_INFO("删除关卡:"+id+" 成功");
+	}
+	else {
+		LOG_ERROR("删除关卡:"+id+" 成功");
+	}
+}

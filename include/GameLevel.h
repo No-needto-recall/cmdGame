@@ -11,6 +11,8 @@ public:
 
 	GameLevel(LevelID id);
 	~GameLevel();
+	const LevelID& GetID()const;
+
 
 	//添加地图
 	void AddMap(AutoGameMap);

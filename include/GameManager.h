@@ -9,25 +9,30 @@ using AllLevels = unordered_map<LevelID, AutoGameLevel>;
 
 class GameManager {
 public:
-    GameManager(); // 构造函数
+    GameManager(GameLevel* currentLevel,
+                GameMap* currentMap,
+                const Location& currentLocation); // 构造函数
     ~GameManager(); // 析构函数
 
-    // 加载游戏
-    void Load();
-    // 开始游戏
-    void Start();
-    // 结束游戏
-    void End();
 
-    // 切换关卡
-    void SwitchLevel(const string& levelID);
     // 获取当前关卡
     const GameLevel& GetCurrentLevel() const;
+    // 设置当前关卡
+    void SetCurrentLevel(GameLevel* newLevel);
+
+    // 获取当前地图
+    const GameMap& GetCurrentMap()const;
+    //设置当前地图
+    void SetCurrentMap(GameMap* newGameMap);
+    // 获取当前玩家坐标
+    const Location& GetCurrentLocation()const;
+    //设置当前玩家坐标
+    void SetCurrentLocation(const Location& newLocation);
 
     // 添加关卡
     void AddLevel(AutoGameLevel);
     // 删除关卡
-    void DelLevel(AutoGameLevel);
+    void DelLevel(const LevelID& id);
 
     //获取指定关卡、地图、位置的对象
     AutoGameObject GetObjectWith(const LevelID& levelId, const MapID& mapID, const Location& loc)const;
@@ -57,12 +62,14 @@ public:
                             const Location& from, const Location& to); 
 
     //将当前玩家，移动到另一个关卡的地图中
-
+    void CurrentMoveToOtherMap(const LevelID& toLevelId,const MapID& toMapID,
+                               const Location to);
 
 
 private:
     AllLevels  _levels; // 所有关卡
     GameLevel* _currentLevel; // 当前玩家所在的关卡
     GameMap* _currentMap;//当前玩家所在的地图
+    Location _currentLocation;//当前玩家的坐标
 };
 
