@@ -39,26 +39,26 @@
     <ClInclude Include="..\include\Config.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Role.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Behavior.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\nlohmann\json.hpp">
       <Filter>第三方库</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\CreatFromConfig.h">
+    <ClInclude Include="..\include\CollisionManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Level.h">
+    <ClInclude Include="..\include\GameLevel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GamePlayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Game.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GameMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -77,19 +77,22 @@
     <ClCompile Include="..\src\Config.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Role.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Behavior.cpp">
+    <ClCompile Include="..\include\GameLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CreatFromConfig.cpp">
+    <ClCompile Include="..\src\CollisionManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Level.cpp">
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GamePlayer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\GameManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
