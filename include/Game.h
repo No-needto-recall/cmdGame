@@ -5,7 +5,6 @@
 
 using std::shared_ptr;
 
-using AutoGameMap = shared_ptr<GameMap>;
 
 class Game
 {

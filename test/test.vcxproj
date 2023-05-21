@@ -136,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CollisionManager.h" />
-    <ClInclude Include="..\include\Config.h" />
+    <ClInclude Include="..\include\config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameLevel.h" />
@@ -150,11 +150,18 @@
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\GameLevel.cpp" />
-    <ClCompile Include="..\include\GameManager.cpp" />
+    <Text Include="..\log\log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\conf\conf.json" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\GameLevel.cpp" />
+    <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\GamePlayer.cpp" />
@@ -162,12 +169,6 @@
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\log\log.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\conf\conf.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
