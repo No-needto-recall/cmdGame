@@ -24,7 +24,6 @@ void Game::start() {
 
 
 void Game::loadMap() {
-	_gameMap->initMap();
 }
 
 

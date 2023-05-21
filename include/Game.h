@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameMap.h"
 #include "InputHandler.h"
+#include "GameManager.h"
 
 using std::shared_ptr;
 
@@ -21,7 +21,7 @@ public:
 	void loadControl();
 
 private:
-	AutoGameMap _gameMap;
+	GameManager _gameManager;
 	InputHandler _Control;
 };
 

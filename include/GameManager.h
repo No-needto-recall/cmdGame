@@ -1,38 +1,45 @@
 #pragma once
 #include "GameLevel.h"
 
+//前置声明
+class GamePlayer;
 
 using AutoGameLevel = unique_ptr<GameLevel>;
+using AutoGamePlayer = shared_ptr<GamePlayer>;
 using AllLevels = unordered_map<LevelID, AutoGameLevel>;
-
 
 
 class GameManager {
 public:
-    GameManager(GameLevel* currentLevel,
-                GameMap* currentMap,
-                const Location& currentLocation); // 构造函数
+    GameManager(AutoGamePlayer player = nullptr);//构造函数
     ~GameManager(); // 析构函数
 
-
-    // 获取当前关卡
-    const GameLevel& GetCurrentLevel() const;
-    // 设置当前关卡
-    void SetCurrentLevel(GameLevel* newLevel);
-
-    // 获取当前地图
-    const GameMap& GetCurrentMap()const;
-    //设置当前地图
-    void SetCurrentMap(GameMap* newGameMap);
-    // 获取当前玩家坐标
+    // 获取当前关卡、地图、坐标
+    const GameLevel* GetCurrentLevel() const;
+    GameLevel* GetNonConstCurrentLevel() ;
+    const GameMap* GetCurrentMap()const;
+    GameMap* GetNonConstCurrentMap();
     const Location& GetCurrentLocation()const;
-    //设置当前玩家坐标
-    void SetCurrentLocation(const Location& newLocation);
+    Location& GetNonConstCurrentLocation();
+    //设置当前关卡、地图、坐标
+    void SetPlayerLevel(GameLevel*);
+    void SetPlayerMap(GameMap*);
+    void SetPlayerLocation(const Location&);
+
+    //绑定玩家
+    void BindPlayer(AutoGamePlayer player);
+    //获取绑定的玩家
+    const GamePlayer* GetPlayer()const;
+    GamePlayer* GetNonConstPlayer();
+
 
     // 添加关卡
     void AddLevel(AutoGameLevel);
     // 删除关卡
     void DelLevel(const LevelID& id);
+    //获取关卡
+    const GameLevel* GetLevel(const LevelID& id);
+    GameLevel* GetNonConstLevel(const LevelID& id);
 
     //获取指定关卡、地图、位置的对象
     AutoGameObject GetObjectWith(const LevelID& levelId, const MapID& mapID, const Location& loc)const;
@@ -68,8 +75,6 @@ public:
 
 private:
     AllLevels  _levels; // 所有关卡
-    GameLevel* _currentLevel; // 当前玩家所在的关卡
-    GameMap* _currentMap;//当前玩家所在的地图
-    Location _currentLocation;//当前玩家的坐标
+    AutoGamePlayer _player;//管理的玩家
 };
 

@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "GamePlayer.h"
 #include "Log.h"
 
 AutoGameObject GameManager::GetObjectWith(const LevelID& levelId, const MapID& mapID, const Location& loc) const
@@ -15,8 +16,8 @@ AutoGameObject GameManager::GetObjectWith(const LevelID& levelId, const MapID& m
 
 void GameManager::AddObjectCurrentMap(const Location& loc, AutoGameObject obj)
 {
-	if (_currentMap) {
-		_currentMap->AddGameObject(obj, loc);
+	if (_player->GetMap()) {
+		_player->GetNonConstMap()->AddGameObject(obj, loc);
 	}
 	else {
 		LOG_ERROR("当前地图为nullptr");
@@ -25,8 +26,8 @@ void GameManager::AddObjectCurrentMap(const Location& loc, AutoGameObject obj)
 
 void GameManager::RemoveObjectCurrentMap(const Location& loc)
 {
-	if (_currentMap) {
-		_currentMap->RemoveGameObject(loc);
+	if (_player->GetMap()) {
+		_player->GetNonConstMap()->RemoveGameObject(loc);
 	}
 	else {
 		LOG_ERROR("当前地图为nullptr");
@@ -35,8 +36,8 @@ void GameManager::RemoveObjectCurrentMap(const Location& loc)
 
 void GameManager::MoveObjectCurrentMap(const Location& from, const Location& to)
 {
-	if (_currentMap) {
-		_currentMap->MoveGameObject(from, to);
+	if (_player->GetMap()) {
+		_player->GetNonConstMap()->MoveGameObject(from, to);
 	}
 	else {
 		LOG_ERROR("当前地图为nullptr");
@@ -45,8 +46,8 @@ void GameManager::MoveObjectCurrentMap(const Location& from, const Location& to)
 
 void GameManager::ReplaceGameObjectCurrentMap(AutoGameObject obj, const Location& loc)
 {
-	if (_currentMap) {
-		_currentMap->ReplaceGameObject(obj,loc);
+	if (_player->GetMap()) {
+		_player->GetNonConstMap()->ReplaceGameObject(obj, loc);
 	}
 	else {
 		LOG_ERROR("当前地图为nullptr");
@@ -55,8 +56,8 @@ void GameManager::ReplaceGameObjectCurrentMap(AutoGameObject obj, const Location
 
 void GameManager::AddObjectCurrentLevel(const MapID& mapId, const Location& loc, AutoGameObject obj)
 {
-	if (_currentLevel) {
-		_currentLevel->AddObjectWith(mapId, loc, obj);
+	if (_player->GetLevel()) {
+		_player->GetNonConstLevel()->AddObjectWith(mapId, loc, obj);
 	}
 	else {
 		LOG_ERROR("当前关卡为nullptr");
@@ -65,8 +66,8 @@ void GameManager::AddObjectCurrentLevel(const MapID& mapId, const Location& loc,
 
 void GameManager::RemoveObjectCurrentLevel(const MapID& mapId, const Location& loc)
 {
-	if (_currentLevel) {
-		_currentLevel->RemoveObjectWith(mapId, loc);
+	if (_player->GetLevel()) {
+		_player->GetNonConstLevel()->RemoveObjectWith(mapId, loc);
 	}
 	else {
 		LOG_ERROR("当前关卡为nullptr");
@@ -75,8 +76,8 @@ void GameManager::RemoveObjectCurrentLevel(const MapID& mapId, const Location& l
 
 void GameManager::MoveObjectCurrentLevel(const MapID& mapId, const Location& from, const Location& to)
 {
-	if (_currentLevel) {
-		_currentLevel->MoveObjectWith(mapId, from, to);
+	if (_player->GetLevel()) {
+		_player->GetNonConstLevel()->MoveObjectWith(mapId, from, to);
 	}
 	else {
 		LOG_ERROR("当前关卡为nullptr");
@@ -85,8 +86,8 @@ void GameManager::MoveObjectCurrentLevel(const MapID& mapId, const Location& fro
 
 void GameManager::ReplaceGameObjectCurrentLevel(const MapID& mapId, AutoGameObject obj, const Location& loc)
 {
-	if (_currentLevel) {
-		_currentLevel->ReplaceGameObject(mapId, obj, loc);
+	if (_player->GetLevel()) {
+		_player->GetNonConstLevel()->ReplaceGameObject(mapId, obj, loc);
 	}
 	else {
 		LOG_ERROR("当前关卡为nullptr");
@@ -157,20 +158,20 @@ void GameManager::MoveObjectMapToMap(const LevelID& fromLevelId, const MapID& fr
 
 void GameManager::CurrentMoveToOtherMap(const LevelID& toLevelId, const MapID& toMapID, const Location to)
 {
-	if (_currentLevel) {
-		if (_currentMap) {
+	if (GetCurrentLevel()) {
+		if (GetCurrentMap()) {
 			auto to_level = _levels.find(toLevelId);
 			if (to_level != _levels.end()) {
 				//在另一个关卡中添加
 				to_level->second->AddObjectWith(toMapID, to,
-					_currentMap->GetGameObject(_currentLocation)
+					GetNonConstCurrentMap()->GetGameObject(GetCurrentLocation())
 					);
 				//删除原来的
-				_currentMap->RemoveGameObject(_currentLocation);
-				//设置当前关卡、地图、位置
-				SetCurrentLevel(to_level->second.get());
-				SetCurrentMap(to_level->second->GetNonConstMap(toMapID));
-				SetCurrentLocation(to);
+				GetNonConstCurrentMap()->RemoveGameObject(GetCurrentLocation());
+				//设置玩家当前关卡、地图、位置
+				SetPlayerLevel(to_level->second.get());
+				SetPlayerMap(to_level->second->GetNonConstMap(toMapID));
+				SetPlayerLocation(to);
 			}
 			else {
 				LOG_ERROR("不存在关卡:" +toLevelId+"移动object失败");
@@ -185,43 +186,74 @@ void GameManager::CurrentMoveToOtherMap(const LevelID& toLevelId, const MapID& t
 	}
 }
 
-GameManager::GameManager(GameLevel* currentLevel, GameMap* currentMap, const Location& currentLocation)
-	:_currentLevel(currentLevel)
-	,_currentMap(currentMap)
-	,_currentLocation(currentLocation)
+
+GameManager::GameManager(AutoGamePlayer player)
+	:_player(player)
 {
 }
 
 GameManager::~GameManager()
 {
-	_currentMap = nullptr;
-	_currentLevel = nullptr;
 }
 
-const GameLevel& GameManager::GetCurrentLevel() const
+const GameLevel* GameManager::GetCurrentLevel() const
 {
-	return *_currentLevel;
+	if (_player) {
+		return _player->GetLevel();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr");
+		return nullptr;
+	}
 }
 
-void GameManager::SetCurrentLevel(GameLevel* newLevel)
+GameLevel* GameManager::GetNonConstCurrentLevel()
+{
+	if (_player) {
+		return _player->GetNonConstLevel();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr");
+		return nullptr;
+	}
+}
+
+void GameManager::SetPlayerLevel(GameLevel* newLevel)
 {
 	if (newLevel) {
-		_currentLevel = newLevel;
+		_player->SetLevel(newLevel);
 	}
 	else {
 		LOG_ERROR("试图将当前关卡绑定为nullptr");
 	}
 }
 
-const GameMap& GameManager::GetCurrentMap() const
+const GameMap* GameManager::GetCurrentMap() const
 {
-	return *_currentMap;
+	if (_player) {
+		return _player->GetMap();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr");
+		return nullptr;
+	}
 }
 
-void GameManager::SetCurrentMap(GameMap* newGameMap)
+GameMap* GameManager::GetNonConstCurrentMap()
+{
+	if (_player) {
+		return _player->GetNonConstMap();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr");
+		return nullptr;
+	}
+}
+
+void GameManager::SetPlayerMap(GameMap* newGameMap)
 {
 	if (newGameMap) {
-		_currentMap = newGameMap;
+		_player->SetMap(newGameMap);
 	}
 	else {
 		LOG_ERROR("试图将当前地图绑定为nullptr");
@@ -230,12 +262,49 @@ void GameManager::SetCurrentMap(GameMap* newGameMap)
 
 const Location& GameManager::GetCurrentLocation() const
 {
-	return _currentLocation;
+	if (_player) {
+		return _player->GetLocation();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr,将获取defaultLocation");
+		return defaultLocation;
+	}
 }
 
-void GameManager::SetCurrentLocation(const Location& newLocation)
+Location& GameManager::GetNonConstCurrentLocation() 
 {
-	_currentLocation = newLocation;
+	if (_player) {
+		return _player->GetNonConstLocation();
+	}
+	else {
+		LOG_ERROR("绑定的玩家为nullptr,将获取defaultLocation");
+		return defaultLocation;
+	}
+}
+
+void GameManager::SetPlayerLocation(const Location& newLocation)
+{
+	_player->SetLocation(newLocation);
+}
+
+void GameManager::BindPlayer(AutoGamePlayer player)
+{
+	if (player) {
+		_player = player;
+	}
+	else {
+		LOG_ERROR("尝试绑定的玩家为nullptr");
+	}
+}
+
+const GamePlayer* GameManager::GetPlayer() const
+{
+	return _player.get();
+}
+
+GamePlayer* GameManager::GetNonConstPlayer()
+{
+	return _player.get();
 }
 
 void GameManager::AddLevel(AutoGameLevel newLevel)
@@ -258,5 +327,29 @@ void GameManager::DelLevel(const LevelID& id)
 	}
 	else {
 		LOG_ERROR("删除关卡:"+id+" 成功");
+	}
+}
+
+const GameLevel* GameManager::GetLevel(const LevelID& id)
+{
+	auto level = _levels.find(id);
+	if (level != _levels.end()) {
+		return level->second.get();
+	}
+	else {
+		LOG_ERROR("获取不存在level:" + id);
+		return nullptr;
+	}
+}
+
+GameLevel* GameManager::GetNonConstLevel(const LevelID& id)
+{
+	auto level = _levels.find(id);
+	if (level != _levels.end()) {
+		return level->second.get();
+	}
+	else {
+		LOG_ERROR("获取不存在level:" + id);
+		return nullptr;
 	}
 }
