@@ -76,5 +76,8 @@ public:
 private:
     AllLevels  _levels; // 所有关卡
     AutoGamePlayer _player;//管理的玩家
+    static Location defaultLocation ;//用于处理异常
 };
+
+
 

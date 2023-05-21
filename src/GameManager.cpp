@@ -2,6 +2,11 @@
 #include "GamePlayer.h"
 #include "Log.h"
 
+//静态数据成员初始化
+
+Location GameManager::defaultLocation = { -1, -1 };
+
+
 AutoGameObject GameManager::GetObjectWith(const LevelID& levelId, const MapID& mapID, const Location& loc) const
 {
 	auto ret = _levels.find(levelId);

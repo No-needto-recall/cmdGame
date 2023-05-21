@@ -29,8 +29,6 @@ struct Location {
     string ToString() const;
 };
 
-static Location defaultLocation = { -1,-1 };
-
 
 //枚举
 namespace ObjectType{
