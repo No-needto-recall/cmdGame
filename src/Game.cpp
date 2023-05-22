@@ -9,6 +9,7 @@
 Game::Game()
 	:_gameManager(new GameManager())
 {
+	LOG_INFO("\r\n\n启动游戏");
 	loadControl();
 	loadGameManager();
 	loadGamePlayer();
