@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "GamePlayer.h"
 
+using AutoGameManager = shared_ptr<GameManager>;
 
 class Game
 {
@@ -22,11 +23,13 @@ private:
 	void loadGameLevel();
 	//配置地图
 	void loadGameMap();
+	//配置传送门
+	void loadPortal();
 	//配置控制
 	void loadControl();
 
 private:
-	GameManager _gameManager;
+	AutoGameManager _gameManager;
 	InputHandler _Control;
 	AutoGamePlayer _player;//玩家
 };

@@ -32,16 +32,30 @@ void ConfigData::from_json(const nlohmann::json& j) {
 		game.levels.push_back({
 			utf8_to_local(mapJson["levelid"].get<string>()),
 		});
-		
 	}
+
 	for (auto& mapJson: j["game"]["maps"]) {
 		game.maps.push_back({
 			utf8_to_local(mapJson["mapid"].get<string>()),
 			mapJson["maxRows"],
 			mapJson["maxColumns"]
 		});
+	}
+
+	for (auto& mapJson: j["game"]["portals"]) {
+		game.portals.push_back({
+			utf8_to_local(mapJson["fromLevel"].get<string>()),
+			utf8_to_local(mapJson["fromMap"].get<string>()),
+			mapJson["fromX"],
+			mapJson["fromY"],
+			utf8_to_local(mapJson["toLevel"].get<string>()),
+			utf8_to_local(mapJson["toMap"].get<string>()),
+			mapJson["toX"],
+			mapJson["toY"],
+		});
 		
 	}
+
 	for (auto& mapJson : j["object"]["types"]) {
 		object.types.push_back({
 			utf8_to_local(mapJson["name"].get<string>()),

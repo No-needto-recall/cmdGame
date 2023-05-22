@@ -2,7 +2,7 @@
   "player": {
     "name": "玩家",
     "levelID": "测试关卡",
-    "mapID": "新手村",
+    "mapID": "未白镇",
     "x": 5,
     "y": 5
   },
@@ -14,9 +14,26 @@
     ],
     "maps": [
       {
-        "mapid": "新手村",
+        "mapid": "未白镇",
         "maxRows": 10,
         "maxColumns": 20
+      },
+      {
+        "mapid": "101号道路",
+        "maxRows": 10,
+        "maxColumns": 20
+      }
+    ],
+    "portals": [
+      {
+        "fromLevel": "测试关卡",
+        "fromMap": "新手村",
+        "fromX": 1,
+        "fromY": 1,
+        "toLevel": "测试关卡",
+        "toMap": "101号道路",
+        "toX": 1,
+        "toY": 1
       }
     ]
   },
@@ -28,7 +45,7 @@
       },
       {
         "name": "地面",
-        "icon": 33
+        "icon": 95 
       },
       {
         "name": "墙壁",
@@ -36,7 +53,7 @@
       },
       {
         "name": "传送门",
-        "icon": 63
+        "icon": 64
       },
       {
         "name": "草丛",

@@ -35,12 +35,24 @@ struct TypeData
     char icon;
 };
 
+struct PortalData {
+    string fromLevel;
+    string fromMap;
+    int fromX;
+    int fromY;
+    string toLevel;
+    string toMap;
+    int toX;
+    int toY;
+};
+
 struct ConfigData {
     PlayerData player;
 
 	struct Game {
         vector<LevelData> levels;
         vector<MapData> maps;
+        vector<PortalData> portals;
     }game;
     
     struct Object {

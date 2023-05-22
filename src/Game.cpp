@@ -7,6 +7,7 @@
 
 
 Game::Game()
+	:_gameManager(new GameManager())
 {
 	loadControl();
 	loadGameManager();
@@ -22,12 +23,12 @@ Game::~Game()
 
 void Game::start() {
 	LOG_INFO("game start");
-	_gameManager.GetCurrentMap()->Print();
+	_gameManager->GetCurrentMap()->Print();
 	ScreenDrawer::getInstance().swapBuffers();
 	while (1)
 	{
 		_Control.handleInput()->execute(_player);
-		_gameManager.GetCurrentMap()->Print();
+		_gameManager->GetCurrentMap()->Print();
 		ScreenDrawer::getInstance().swapBuffers();
 	}
 }
@@ -35,7 +36,7 @@ void Game::start() {
 void Game::loadGamePlayer()
 {
 	//根据配置文件获取玩家当前所在关卡、地图、位置
-	GameLevel* nowLevel = _gameManager.GetNonConstLevel(
+	GameLevel* nowLevel = _gameManager->GetNonConstLevel(
 						Config::instance().getConfigData().player.levelID);
 	GameMap* nowMap = nowLevel->GetNonConstMap(
 						Config::instance().getConfigData().player.mapID);
@@ -55,7 +56,7 @@ void Game::loadGamePlayer()
 			));
 	//绑定玩家
 	_player = player;
-	_gameManager.BindPlayer(_player);
+	_gameManager->BindPlayer(_player);
 	
 }
 
@@ -69,11 +70,25 @@ void Game::loadGameManager()
 		GameMapFactory::getInstance().createFromConf()
 	);
 	//添加关卡
-	_gameManager.AddLevel(std::move(level));
+	_gameManager->AddLevel(std::move(level));
+}
+
+void Game::loadGameLevel()
+{
+}
+
+void Game::loadGameMap()
+{
 }
 
 
 
+
+void Game::loadPortal()
+{
+	Location location = { 1,1 };
+	AutoGameObject portal = GameObjectFactory::getInstance().createPortalFromConf(location);
+}
 
 void Game::loadControl() {
 	_Control.setButtonA(std::make_unique<leftMove>());

@@ -92,10 +92,11 @@ class MapInitializer {
 public:
     virtual ~MapInitializer() = default;
     virtual void initialize(GameMap& map) = 0;
+    void CreateAllGround(GameMap& map);
 };
 
 //默认地图
-class DefaultMapInitializer : public MapInitializer {
+class RoadToDawnMapInitializer : public MapInitializer {
 public:
     void initialize(GameMap& map) override;
 };

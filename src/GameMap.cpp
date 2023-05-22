@@ -20,6 +20,7 @@ GameMap::GameMap(const MapID& id, int rows, int cols,AutoMapInit init)
 
 void GameMap::initMap()
 {
+	_initFunc->CreateAllGround(*this);//保障所有地图均有地面
 	_initFunc->initialize(*this);
 }
 
@@ -169,7 +170,7 @@ AutoGameMap GameMapFactory::createFromConf()
 		Config::instance().getConfigData().game.maps[0].mapid,
 		Config::instance().getConfigData().game.maps[0].maxRows,
 		Config::instance().getConfigData().game.maps[0].maxColumns,
-		std::move(AutoMapInit(new DefaultMapInitializer()))
+		std::move(AutoMapInit(new RoadToDawnMapInitializer()))
 	));
 }
 
@@ -180,7 +181,24 @@ GameMapFactory::GameMapFactory()
 
 
 
-void DefaultMapInitializer::initialize(GameMap& map)
+void RoadToDawnMapInitializer::initialize(GameMap& map)
+{
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createGrassFromConf({i,3}),
+			{i,3}
+		);
+	}
+
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({i,7}),
+			{i,7}
+		);
+	}
+}
+
+void MapInitializer::CreateAllGround(GameMap& map)
 {
 	for (int y = 0; y < map.GetRows(); ++y) {
 		for (int x = 0; x < map.GetCols(); ++x) {
@@ -189,11 +207,5 @@ void DefaultMapInitializer::initialize(GameMap& map)
 				{x,y}
 			);
 		}
-	}
-	for (int i = 4; i < 9; ++i) {
-		map.AddGameObject(
-			GameObjectFactory::getInstance().createGrassFromConf({i,5}),
-			{i,5}
-		);
 	}
 }
