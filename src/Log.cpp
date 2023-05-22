@@ -1,3 +1,6 @@
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 #include "Log.h"
 
 Log& Log::getInstance() {
@@ -22,12 +25,16 @@ void Log::writeToFile(const string& message) {
 }
 
 void Log::logError(const string& message, const string& functionName, const string& filePath, int lineNumber) {
-    string errorMessage = "Error: " + message + " in function " + functionName + " at " + filePath + ":" + std::to_string(lineNumber);
+    string filename = extractFileName(filePath);
+	string time = " " + getCurrentTiem();
+    string errorMessage ="Error: " + message + " in " + functionName + " at " + filename+ ":" + std::to_string(lineNumber)+time;
     writeToFile(errorMessage);
 }
 
 void Log::logInfo(const string& message, const string& functionName, const string& filePath, int lineNumber) {
-    string infoMessage = "Info: " + message + " in function " + functionName + " at " + filePath + ":" + std::to_string(lineNumber);
+    string filename = extractFileName(filePath);
+	string time = " "+ getCurrentTiem();
+    string infoMessage = "Info: " + message + " in " + functionName + " at " + filename+ ":" + std::to_string(lineNumber)+time;
     writeToFile(infoMessage);
 }
 
@@ -77,4 +84,30 @@ size_t Log::countLines() {
 
     inFile.close();
     return count;
+}
+
+string Log::getCurrentTiem()
+{
+    auto now = std::chrono::system_clock::now();
+    auto now_time_t = std::chrono::system_clock::to_time_t(now);
+
+    std::tm timeinfo = {};
+    localtime_s(&timeinfo, &now_time_t);
+
+    std::stringstream ss;
+    ss << std::put_time(&timeinfo, "%Y-%m-%d %H:%M:%S");
+
+    return ss.str();
+}
+
+
+string Log::extractFileName(const string& path)
+{
+    size_t lastSlash = path.rfind('/');
+    size_t lastBackslash = path.rfind('\\');
+    size_t pos = (lastSlash != std::string::npos && lastSlash > lastBackslash) ? lastSlash : lastBackslash;
+    if (pos != std::string::npos)
+        return path.substr(pos + 1);
+    else
+        return path;
 }

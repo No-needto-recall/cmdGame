@@ -1,30 +1,63 @@
-﻿{
-  "role": {
-    "player": {
-      "name": "玩家",
-      "health": 100,
-      "mana": 100,
-      "attack": 5,
-      "defense": 0,
-      "icon": 80,
-      "spawnX": 5,
-      "spawnY": 5
-    },
-    "pokemon": {
-      "name": "宝可梦",
-      "health": 10,
-      "mana": 10,
-      "attack": 5,
-      "defense": 0,
-      "icon": 66
-    }
+{
+  "player": {
+    "name": "玩家",
+    "levelID": "测试关卡",
+    "mapID": "未白镇",
+    "x": 5,
+    "y": 5
   },
   "game": {
+    "levels": [
+      {
+        "levelid": "测试关卡"
+      }
+    ],
     "maps": [
       {
-        "mapid": "新手村",
+        "mapid": "未白镇",
         "maxRows": 10,
         "maxColumns": 20
+      },
+      {
+        "mapid": "101号道路",
+        "maxRows": 10,
+        "maxColumns": 20
+      }
+    ],
+    "portals": [
+      {
+        "fromLevel": "测试关卡",
+        "fromMap": "未白镇",
+        "fromX": 1,
+        "fromY": 1,
+        "toLevel": "测试关卡",
+        "toMap": "101号道路",
+        "toX": 1,
+        "toY": 7
+      }
+    ]
+  },
+  "object": {
+    "types": [
+      {
+        "name": "玩家",
+        "icon": 80
+      },
+      {
+        "name": "地面",
+        "icon": 95 
+      },
+      {
+        "name": "墙壁",
+        "icon": 42
+      },
+      {
+        "name": "传送门",
+        "icon": 64
+      },
+      {
+        "name": "草丛",
+        "icon": 109
       }
     ]
   }

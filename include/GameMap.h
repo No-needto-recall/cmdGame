@@ -1,80 +1,145 @@
 #pragma once
 
 #include <vector>
+#include <stack>
 #include <unordered_map>
-#include <memory>
-#include <random>
-#include <string>
+#include <functional>
+#include "GameObject.h"
 
-using namespace std;
+using std::vector;
+using std::stack;
+using std::unordered_map;
+using std::function;
 
-#define DEFAULT_MAP  '_'
+class GameMap;
+class GameObjectStack;
+class MapInitializer;
 
-//前置声明
-class Role;
-class ScreenDrawer;
-struct Location;
-
-using AutoRole = shared_ptr<Role>;
-using LocationString = string;
 using MapID = string;
+using AutoGameObject = shared_ptr<GameObject>;
+using AutoGameMap = unique_ptr<GameMap>;
+using AutoMapInit = unique_ptr<MapInitializer>;
+using GameMapGrid= vector<vector<GameObjectStack>> ;
 
-
-class GameMap
-{
+class GameObjectStack {
 public:
-	GameMap(int maxRows, int maxColumns,const MapID& mapid);
-	~GameMap();
-	//获取行
-	int getMaxRows()const;
-	//获取列
-	int getMaxColumns()const;
+    //将GameObject添加到栈顶
+    void Push(AutoGameObject obj);
 
-	//获取地图ID
-	MapID getMapID()const;
-	//设置地图ID
-	void setMapID(const MapID& mapid);
+    //从栈顶移除GameObject
+    void  Pop();
+
+    //查看栈顶的GameObject
+    AutoGameObject Top()const;
+
+    //返回栈是否为空
+    bool IsEmpty()const;
+private:
+    stack<AutoGameObject> _stack;
+};
 
 
-	//初始化地图
-	void initMap();
-	//打印地图
-	void display();
-	
-	//添加角色
-	void addRole(AutoRole actor);
-	//删除角色
-	void deleteRole(Role& actor);
-	//移动角色
-	void moveRole(Role& role, const Location& newLocation);
+class GameMap {
+public:
+    GameMap(const MapID& id, int rows, int cols,AutoMapInit init);
+    //初始化地图
+    void initMap();
 
-	//判断该坐标是否有角色
-	//如果有返回该对象的指针，如果没有返回nullptr
-	bool isRole(const Location & location);
-	//获取该位置的对象
-	AutoRole getRole(const Location & location);
-	//判断该位置是否在地图内
-	bool isInMap(const Location & location)const;
+    // 获取地图的ID
+    const MapID& GetID() const;
+    // 获取地图的行数
+    int GetRows() const;
+    // 获取地图的列数
+    int GetCols() const;
 
-	//生成a,b闭区间内的随机数
-	int randomNum(int a, int b);
+    // 检查某个位置是否有GameObject
+    bool HasGameObject(const Location& location) const;
 
-	//随机生成角色
-	//保障不重叠
-	void randomCreatRole();
+    //检测这个位置是否在地图内
+    bool InGameMap(const Location& location)const;
 
-	//发生碰撞
-	//lhs 主动碰撞到 rhs
-	void roleCollide(Role& lhs, Role& rhs);
-	
+    //获取某个位置的栈顶GameObject
+    AutoGameObject GetGameObject(const Location& location)const;
+
+    // 在某个位置上移动GameObject
+    //先移除，后添加
+    void MoveGameObject(const Location& from, const Location& to);
+
+    // 在某个位置上删除栈顶GameObject
+    void RemoveGameObject(const Location& location);
+
+    // 在某个位置的栈顶添加GameObject
+    void AddGameObject(AutoGameObject object, const Location& location);
+
+    // 在某个位置上替换GameObject
+    //先移除，然后添加
+    void ReplaceGameObject(AutoGameObject object, const Location& location);
+
+    // 打印地图
+    void Print() const;
+    //获取地图网格
+    const GameMapGrid& GetMapGrid()const;
+private:
+    MapID _id;//地图id
+    const int _rows, _cols;//行、列
+    GameMapGrid _grid;//地图网格
+    AutoMapInit _initFunc;//初始化
+
+};
+
+//用于设计map的初始化函数
+class MapInitializer {
+public:
+    virtual ~MapInitializer() = default;
+    virtual void initialize(GameMap& map) = 0;
+    void CreateAllGround(GameMap& map);
+};
+
+//用于错误处理
+class DefaultMapInitializer :public MapInitializer {
+public:
+    void initialize(GameMap& map) override;
+};
+
+//末白镇地图
+class UnwhiteTownMapInitializer : public MapInitializer {
+public:
+    void initialize(GameMap& map) override;
+};
+
+//101公路地图
+class Route101MapInitializer :public MapInitializer {
+public:
+    void initialize(GameMap& map) override;
+};
+
+//地图类型枚举
+namespace GameMapType {
+    enum Type
+    {
+        UNWHITE_TOWN=0,
+        ROUTE_101
+    };
+}//end of GameMapType
+
+
+// 地图的单例简单工厂类
+class GameMapFactory {
+public:
+    //获取句柄
+    static GameMapFactory& getInstance();
+    //创建地图
+    AutoGameMap Create(const MapID& id, int rows, int cols,AutoMapInit init);
+    //根据配置文件创建地图
+    AutoGameMap CreateFromConf(GameMapType::Type type);
+    AutoGameMap CreatUnwhiteTown();
+    AutoGameMap CreatRoute101();
+
+
 
 private:
-
-	int _maxRows;//最大行数
-	int _maxColumns;//最大列数
-	MapID _mapID;//地图名称
-	vector < vector<char> > _mapData;//地图数据
-	unordered_map<LocationString, AutoRole> _mapRoles;//角色信息
-
+    GameMapFactory(const GameMapFactory&) = delete;
+    void operator=(const GameMapFactory&) = delete;
+    GameMapFactory();
 };
 

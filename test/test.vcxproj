@@ -135,38 +135,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Behavior.h" />
-    <ClInclude Include="..\include\Config.h" />
+    <ClInclude Include="..\include\CollisionManager.h" />
+    <ClInclude Include="..\include\config.h" />
     <ClInclude Include="..\include\Config_data.h" />
-    <ClInclude Include="..\include\CreatFromConfig.h" />
     <ClInclude Include="..\include\Game.h" />
+    <ClInclude Include="..\include\GameLevel.h" />
+    <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameMap.h" />
+    <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\GamePlayer.h" />
     <ClInclude Include="..\include\InputHandler.h" />
-    <ClInclude Include="..\include\Level.h" />
     <ClInclude Include="..\include\Log.h" />
-    <ClInclude Include="..\include\Role.h" />
+    <ClInclude Include="..\include\PortalManager.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\Behavior.cpp" />
-    <ClCompile Include="..\src\Config.cpp" />
-    <ClCompile Include="..\src\Config_data.cpp" />
-    <ClCompile Include="..\src\CreatFromConfig.cpp" />
-    <ClCompile Include="..\src\Game.cpp" />
-    <ClCompile Include="..\src\GameMap.cpp" />
-    <ClCompile Include="..\src\InputHandler.cpp" />
-    <ClCompile Include="..\src\Level.cpp" />
-    <ClCompile Include="..\src\Log.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Role.cpp" />
-    <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\log\log.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\conf\conf.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\CollisionManager.cpp" />
+    <ClCompile Include="..\src\Config.cpp" />
+    <ClCompile Include="..\src\Config_data.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\GameLevel.cpp" />
+    <ClCompile Include="..\src\GameManager.cpp" />
+    <ClCompile Include="..\src\GameMap.cpp" />
+    <ClCompile Include="..\src\GameObject.cpp" />
+    <ClCompile Include="..\src\GamePlayer.cpp" />
+    <ClCompile Include="..\src\InputHandler.cpp" />
+    <ClCompile Include="..\src\Log.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\PortalManager.cpp" />
+    <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

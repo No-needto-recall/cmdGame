@@ -1,165 +1,251 @@
+#include <memory>
 #include "GameMap.h"
 #include "Log.h"
-#include "Role.h"
 #include "Config.h"
 #include "ScreenDrawer.h"
-#include "Behavior.h"
-#include "CreatFromConfig.h"
 
-GameMap::GameMap(int maxRows,int maxColumns,const MapID& mapid)
-	:_maxRows(maxRows),_maxColumns(maxColumns)
-	,_mapID(mapid)
+GameMap::GameMap(const MapID& id, int rows, int cols,AutoMapInit init)
+	:_id(id)
+	,_rows(rows)
+	,_cols(cols)
+	,_initFunc(std::move(init))
 {
-}
-
-GameMap::~GameMap() {
-
-}
-
-int GameMap::getMaxRows()const {
-	return _maxRows;
-}
-
-int GameMap::getMaxColumns()const {
-	return _maxColumns;
-}
-
-MapID GameMap::getMapID() const
-{
-	return _mapID;
-}
-
-void GameMap::setMapID(const MapID& mapid)
-{
-	_mapID = mapid;
-}
-
-void GameMap::initMap() {
-	LOG_INFO("初始化地图 "+to_string(_maxColumns)+" x "+ to_string(_maxRows));
-	_mapData.resize(_maxRows);
-	for (auto& rv : _mapData) {
-		rv.resize(_maxColumns,DEFAULT_MAP);
+	_grid.resize(_rows);
+	for (auto& row : _grid) {
+		row.resize(_cols);
 	}
-	LOG_INFO("初始化完成");
+	LOG_INFO("创建地图:" + _id + "(" + to_string(_rows) + "*" + to_string(_cols) + ")");
+	initMap();
+}
+
+void GameMap::initMap()
+{
+	_initFunc->CreateAllGround(*this);//保障所有地图均有地面
+	_initFunc->initialize(*this);
+}
+
+const MapID& GameMap::GetID() const
+{
+	return _id;
+}
+
+int GameMap::GetRows() const
+{
+	return _rows;
+}
+
+int GameMap::GetCols() const
+{
+	return _cols;
+}
+
+bool GameMap::HasGameObject(const Location& location) const
+{
+	int x = location.x;
+	int y = location.y;
+	if (InGameMap(location)) {
+		if (!(_grid[y][x].IsEmpty())) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GameMap::InGameMap(const Location& location) const
+{
+	return location.x>=0 
+		&& location.x<_cols 
+		&& location.y>=0
+		&& location.y<_rows;
+}
+
+AutoGameObject GameMap::GetGameObject(const Location& location) const
+{
+	if (HasGameObject(location)) {
+		return _grid[location.y][location.x].Top();
+	}
+	else {
+		LOG_ERROR("尝试获取不存在的GameObject");
+		return nullptr;
+	}
 }
 
 
-void GameMap::display() {
-	for (int y = 0; y < _maxRows; ++y) {
-		for (int x = 0; x < _maxColumns; ++x) {
+void GameMap::MoveGameObject(const Location& from, const Location& to)
+{
+	if (HasGameObject(from)) {
+		AddGameObject(GetGameObject(from), to);
+		RemoveGameObject(from);
+	}
+	else {
+		LOG_ERROR("尝试移动不存在的GameObject");
+	}
+}
+
+void GameMap::RemoveGameObject(const Location& location)
+{
+	if (HasGameObject(location)) {
+		_grid[location.y][location.x].Pop();
+	}
+	else {
+		LOG_ERROR("尝试删除不存在的GameObject");
+	}
+}
+
+void GameMap::AddGameObject(AutoGameObject object, const Location& location)
+{
+	if (InGameMap(location)) {
+		_grid[location.y][location.x].Push(object);
+		object->SetLocation(location);
+	}
+	else {
+		LOG_ERROR("尝试在非法坐标"+location.ToString() + "添加GameObject");
+	}
+}
+
+void GameMap::ReplaceGameObject(AutoGameObject object, const Location& location)
+{
+	if (HasGameObject(location)) {
+		_grid[location.y][location.x].Pop();
+	}
+	else {
+		LOG_ERROR("替换位置:" + location.ToString() + "没有object,已改为添加");
+	}
+	object->SetLocation(location);
+	_grid[location.y][location.x].Push(object);
+}
+
+void GameMap::Print() const
+{
+	for (auto row : _grid) {
+		for (auto stack: row) {
 			ScreenDrawer::getInstance().drawCharacter(
-				x, y, _mapData[y][x]
+			stack.Top()->GetLocation().x,
+			stack.Top()->GetLocation().y,
+			stack.Top()->GetIcon()
 			);
 		}
 	}
 }
 
-bool GameMap::isInMap(const Location & location)const {
-	return location._x >= 0 && location._x < _maxColumns &&
-		location._y >= 0 && location._y < _maxRows;
-}
-
-
-bool GameMap::isRole(const Location & location){
-	return _mapRoles.count(location.toString()) > 0;
-}
-
-AutoRole GameMap::getRole(const Location & location) {
-	auto search = _mapRoles.find(location.toString());
-	if (search != _mapRoles.end()) {
-		return search->second;
-	}
-	else {
-		LOG_ERROR("获取了错误的对象");
-		::exit(1);
-	}
-}
-
-
-void GameMap::addRole(AutoRole role ) {
-	Location tmpLocation= role->getLocation();
-	if (isRole(tmpLocation)) {
-		LOG_ERROR(tmpLocation.toString() + "已有对象");
-	}
-	else {
-		if (!isInMap(tmpLocation)) {
-			LOG_ERROR(tmpLocation.toString() + "超出地图");
-		}
-		else {
-			_mapRoles.insert({
-				tmpLocation.toString()
-				,role});
-			//添加图标
-			char icon = role->getAttribute()._icon;
-			_mapData[tmpLocation._y][tmpLocation._x]=icon;
-
-			LOG_INFO("添加:" + role->getAttribute()._name + "到: " +
-				tmpLocation.toString()
-			);
-		}
-	}
-}
-
-
-void GameMap::deleteRole(Role& role) {
-	//依赖倒置
-	LOG_INFO(role.getAttribute()._name + "将被删除");
-	_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
-	_mapRoles.erase(role.getLocation().toString());
-}
-
-
-void GameMap::moveRole(Role& role, const Location& newLocation) {
-	if (isInMap(newLocation)) {
-		if (isRole(newLocation))
-		{
-			roleCollide(role, *getRole(newLocation));
-		}
-		LOG_INFO(role.getAttribute()._name + " 从 " + 
-				role.getLocation().toString() + " 到 "+
-				newLocation.toString());
-		_mapData[role.getLocation()._y][role.getLocation()._x] = DEFAULT_MAP;
-		role.getLocation() = newLocation;
-		_mapData[role.getLocation()._y][role.getLocation()._x] = role.getAttribute()._icon;
-	}
-}
-
-
-
-
-int GameMap::randomNum(int a, int b) {
-	::srand(std::random_device()());
-	return a + ::rand() % (b - a + 1);
-}
-
-
-void GameMap::randomCreatRole() {
-	LOG_INFO("将在随机位置生成怪物");
-	int tmpX = randomNum(0, _maxColumns - 1);
-	int tmpY = randomNum(0, _maxRows - 1);
-	while (1) {
-		auto search = _mapRoles.find(Location{ tmpX,tmpY }.toString());
-		if (search != _mapRoles.end()) {
-			tmpX = randomNum(0, _maxColumns - 1);
-			tmpY = randomNum(0, _maxRows - 1);
-		}
-		else {
-			break;
-		}
-	}
-	Location tmpLocation = { tmpX,tmpY };
-	AutoRole tmpPokemon = CreatRole::creatPokemonFromConfig(tmpLocation);
-	AutoBehavior tmpPokemonBehavior = CreatBehavior::creatPokemonFromConfig(tmpPokemon);
-	//设定行为
-	tmpPokemon->setBehavior(std::move(tmpPokemonBehavior));
-	tmpPokemon->setGameMap(std::make_shared<GameMap>(*this));
-	this->addRole(tmpPokemon);
-	LOG_INFO("生成怪物完成");
-}
-
-void GameMap::roleCollide(Role& lhs, Role& rhs)
+const GameMapGrid& GameMap::GetMapGrid() const
 {
-	lhs.collide(rhs);
+	return _grid;
+}
+
+void GameObjectStack::Push(AutoGameObject obj)
+{
+	_stack.push(obj);
+}
+
+void GameObjectStack::Pop()
+{
+	_stack.pop();
+}
+
+AutoGameObject GameObjectStack::Top() const
+{
+	return _stack.top();
+}
+
+bool GameObjectStack::IsEmpty() const
+{
+	return _stack.empty();
+}
+
+GameMapFactory& GameMapFactory::getInstance()
+{
+	static GameMapFactory instance;
+	return instance;
+}
+
+AutoGameMap GameMapFactory::Create(const MapID& id, int rows, int cols,AutoMapInit init)
+{
+	return AutoGameMap(new GameMap(id,rows,cols,std::move(init)));
+}
+
+AutoGameMap GameMapFactory::CreateFromConf(GameMapType::Type type)
+{
+	AutoMapInit init = nullptr;
+	switch (type)
+	{
+	case GameMapType::UNWHITE_TOWN:
+		init.reset( new UnwhiteTownMapInitializer());
+		break;
+	case GameMapType::ROUTE_101:
+		init.reset( new Route101MapInitializer());
+		break;
+	default:
+		init.reset( new DefaultMapInitializer());
+		break;
+	}
+	return	AutoGameMap(new GameMap(
+		Config::instance().getConfigData().game.maps[type].mapid,
+		Config::instance().getConfigData().game.maps[type].maxRows,
+		Config::instance().getConfigData().game.maps[type].maxColumns,
+		std::move(init)
+	));
+}
+
+AutoGameMap GameMapFactory::CreatUnwhiteTown()
+{
+	return std::move(CreateFromConf(GameMapType::UNWHITE_TOWN));
+}
+
+AutoGameMap GameMapFactory::CreatRoute101()
+{
+	return std::move(CreateFromConf(GameMapType::ROUTE_101));
+}
+
+GameMapFactory::GameMapFactory()
+{
 }
 
 
+
+
+void UnwhiteTownMapInitializer::initialize(GameMap& map)
+{
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createGrassFromConf({i,3}),
+			{i,3}
+		);
+	}
+
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({i,7}),
+			{i,7}
+		);
+	}
+}
+
+void MapInitializer::CreateAllGround(GameMap& map)
+{
+	for (int y = 0; y < map.GetRows(); ++y) {
+		for (int x = 0; x < map.GetCols(); ++x) {
+			map.AddGameObject(
+				GameObjectFactory::getInstance().createGroundFromConf({ x,y }),
+				{x,y}
+			);
+		}
+	}
+}
+
+void DefaultMapInitializer::initialize(GameMap& map)
+{
+}
+
+void Route101MapInitializer::initialize(GameMap& map)
+{
+	for (int j = 3; j < 6; ++j) {
+		for (int i = 4; i < 15; ++i) {
+			map.AddGameObject(
+				GameObjectFactory::getInstance().createGrassFromConf({ i,j }),
+				{ i,j }
+			);
+
+		}
+	}
+}

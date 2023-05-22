@@ -45,6 +45,9 @@ public:
 	//切换缓冲区
 	void swapBuffers();
 
+	void hideCursor();
+
+
 	ScreenDrawer(const ScreenDrawer&) = delete;
 	ScreenDrawer& operator = (const ScreenDrawer&) = delete;
 private:
