@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "GamePlayer.h"
 #include "Log.h"
+#include "ScreenDrawer.h"
 
 //静态数据成员初始化
 
@@ -290,6 +291,31 @@ Location& GameManager::GetNonConstCurrentLocation()
 void GameManager::SetPlayerLocation(const Location& newLocation)
 {
 	_player->SetLocation(newLocation);
+}
+
+void GameManager::DrawMapWithPlayer()
+{
+	//获取当前坐标
+	Location player = GetCurrentLocation();
+	int sight = _player->GetLineOfSight();
+	//视野边界值
+	int minX = player.x - 2*sight;
+	int minY = player.y - sight;
+	const GameMap* map = GetCurrentMap();
+	int maxRows = sight*2 +1 ;
+	int maxCows = sight*4 +1 ;
+	int trueX = minX;
+	int trueY = minY;
+	char icon;
+	for (int y = 0; y < maxRows; ++y) {
+		for (int x = 0; x < maxCows; ++x) {
+			icon = map->GetIconWith({ trueX,trueY});
+			ScreenDrawer::getInstance().drawCharacter(x,y,icon);
+			++trueX;
+		}
+		trueX = minX;
+		++trueY;
+	}
 }
 
 void GameManager::BindPlayer(AutoGamePlayer player)

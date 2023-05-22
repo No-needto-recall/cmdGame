@@ -136,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CollisionManager.h" />
-    <ClInclude Include="..\include\config.h" />
+    <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\GameLevel.h" />

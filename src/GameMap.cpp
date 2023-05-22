@@ -4,6 +4,9 @@
 #include "Config.h"
 #include "ScreenDrawer.h"
 
+//声明静态数据成员
+char GameMap::_defaultIcon = '&';
+
 GameMap::GameMap(const MapID& id, int rows, int cols,AutoMapInit init)
 	:_id(id)
 	,_rows(rows)
@@ -131,6 +134,16 @@ void GameMap::Print() const
 const GameMapGrid& GameMap::GetMapGrid() const
 {
 	return _grid;
+}
+
+Icon GameMap::GetIconWith(const Location& location) const
+{
+	if (HasGameObject(location)) {
+		return GetGameObject(location)->GetIcon();
+	}
+	else {
+		return _defaultIcon;
+	}
 }
 
 void GameObjectStack::Push(AutoGameObject obj)

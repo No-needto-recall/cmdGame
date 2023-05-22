@@ -28,12 +28,12 @@ Game::~Game()
 
 void Game::start() {
 	LOG_INFO("game start");
-	_gameManager->GetCurrentMap()->Print();
+	_gameManager->DrawMapWithPlayer();
 	ScreenDrawer::getInstance().swapBuffers();
 	while (1)
 	{
 		_Control.handleInput()->execute(_player);
-		_gameManager->GetCurrentMap()->Print();
+		_gameManager->DrawMapWithPlayer();
 		ScreenDrawer::getInstance().swapBuffers();
 	}
 }

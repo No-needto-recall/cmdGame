@@ -24,7 +24,7 @@
     <ClInclude Include="..\include\CollisionManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\config.h">
+    <ClInclude Include="..\include\Config.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Config_data.h">

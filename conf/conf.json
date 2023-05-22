@@ -15,13 +15,13 @@
     "maps": [
       {
         "mapid": "未白镇",
-        "maxRows": 10,
-        "maxColumns": 20
+        "maxRows": 20,
+        "maxColumns": 40
       },
       {
         "mapid": "101号道路",
-        "maxRows": 10,
-        "maxColumns": 20
+        "maxRows": 20,
+        "maxColumns": 40
       }
     ],
     "portals": [

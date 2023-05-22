@@ -26,6 +26,9 @@ public:
     void SetPlayerMap(GameMap*);
     void SetPlayerLocation(const Location&);
 
+    //以玩家的视野绘制画面
+    void DrawMapWithPlayer();
+
     //绑定玩家
     void BindPlayer(AutoGamePlayer player);
     //获取绑定的玩家

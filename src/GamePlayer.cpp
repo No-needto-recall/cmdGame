@@ -8,6 +8,7 @@
 GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject, AutoCollisionManager collision)
 	:_name(name),_levelNow(levelNow),_mapNow(mapNow),_locationNow(location)
 	,_myObject(selfObject),_myCollision(std::move(collision))
+	,_lineOfSight(5)
 {
 }
 
@@ -108,6 +109,16 @@ AutoGameObject GamePlayer::GetObjectSelf() const
 AutoGameObject GamePlayer::GetObjectWithLocation(const Location& location) const
 {
 	return _mapNow->GetGameObject(location);
+}
+
+int GamePlayer::GetLineOfSight() const
+{
+	return _lineOfSight;
+}
+
+void GamePlayer::SetLineOfSight(const int& sight)
+{
+	_lineOfSight = sight;
 }
 
 void GamePlayer::MoveToLocation(const Location& newLocation)
