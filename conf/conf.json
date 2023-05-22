@@ -27,13 +27,13 @@
     "portals": [
       {
         "fromLevel": "测试关卡",
-        "fromMap": "新手村",
+        "fromMap": "未白镇",
         "fromX": 1,
         "fromY": 1,
         "toLevel": "测试关卡",
         "toMap": "101号道路",
         "toX": 1,
-        "toY": 1
+        "toY": 7
       }
     ]
   },

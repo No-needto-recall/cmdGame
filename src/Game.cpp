@@ -1,6 +1,7 @@
 #include <functional> 
 #include "Game.h"
 #include "CollisionManager.h"
+#include "PortalManager.h"
 #include "Config.h"
 #include "Log.h"
 #include "ScreenDrawer.h"
@@ -8,11 +9,14 @@
 
 Game::Game()
 	:_gameManager(new GameManager())
+	,_Control()
+	,_player(nullptr)
 {
 	LOG_INFO("\r\n\n启动游戏");
 	loadControl();
 	loadGameManager();
 	loadGamePlayer();
+	loadPortal();
 }
 
 
@@ -53,7 +57,7 @@ void Game::loadGamePlayer()
 		GamePlayer(
 			Config::instance().getConfigData().player.name,
 			nowLevel, nowMap, nowLoc, obj,
-			AutoCollisionManager(new CollisionManager())
+			AutoCollisionManager(new CollisionManager(_gameManager))
 			));
 	//绑定玩家
 	_player = player;
@@ -66,10 +70,9 @@ void Game::loadGameManager()
 	//新建一个关卡
 	AutoGameLevel level(new GameLevel(
 		Config::instance().getConfigData().game.levels[0].levelid));
-	//添加默认地图
-	level->AddMap(
-		GameMapFactory::getInstance().createFromConf()
-	);
+	//添加地图
+	level->AddMap(GameMapFactory::getInstance().CreatUnwhiteTown());
+	level->AddMap(GameMapFactory::getInstance().CreatRoute101());
 	//添加关卡
 	_gameManager->AddLevel(std::move(level));
 }
@@ -87,8 +90,34 @@ void Game::loadGameMap()
 
 void Game::loadPortal()
 {
-	Location location = { 1,1 };
-	AutoGameObject portal = GameObjectFactory::getInstance().createPortalFromConf(location);
+	PortalKey key = {
+		Config::instance().getConfigData().game.portals[0].fromLevel,
+		Config::instance().getConfigData().game.portals[0].fromMap,
+		{Config::instance().getConfigData().game.portals[0].fromX,
+		Config::instance().getConfigData().game.portals[0].fromY,},
+		
+	};
+	PortalInfo info = {
+		Config::instance().getConfigData().game.portals[0].toLevel,
+		Config::instance().getConfigData().game.portals[0].toMap,
+		{Config::instance().getConfigData().game.portals[0].toX,
+		Config::instance().getConfigData().game.portals[0].toY},
+	};
+	Location locationKey (get<2>(key));
+	Location locationInfo(get<2>(info));
+	AutoGameObject portal_1 = GameObjectFactory::getInstance().createPortalFromConf(locationKey);
+	AutoGameObject portal_2 = GameObjectFactory::getInstance().createPortalFromConf(locationInfo);
+
+	//添加到对应的地图
+	_gameManager->GetNonConstLevel(get<0>(key))
+				->GetNonConstMap(get<1>(key))
+				->AddGameObject(portal_1,locationKey);
+	_gameManager->GetNonConstLevel(get<0>(info))
+				->GetNonConstMap(get<1>(info))
+				->AddGameObject(portal_2,locationInfo);
+	//注册到PortalManager
+	PORTAL_MANAGER.AddPortal(key,info);
+	PORTAL_MANAGER.AddPortal(info,key);
 }
 
 void Game::loadControl() {

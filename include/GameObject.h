@@ -30,7 +30,7 @@ struct Location {
 };
 
 
-//枚举
+//object类型枚举
 namespace ObjectType{
     enum Type
     {

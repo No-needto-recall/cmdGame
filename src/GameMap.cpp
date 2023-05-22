@@ -164,14 +164,37 @@ AutoGameMap GameMapFactory::Create(const MapID& id, int rows, int cols,AutoMapIn
 	return AutoGameMap(new GameMap(id,rows,cols,std::move(init)));
 }
 
-AutoGameMap GameMapFactory::createFromConf()
+AutoGameMap GameMapFactory::CreateFromConf(GameMapType::Type type)
 {
-	return AutoGameMap(new GameMap(
-		Config::instance().getConfigData().game.maps[0].mapid,
-		Config::instance().getConfigData().game.maps[0].maxRows,
-		Config::instance().getConfigData().game.maps[0].maxColumns,
-		std::move(AutoMapInit(new RoadToDawnMapInitializer()))
+	AutoMapInit init = nullptr;
+	switch (type)
+	{
+	case GameMapType::UNWHITE_TOWN:
+		init.reset( new UnwhiteTownMapInitializer());
+		break;
+	case GameMapType::ROUTE_101:
+		init.reset( new Route101MapInitializer());
+		break;
+	default:
+		init.reset( new DefaultMapInitializer());
+		break;
+	}
+	return	AutoGameMap(new GameMap(
+		Config::instance().getConfigData().game.maps[type].mapid,
+		Config::instance().getConfigData().game.maps[type].maxRows,
+		Config::instance().getConfigData().game.maps[type].maxColumns,
+		std::move(init)
 	));
+}
+
+AutoGameMap GameMapFactory::CreatUnwhiteTown()
+{
+	return std::move(CreateFromConf(GameMapType::UNWHITE_TOWN));
+}
+
+AutoGameMap GameMapFactory::CreatRoute101()
+{
+	return std::move(CreateFromConf(GameMapType::ROUTE_101));
 }
 
 GameMapFactory::GameMapFactory()
@@ -181,7 +204,7 @@ GameMapFactory::GameMapFactory()
 
 
 
-void RoadToDawnMapInitializer::initialize(GameMap& map)
+void UnwhiteTownMapInitializer::initialize(GameMap& map)
 {
 	for (int i = 4; i < 15; ++i) {
 		map.AddGameObject(
@@ -206,6 +229,23 @@ void MapInitializer::CreateAllGround(GameMap& map)
 				GameObjectFactory::getInstance().createGroundFromConf({ x,y }),
 				{x,y}
 			);
+		}
+	}
+}
+
+void DefaultMapInitializer::initialize(GameMap& map)
+{
+}
+
+void Route101MapInitializer::initialize(GameMap& map)
+{
+	for (int j = 3; j < 6; ++j) {
+		for (int i = 4; i < 15; ++i) {
+			map.AddGameObject(
+				GameObjectFactory::getInstance().createGrassFromConf({ i,j }),
+				{ i,j }
+			);
+
 		}
 	}
 }

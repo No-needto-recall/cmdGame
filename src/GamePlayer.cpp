@@ -117,9 +117,9 @@ void GamePlayer::MoveToLocation(const Location& newLocation)
 		return;
 	}
 	//判断是否需要碰撞处理
-	if (_myCollision->CollisionDetection(newLocation,*_mapNow)) {
+	if (_myCollision->CollisionDetection(_myObject,newLocation,*_mapNow,*_levelNow)) {
 		//判断碰撞处理后不能移动
-		if (!_myCollision->CanItMoveAfterCollision(newLocation, *_mapNow)) {
+		if (!_myCollision->CanItMoveAfterCollision(_myObject,newLocation, *_mapNow,*_levelNow)) {
 			return;
 		}
 	}

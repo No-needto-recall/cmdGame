@@ -95,12 +95,32 @@ public:
     void CreateAllGround(GameMap& map);
 };
 
-//默认地图
-class RoadToDawnMapInitializer : public MapInitializer {
+//用于错误处理
+class DefaultMapInitializer :public MapInitializer {
 public:
     void initialize(GameMap& map) override;
 };
 
+//末白镇地图
+class UnwhiteTownMapInitializer : public MapInitializer {
+public:
+    void initialize(GameMap& map) override;
+};
+
+//101公路地图
+class Route101MapInitializer :public MapInitializer {
+public:
+    void initialize(GameMap& map) override;
+};
+
+//地图类型枚举
+namespace GameMapType {
+    enum Type
+    {
+        UNWHITE_TOWN=0,
+        ROUTE_101
+    };
+}//end of GameMapType
 
 
 // 地图的单例简单工厂类
@@ -111,7 +131,9 @@ public:
     //创建地图
     AutoGameMap Create(const MapID& id, int rows, int cols,AutoMapInit init);
     //根据配置文件创建地图
-    AutoGameMap createFromConf();
+    AutoGameMap CreateFromConf(GameMapType::Type type);
+    AutoGameMap CreatUnwhiteTown();
+    AutoGameMap CreatRoute101();
 
 
 

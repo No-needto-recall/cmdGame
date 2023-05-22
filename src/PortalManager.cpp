@@ -30,7 +30,7 @@ PortalManager& PortalManager::GetInstance()
 void PortalManager::AddPortal(const PortalKey& key, const PortalInfo& info)
 {
 	if (_portals.insert({ key,info }).second) {
-		LOG_INFO(KeyToString(key)+"--->"+InfoToString(info));
+		LOG_INFO("添加传送点"+KeyToString(key) + "to" + InfoToString(info));
 	}
 	else {
 		LOG_ERROR("传送点已存在:"+KeyToString(key));
