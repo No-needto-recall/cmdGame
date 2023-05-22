@@ -1,5 +1,17 @@
 {
+  "player": {
+    "name": "玩家",
+    "levelID": "测试关卡",
+    "mapID": "新手村",
+    "x": 5,
+    "y": 5
+  },
   "game": {
+    "levels": [
+      {
+        "levelid": "测试关卡"
+      }
+    ],
     "maps": [
       {
         "mapid": "新手村",
@@ -20,15 +32,15 @@
       },
       {
         "name": "墙壁",
-        "icon": 42 
+        "icon": 42
       },
       {
         "name": "传送门",
-        "icon": 63 
+        "icon": 63
       },
       {
         "name": "草丛",
-        "icon":109
+        "icon": 109
       }
     ]
   }

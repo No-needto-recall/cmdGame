@@ -22,6 +22,18 @@ std::string utf8_to_local(const std::string& utf8_str) {
 
 
 void ConfigData::from_json(const nlohmann::json& j) {
+	player.name = utf8_to_local(j["player"]["name"].get<string>());
+	player.levelID= utf8_to_local(j["player"]["levelID"].get<string>());
+	player.mapID= utf8_to_local(j["player"]["mapID"].get<string>());
+	player.x= j["player"]["x"];
+	player.y= j["player"]["y"];
+
+	for (auto& mapJson: j["game"]["levels"]) {
+		game.levels.push_back({
+			utf8_to_local(mapJson["levelid"].get<string>()),
+		});
+		
+	}
 	for (auto& mapJson: j["game"]["maps"]) {
 		game.maps.push_back({
 			utf8_to_local(mapJson["mapid"].get<string>()),

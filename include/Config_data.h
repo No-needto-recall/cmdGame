@@ -7,6 +7,22 @@
 using std::string;
 using std::vector;
 
+struct PlayerData
+{
+    string name;
+    string levelID;
+    string mapID;
+    int x;
+    int y;
+};
+
+
+struct LevelData
+{
+    string levelid;
+};
+
+
 struct MapData {
     string mapid;
 	int maxRows;
@@ -20,7 +36,10 @@ struct TypeData
 };
 
 struct ConfigData {
+    PlayerData player;
+
 	struct Game {
+        vector<LevelData> levels;
         vector<MapData> maps;
     }game;
     

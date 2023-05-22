@@ -50,3 +50,6 @@ private:
 	AllMaps _maps;//持有的地图
 
 };
+
+
+

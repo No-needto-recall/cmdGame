@@ -5,6 +5,12 @@
 #include "Log.h"
 
 
+GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject, AutoCollisionManager collision)
+	:_name(name),_levelNow(levelNow),_mapNow(mapNow),_locationNow(location)
+	,_myObject(selfObject),_myCollision(std::move(collision))
+{
+}
+
 const string& GamePlayer::GetName() const
 {
 	return _name;
@@ -106,14 +112,20 @@ AutoGameObject GamePlayer::GetObjectWithLocation(const Location& location) const
 
 void GamePlayer::MoveToLocation(const Location& newLocation)
 {
+	if (!_mapNow->InGameMap(newLocation)) {
+		return;
+	}
 	//判断是否需要碰撞处理
 	if (_myCollision->CollisionDetection(newLocation,*_mapNow)) {
-		//判断碰撞处理后能否移动
-		if (_myCollision->CollisionDetection(newLocation, *_mapNow)) {
-			//让map移动对应位置的
-			_mapNow->MoveGameObject(_myObject->GetLocation(), newLocation);
+		//判断碰撞处理后不能移动
+		if (!_myCollision->CollisionDetection(newLocation, *_mapNow)) {
+			return;
 		}
 	}
+	_mapNow->MoveGameObject(_locationNow, newLocation);
+	LOG_INFO(_name + "从" + _locationNow.ToString() + "移动到" + newLocation.ToString());
+	_locationNow = newLocation;
+	_myObject->SetLocation(newLocation);
 }
 
 void GamePlayer::UpMove()

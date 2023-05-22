@@ -22,7 +22,8 @@ using AutoCollisionManager= unique_ptr<CollisionManager>;
 class GamePlayer {
 public:
 	GamePlayer(const string& name,GameLevel* levelNow,GameMap* mapNow,
-			   AutoGameObject selfObject , AutoCollisionManager collision);
+			   const Location& location,AutoGameObject selfObject , 
+				AutoCollisionManager collision);
 
 	//获取名字
 	const string& GetName()const;

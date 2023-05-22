@@ -1,29 +1,12 @@
 #include <iostream>
-#include "GameMap.h"
-#include "GamePlayer.h"
-#include "InputHandler.h"
-#include "ScreenDrawer.h"
-
+#include "Game.h"
 using namespace std;
 
-void func() {
-	for (char ch = 0; ch < 127; ++ch) {
-		cout << ch << " ";
-	}
-	system("pause");
-}
 
 int main(int argc,char* argv[]) {
-#if 1
 
-	auto map = GameMapFactory::getInstance().createFromConf();
-	while(1){
-		map->Print();
-		ScreenDrawer::getInstance().swapBuffers();
-		Sleep(1000);
-	}
-
-#endif // 0
+	Game pokemon;
+	pokemon.start();
 	return 0;
 
 
