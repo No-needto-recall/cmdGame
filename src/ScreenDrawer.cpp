@@ -122,4 +122,12 @@ HANDLE ScreenDrawer::createConsoleBuffer() {
 void ScreenDrawer::swapBuffers() {
 	std::swap(_activeBuffer, _drawingBuffer);
 	SetConsoleActiveScreenBuffer(_activeBuffer);
+	hideCursor();
+}
+
+inline void ScreenDrawer::hideCursor() {
+	CONSOLE_CURSOR_INFO cursorInfo;
+	cursorInfo.dwSize = 1;      // 设置光标大小，范围从1到100。值为1表示光标的高度为1%的窗口的高度，值为100表示光标的高度等于窗口的高度。
+	cursorInfo.bVisible = FALSE; // 设置光标的可见性。如果bVisible为TRUE，光标就是可见的。如果bVisible为FALSE，光标就是隐藏的。
+	SetConsoleCursorInfo(_activeBuffer, &cursorInfo); // 设置活动缓冲区的光标信息。
 }
