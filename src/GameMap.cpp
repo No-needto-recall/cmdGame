@@ -190,4 +190,10 @@ void DefaultMapInitializer::initialize(GameMap& map)
 			);
 		}
 	}
+	for (int i = 4; i < 9; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createGrassFromConf({i,5}),
+			{i,5}
+		);
+	}
 }

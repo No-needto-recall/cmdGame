@@ -112,6 +112,7 @@ AutoGameObject GamePlayer::GetObjectWithLocation(const Location& location) const
 
 void GamePlayer::MoveToLocation(const Location& newLocation)
 {
+	//如果新坐标不在地图内,则无需移动
 	if (!_mapNow->InGameMap(newLocation)) {
 		return;
 	}
