@@ -91,34 +91,18 @@ void Game::loadGameMap()
 
 void Game::loadPortal()
 {
-	PortalKey key = {
-		Config::instance().getConfigData().game.portals[0].fromLevel,
-		Config::instance().getConfigData().game.portals[0].fromMap,
-		{Config::instance().getConfigData().game.portals[0].fromX,
-		Config::instance().getConfigData().game.portals[0].fromY,},
-		
-	};
-	PortalInfo info = {
-		Config::instance().getConfigData().game.portals[0].toLevel,
-		Config::instance().getConfigData().game.portals[0].toMap,
-		{Config::instance().getConfigData().game.portals[0].toX,
-		Config::instance().getConfigData().game.portals[0].toY},
-	};
-	Location locationKey (get<2>(key));
-	Location locationInfo(get<2>(info));
-	AutoGameObject portal_1 = GameObjectFactory::getInstance().createPortalFromConf(locationKey);
-	AutoGameObject portal_2 = GameObjectFactory::getInstance().createPortalFromConf(locationInfo);
+	for (int i = 0; i < CONFIG_DATA.game.portals.size(); ++i) {
+		PortalKey key(PORTAL_MANAGER.GetKeyFromConf(i));
+		PortalInfo info(PORTAL_MANAGER.GetInfoFromConf(i));
 
-	//添加到对应的地图
-	_gameManager->GetNonConstLevel(get<0>(key))
-				->GetNonConstMap(get<1>(key))
-				->AddGameObject(portal_1,locationKey);
-	_gameManager->GetNonConstLevel(get<0>(info))
-				->GetNonConstMap(get<1>(info))
-				->AddGameObject(portal_2,locationInfo);
-	//注册到PortalManager
-	PORTAL_MANAGER.AddPortal(key,info);
-	PORTAL_MANAGER.AddPortal(info,key);
+		//添加到对应的地图
+		PORTAL_MANAGER.AddPortalObjectWith(key, *_gameManager);
+		PORTAL_MANAGER.AddPortalObjectWith(info, *_gameManager);
+		//注册到PortalManager
+		PORTAL_MANAGER.AddPortal(key, info);
+		PORTAL_MANAGER.AddPortal(info, key);
+	}
+
 }
 
 void Game::loadControl() {

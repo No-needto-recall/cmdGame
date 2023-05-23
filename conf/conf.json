@@ -35,6 +35,16 @@
         "toMap": "101号道路",
         "toX": 1,
         "toY": 7
+      },
+      {
+        "fromLevel": "测试关卡",
+        "fromMap": "未白镇",
+        "fromX": 1,
+        "fromY": 8,
+        "toLevel": "测试关卡",
+        "toMap": "未白镇",
+        "toX": 10,
+        "toY": 8
       }
     ]
   },

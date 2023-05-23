@@ -228,8 +228,24 @@ void UnwhiteTownMapInitializer::initialize(GameMap& map)
 
 	for (int i = 4; i < 15; ++i) {
 		map.AddGameObject(
-			GameObjectFactory::getInstance().createWallFromConf({i,7}),
-			{i,7}
+			GameObjectFactory::getInstance().createWallFromConf({i,6}),
+			{i,6}
+		);
+	}
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({i,10}),
+			{i,10}
+		);
+	}
+	for (int i = 7; i < 10; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({4,i}),
+			{4,i}
+		);
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({14,i}),
+			{14,i}
 		);
 	}
 }
