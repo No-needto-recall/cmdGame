@@ -35,7 +35,8 @@ public:
 private:
 	
 	GamePlayer* _player;
-	Pokemon* _pokemon;
+	Pokemon* _playerPokemon;//玩家目前使用的宝可梦
+	Pokemon* _pokemon;//与玩家对战的宝可梦
 	bool _inBattle; // 表示是否在战斗中
 	// 其他已经存在的函数和变量
 

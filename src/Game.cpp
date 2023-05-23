@@ -12,7 +12,7 @@ Game::Game()
 	,_Control()
 	,_player(nullptr)
 {
-	LOG_INFO("\r\n\n启动游戏");
+	LOG_INFO("-----启动游戏");
 	loadControl();
 	loadGameManager();
 	loadGamePlayer();
@@ -25,6 +25,12 @@ Game::~Game()
 }
 
 
+
+Game& Game::getInstance()
+{
+	static Game instance;
+	return instance;
+}
 
 void Game::start() {
 	LOG_INFO("game start");

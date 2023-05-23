@@ -9,11 +9,11 @@ using AutoGameManager = shared_ptr<GameManager>;
 class Game
 {
 public:
-	Game();
-	~Game();
-
+	//获取句柄
+	static Game& getInstance();
 	//开始游戏
 	void start();
+	~Game();
 private:
 	//加载玩家
 	void loadGamePlayer();
@@ -32,5 +32,9 @@ private:
 	AutoGameManager _gameManager;
 	InputHandler _Control;
 	AutoGamePlayer _player;//玩家
+	//单例模式，构造私有，禁用赋值语句
+	Game(const Game&) = delete;
+	void operator = (const Game&) = delete;
+	Game();
 };
 

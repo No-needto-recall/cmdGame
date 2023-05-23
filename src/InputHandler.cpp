@@ -33,7 +33,7 @@ AutoCmd& InputHandler::handleInput() {
 					//LOG_INFO("Q");
 					return _buttonQ;
 				default:
-					LOG_INFO("无效的按键 "+c);
+					LOG_INFO("无效的按键 ");
 					break;
 				}
 			}

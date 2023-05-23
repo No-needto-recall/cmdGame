@@ -5,9 +5,6 @@ using namespace std;
 
 int main(int argc,char* argv[]) {
 
-	Game pokemon;
-	pokemon.start();
+	Game::getInstance().start();
 	return 0;
-
-
 }
