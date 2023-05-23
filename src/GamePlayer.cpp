@@ -3,12 +3,14 @@
 #include "GameMap.h"
 #include "CollisionManager.h"
 #include "Log.h"
+#include "Config.h"
 
 
-GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject, AutoCollisionManager collision)
+GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject,const int& sight,  AutoCollisionManager collision)
 	:_name(name),_levelNow(levelNow),_mapNow(mapNow),_locationNow(location)
-	,_myObject(selfObject),_myCollision(std::move(collision))
-	,_lineOfSight(5)
+	,_myObject(selfObject)
+	,_lineOfSight(sight)
+	,_myCollision(std::move(collision))
 {
 }
 

@@ -27,6 +27,7 @@ void ConfigData::from_json(const nlohmann::json& j) {
 	player.mapID= utf8_to_local(j["player"]["mapID"].get<string>());
 	player.x= j["player"]["x"];
 	player.y= j["player"]["y"];
+	player.lineOfSight= j["player"]["lineOfSight"];
 
 	for (auto& mapJson: j["game"]["levels"]) {
 		game.levels.push_back({

@@ -14,6 +14,7 @@ struct PlayerData
     string mapID;
     int x;
     int y;
+    int lineOfSight;
 };
 
 

@@ -4,7 +4,8 @@
     "levelID": "测试关卡",
     "mapID": "未白镇",
     "x": 5,
-    "y": 5
+    "y": 5,
+    "lineOfSight": 5
   },
   "game": {
     "levels": [

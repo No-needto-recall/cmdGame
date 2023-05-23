@@ -23,7 +23,7 @@ class GamePlayer {
 public:
 	GamePlayer(const string& name,GameLevel* levelNow,GameMap* mapNow,
 			   const Location& location,AutoGameObject selfObject , 
-				AutoCollisionManager collision);
+				const int& sight,  AutoCollisionManager collision);
 
 	//获取名字
 	const string& GetName()const;

@@ -42,12 +42,12 @@ void Game::loadGamePlayer()
 {
 	//根据配置文件获取玩家当前所在关卡、地图、位置
 	GameLevel* nowLevel = _gameManager->GetNonConstLevel(
-						Config::instance().getConfigData().player.levelID);
+						CONFIG_DATA.player.levelID);
 	GameMap* nowMap = nowLevel->GetNonConstMap(
-						Config::instance().getConfigData().player.mapID);
+						CONFIG_DATA.player.mapID);
 	Location nowLoc = {
-		Config::instance().getConfigData().player.x,
-		Config::instance().getConfigData().player.y,
+		CONFIG_DATA.player.x,
+		CONFIG_DATA.player.y,
 	};
 	AutoGameObject obj = GameObjectFactory::getInstance().createPlayerFromConf(nowLoc);
 	//将玩家的obj添加到对应地图中
@@ -55,8 +55,9 @@ void Game::loadGamePlayer()
 	//创建玩家
 	AutoGamePlayer player(new
 		GamePlayer(
-			Config::instance().getConfigData().player.name,
+			CONFIG_DATA.player.name,
 			nowLevel, nowMap, nowLoc, obj,
+			CONFIG_DATA.player.lineOfSight,
 			AutoCollisionManager(new CollisionManager(_gameManager))
 			));
 	//绑定玩家
