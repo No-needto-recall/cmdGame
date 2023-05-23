@@ -55,6 +55,8 @@ public:
 
 	//移动
 	void MoveToLocation(const Location&);
+	//真实调用移动
+	void RealMove(const Location&);
 	void UpMove();
 	void DownMove();
 	void LeftMove();

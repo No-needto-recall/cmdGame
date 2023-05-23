@@ -136,6 +136,11 @@ void GamePlayer::MoveToLocation(const Location& newLocation)
 			return;
 		}
 	}
+	RealMove(newLocation);
+}
+
+void GamePlayer::RealMove(const Location& newLocation)
+{
 	_mapNow->MoveGameObject(_locationNow, newLocation);
 	LOG_INFO(_name + "从" + _locationNow.ToString() + "移动到" + newLocation.ToString());
 	_locationNow = newLocation;

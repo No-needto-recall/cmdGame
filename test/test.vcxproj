@@ -144,6 +144,7 @@
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GamePlayer.h" />
+    <ClInclude Include="..\include\GameTool.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\PortalManager.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\GamePlayer.cpp" />
+    <ClCompile Include="..\src\GameTool.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
