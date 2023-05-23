@@ -149,6 +149,7 @@
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Pokemon.h" />
+    <ClInclude Include="..\include\PokemonSkill.h" />
     <ClInclude Include="..\include\PokemonSpecies.h" />
     <ClInclude Include="..\include\PortalManager.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />

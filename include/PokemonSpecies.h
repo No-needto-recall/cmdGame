@@ -6,9 +6,9 @@
 using std::string;
 using std::vector;
 
-class Skill;
+class PokemonSkill;
 
-using Skills = vector<Skill>;
+using Skills = vector<PokemonSkill>;
 
 class PokemonSpecies {
 public:
@@ -27,7 +27,7 @@ public:
     int GetBaseSpeed() const;
 
     // 获取可以学习的技能
-     const Skill* GetLearnableSkill(int index) const;
+     const PokemonSkill* GetLearnableSkill(int index) const;
 
     // 其他可能的方法（例如获取进化信息）
 
