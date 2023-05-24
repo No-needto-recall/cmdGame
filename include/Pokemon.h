@@ -4,18 +4,22 @@
 #include <vector>
 #include "PokemonSkill.h"
 
+using std::string;
+
 class PokemonSpecies;
+
+using DataType = int;
 
 class Pokemon {
 public:
     // 构造函数，初始化宝可梦的属性
-    Pokemon(const PokemonSpecies* species, int level);
+    Pokemon(const PokemonSpecies* species, DataType level);
 
     // 获取宝可梦的名称
-    std::string GetName() const;
+    string GetName() const;
 
     // 获取宝可梦的等级
-    int GetLevel() const;
+    DataType GetLevel() const;
 
     // 宝可梦升级
     void LevelUp();
@@ -24,10 +28,10 @@ public:
     bool IsDefeated() const;
 
     // 宝可梦受到伤害
-    void TakeDamage(int amount);
+    void TakeDamage(DataType amount);
 
     // 宝可梦恢复生命值
-    void RecoverHP(int amount);
+    void RecoverHP(DataType amount);
 
     // 宝可梦使用技能
     void UseSkill(int index, Pokemon* target);
@@ -42,30 +46,27 @@ public:
     void EndBattle();
 
     // 获取宝可梦的生命值、攻击力、防御力等属性值
-    int GetCurrentHP() const;
-    int GetCurrentAttack() const;
-    int GetCurrentDefense() const;
-    int GetCurrentSpecialAttack() const;
-    int GetCurrentSpecialDefense() const;
-    int GetCurrentSpeed() const;
+    DataType GetCurrentHP() const;
+    DataType GetCurrentAttack() const;
+    DataType GetCurrentDefense() const;
+    DataType GetCurrentSpecialAttack() const;
+    DataType GetCurrentSpecialDefense() const;
+    DataType GetCurrentSpeed() const;
 
 private:
     const PokemonSpecies* _species; // 宝可梦的种类
-    int _level;                     // 宝可梦的等级
+    DataType _level;                     // 宝可梦的等级
+    DataType _individual;                // 宝可梦的个体值
+    DataType _individual;                // 宝可梦的个体值
 
     // 宝可梦的各项属性值
-    int _maxHP;                     // 宝可梦的最大生命值
-    int _currentHP;                 // 宝可梦的当前生命值
-    int _baseAttack;                // 宝可梦的基础攻击力
-    int _currentAttack;             // 宝可梦的当前攻击力
-    int _baseDefense;               // 宝可梦的基础防御力
-    int _currentDefense;            // 宝可梦的当前防御力
-    int _baseSpecialAttack;         // 宝可梦的基础特殊攻击力
-    int _currentSpecialAttack;      // 宝可梦的当前特殊攻击力
-    int _baseSpecialDefense;        // 宝可梦的基础特殊防御力
-    int _currentSpecialDefense;     // 宝可梦的当前特殊防御力
-    int _baseSpeed;                 // 宝可梦的基础速度
-    int _currentSpeed;              // 宝可梦的当前速度
+    DataType _maxHP;                     // 宝可梦的最大生命值
+    DataType _currentHP;                 // 宝可梦的当前生命值
+    DataType _currentAttack;             // 宝可梦的当前攻击力
+    DataType _currentDefense;            // 宝可梦的当前防御力
+    DataType _currentSpecialAttack;      // 宝可梦的当前特殊攻击力
+    DataType _currentSpecialDefense;     // 宝可梦的当前特殊防御力
+    DataType _currentSpeed;              // 宝可梦的当前速度
 
     std::vector<PokemonSkill*> _skills; // 宝可梦的技能列表
 };

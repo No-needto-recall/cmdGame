@@ -149,6 +149,7 @@
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
     <ClInclude Include="..\include\Pokemon.h" />
+    <ClInclude Include="..\include\PokemonDataCalculation.h" />
     <ClInclude Include="..\include\PokemonSkill.h" />
     <ClInclude Include="..\include\PokemonSpecies.h" />
     <ClInclude Include="..\include\PortalManager.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="..\src\InputHandler.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\PokemonDataCalculation.cpp" />
     <ClCompile Include="..\src\PortalManager.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>
