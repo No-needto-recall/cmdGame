@@ -21,3 +21,6 @@ private:
     std::unique_ptr<ConfigData> _data;
 };
 
+
+#define CONFIG_DATA Config::instance().getConfigData()
+

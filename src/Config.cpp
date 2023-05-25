@@ -1,4 +1,4 @@
-#include "config.h"
+#include "Config.h"
 
 Config& Config::instance() {
     static Config instance;

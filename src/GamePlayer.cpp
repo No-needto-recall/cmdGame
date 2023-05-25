@@ -3,11 +3,14 @@
 #include "GameMap.h"
 #include "CollisionManager.h"
 #include "Log.h"
+#include "Config.h"
 
 
-GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject, AutoCollisionManager collision)
+GamePlayer::GamePlayer(const string& name, GameLevel* levelNow, GameMap* mapNow, const Location& location, AutoGameObject selfObject,const int& sight,  AutoCollisionManager collision)
 	:_name(name),_levelNow(levelNow),_mapNow(mapNow),_locationNow(location)
-	,_myObject(selfObject),_myCollision(std::move(collision))
+	,_myObject(selfObject)
+	,_lineOfSight(sight)
+	,_myCollision(std::move(collision))
 {
 }
 
@@ -110,6 +113,16 @@ AutoGameObject GamePlayer::GetObjectWithLocation(const Location& location) const
 	return _mapNow->GetGameObject(location);
 }
 
+int GamePlayer::GetLineOfSight() const
+{
+	return _lineOfSight;
+}
+
+void GamePlayer::SetLineOfSight(const int& sight)
+{
+	_lineOfSight = sight;
+}
+
 void GamePlayer::MoveToLocation(const Location& newLocation)
 {
 	//如果新坐标不在地图内,则无需移动
@@ -123,6 +136,11 @@ void GamePlayer::MoveToLocation(const Location& newLocation)
 			return;
 		}
 	}
+	RealMove(newLocation);
+}
+
+void GamePlayer::RealMove(const Location& newLocation)
+{
 	_mapNow->MoveGameObject(_locationNow, newLocation);
 	LOG_INFO(_name + "从" + _locationNow.ToString() + "移动到" + newLocation.ToString());
 	_locationNow = newLocation;

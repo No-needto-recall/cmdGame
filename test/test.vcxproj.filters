@@ -24,9 +24,6 @@
     <ClInclude Include="..\include\CollisionManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\config.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Config_data.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -58,6 +55,33 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\PortalManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameBattleManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameTool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Pokemon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonDataCalculation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonSkill.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonSpecies.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonDatas.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonFactory.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -112,6 +136,30 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PortalManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameBattleManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonDataCalculation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Pokemon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonDatas.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonSpecies.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonSkill.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonFactory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

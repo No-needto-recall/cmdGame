@@ -1,6 +1,6 @@
 #include "PortalManager.h"
 #include "Log.h"
-#include "config.h"
+#include "Config.h"
 
 //静态数据成员初始化
 PortalInfo PortalManager::invalidPortalInfo = { "","",{-1,-1} };
@@ -64,4 +64,34 @@ string PortalManager::KeyToString(const PortalKey& key)
 string PortalManager::InfoToString(const PortalInfo& info)
 {
 	return string(get<0>(info)+":" + get<1>(info) +":" + get<2>(info).ToString());
+}
+
+PortalKey PortalManager::GetKeyFromConf(int index) const
+{
+	return PortalKey({
+		CONFIG_DATA.game.portals[index].fromLevel,
+		CONFIG_DATA.game.portals[index].fromMap,
+		{CONFIG_DATA.game.portals[index].fromX,
+		CONFIG_DATA.game.portals[index].fromY,}
+		});
+}
+
+PortalInfo PortalManager::GetInfoFromConf(int index) const
+{
+	return PortalInfo({
+		CONFIG_DATA.game.portals[index].toLevel,
+		CONFIG_DATA.game.portals[index].toMap,
+		{CONFIG_DATA.game.portals[index].toX,
+		CONFIG_DATA.game.portals[index].toY,}
+		});
+}
+
+void PortalManager::AddPortalObjectWith(const PortalMsg& msg, GameManager& gameManager)
+{
+	Location location(get<2>(msg));
+	gameManager.GetNonConstLevel(get<0>(msg))
+			   ->GetNonConstMap(get<1>(msg))
+			   ->AddGameObject(
+			GameObjectFactory::getInstance().createPortalFromConf(location),
+			location);
 }

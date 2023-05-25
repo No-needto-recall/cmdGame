@@ -4,7 +4,8 @@
     "levelID": "测试关卡",
     "mapID": "未白镇",
     "x": 5,
-    "y": 5
+    "y": 5,
+    "lineOfSight": 5
   },
   "game": {
     "levels": [
@@ -15,13 +16,13 @@
     "maps": [
       {
         "mapid": "未白镇",
-        "maxRows": 10,
-        "maxColumns": 20
+        "maxRows": 20,
+        "maxColumns": 40
       },
       {
         "mapid": "101号道路",
-        "maxRows": 10,
-        "maxColumns": 20
+        "maxRows": 20,
+        "maxColumns": 40
       }
     ],
     "portals": [
@@ -34,6 +35,16 @@
         "toMap": "101号道路",
         "toX": 1,
         "toY": 7
+      },
+      {
+        "fromLevel": "测试关卡",
+        "fromMap": "未白镇",
+        "fromX": 1,
+        "fromY": 8,
+        "toLevel": "测试关卡",
+        "toMap": "未白镇",
+        "toX": 10,
+        "toY": 8
       }
     ]
   },
@@ -45,7 +56,7 @@
       },
       {
         "name": "地面",
-        "icon": 95 
+        "icon": 95
       },
       {
         "name": "墙壁",
@@ -60,5 +71,23 @@
         "icon": 109
       }
     ]
-  }
+  },
+  "pokemonSkills":[
+    {
+      "name": "拍击",
+      "category": 0,
+      "power": 40,
+      "accuracy": 100,
+      "priority": 0,
+      "maxPP": 35
+    },
+    {
+      "name": "打雷",
+      "category": 1,
+      "power": 120,
+      "accuracy": 70,
+      "priority": 0,
+      "maxPP": 10
+    }
+  ]
 }

@@ -136,16 +136,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CollisionManager.h" />
-    <ClInclude Include="..\include\config.h" />
+    <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Config_data.h" />
     <ClInclude Include="..\include\Game.h" />
+    <ClInclude Include="..\include\GameBattleManager.h" />
     <ClInclude Include="..\include\GameLevel.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameMap.h" />
     <ClInclude Include="..\include\GameObject.h" />
     <ClInclude Include="..\include\GamePlayer.h" />
+    <ClInclude Include="..\include\GameTool.h" />
     <ClInclude Include="..\include\InputHandler.h" />
     <ClInclude Include="..\include\Log.h" />
+    <ClInclude Include="..\include\Pokemon.h" />
+    <ClInclude Include="..\include\PokemonDataCalculation.h" />
+    <ClInclude Include="..\include\PokemonDatas.h" />
+    <ClInclude Include="..\include\PokemonFactory.h" />
+    <ClInclude Include="..\include\PokemonSkill.h" />
+    <ClInclude Include="..\include\PokemonSpecies.h" />
     <ClInclude Include="..\include\PortalManager.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
@@ -161,14 +169,22 @@
     <ClCompile Include="..\src\Config.cpp" />
     <ClCompile Include="..\src\Config_data.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\GameBattleManager.cpp" />
     <ClCompile Include="..\src\GameLevel.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameMap.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\GamePlayer.cpp" />
+    <ClCompile Include="..\src\GameTool.cpp" />
     <ClCompile Include="..\src\InputHandler.cpp" />
     <ClCompile Include="..\src\Log.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Pokemon.cpp" />
+    <ClCompile Include="..\src\PokemonDataCalculation.cpp" />
+    <ClCompile Include="..\src\PokemonDatas.cpp" />
+    <ClCompile Include="..\src\PokemonFactory.cpp" />
+    <ClCompile Include="..\src\PokemonSkill.cpp" />
+    <ClCompile Include="..\src\PokemonSpecies.cpp" />
     <ClCompile Include="..\src\PortalManager.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
   </ItemGroup>

@@ -23,7 +23,7 @@ class GamePlayer {
 public:
 	GamePlayer(const string& name,GameLevel* levelNow,GameMap* mapNow,
 			   const Location& location,AutoGameObject selfObject , 
-				AutoCollisionManager collision);
+				const int& sight,  AutoCollisionManager collision);
 
 	//获取名字
 	const string& GetName()const;
@@ -48,10 +48,15 @@ public:
 	//根据位置获取当前所在地图的object
 	AutoGameObject GetObjectWithLocation(const Location&)const;
 
-
+	//获取视距
+	int GetLineOfSight()const;
+	//设置视距
+	void SetLineOfSight(const int& sight);
 
 	//移动
 	void MoveToLocation(const Location&);
+	//真实调用移动
+	void RealMove(const Location&);
 	void UpMove();
 	void DownMove();
 	void LeftMove();
@@ -65,7 +70,9 @@ private:
 	GameMap* _mapNow;//当前所在的地图
 	Location _locationNow;//当前的坐标值
 	AutoGameObject _myObject;//自身的object
+	int _lineOfSight;//视距
 	AutoCollisionManager _myCollision;//绑定的碰撞逻辑
+
 };
 
 //玩家类单例工厂

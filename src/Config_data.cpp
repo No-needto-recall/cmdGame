@@ -23,26 +23,27 @@ std::string utf8_to_local(const std::string& utf8_str) {
 
 void ConfigData::from_json(const nlohmann::json& j) {
 	player.name = utf8_to_local(j["player"]["name"].get<string>());
-	player.levelID= utf8_to_local(j["player"]["levelID"].get<string>());
-	player.mapID= utf8_to_local(j["player"]["mapID"].get<string>());
-	player.x= j["player"]["x"];
-	player.y= j["player"]["y"];
+	player.levelID = utf8_to_local(j["player"]["levelID"].get<string>());
+	player.mapID = utf8_to_local(j["player"]["mapID"].get<string>());
+	player.x = j["player"]["x"];
+	player.y = j["player"]["y"];
+	player.lineOfSight = j["player"]["lineOfSight"];
 
-	for (auto& mapJson: j["game"]["levels"]) {
+	for (auto& mapJson : j["game"]["levels"]) {
 		game.levels.push_back({
 			utf8_to_local(mapJson["levelid"].get<string>()),
-		});
+			});
 	}
 
-	for (auto& mapJson: j["game"]["maps"]) {
+	for (auto& mapJson : j["game"]["maps"]) {
 		game.maps.push_back({
 			utf8_to_local(mapJson["mapid"].get<string>()),
 			mapJson["maxRows"],
 			mapJson["maxColumns"]
-		});
+			});
 	}
 
-	for (auto& mapJson: j["game"]["portals"]) {
+	for (auto& mapJson : j["game"]["portals"]) {
 		game.portals.push_back({
 			utf8_to_local(mapJson["fromLevel"].get<string>()),
 			utf8_to_local(mapJson["fromMap"].get<string>()),
@@ -52,14 +53,25 @@ void ConfigData::from_json(const nlohmann::json& j) {
 			utf8_to_local(mapJson["toMap"].get<string>()),
 			mapJson["toX"],
 			mapJson["toY"],
-		});
-		
+			});
+
 	}
 
 	for (auto& mapJson : j["object"]["types"]) {
 		object.types.push_back({
 			utf8_to_local(mapJson["name"].get<string>()),
 			static_cast<char>(mapJson["icon"].get<int>())
+			});
+	}
+
+	for (auto& mapJson : j["pokemonSkills"]) {
+		pokemonSkills.push_back({
+			utf8_to_local(mapJson["name"].get<string>()),
+			mapJson["category"],
+			mapJson["power"],
+			mapJson["accuracy"],
+			mapJson["priority"],
+			mapJson["maxPP"]
 			});
 	}
 }

@@ -20,6 +20,9 @@ public:
 
 	//处理与传送门的碰撞
 	void CollisionWithThePortal(AutoGameObject obj,const Location& location, GameMap& map,GameLevel& level);
+
+	//处理与草的碰撞
+	void CollisionWithTheGrass(AutoGameObject obj, const Location& location, GameMap& map, GameLevel& level);
 private:
 	AutoGameManager _gameManager;
 };

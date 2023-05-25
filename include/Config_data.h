@@ -14,6 +14,7 @@ struct PlayerData
     string mapID;
     int x;
     int y;
+    int lineOfSight;
 };
 
 
@@ -46,6 +47,15 @@ struct PortalData {
     int toY;
 };
 
+struct PokemonSkillData {
+    string name;
+    int category;
+    int power;
+    int accuracy;
+    int priority;
+    int maxPP;
+};
+
 struct ConfigData {
     PlayerData player;
 
@@ -58,6 +68,7 @@ struct ConfigData {
     struct Object {
         vector<TypeData> types;
     }object;
+    vector<PokemonSkillData> pokemonSkills;
 
     void from_json(const nlohmann::json& j);
 };

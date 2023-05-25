@@ -37,9 +37,17 @@ public:
       // 如果不存在，返回nullptr
     PortalInfo GetPortalInfo(const PortalKey& key);
 
-    
+    //类型转换 
     string KeyToString(const PortalKey& key);
     string InfoToString(const PortalInfo& info);
+
+    //从配置文件获取Key、Info
+    PortalKey GetKeyFromConf(int index)const;
+    PortalInfo GetInfoFromConf(int index)const;
+
+    //根据PortalMsg通过_gameManager添加PortalObject
+    void AddPortalObjectWith(const PortalMsg& msg , GameManager& gameManager);
+
     static PortalInfo invalidPortalInfo;//无效的传送门信息
 private:
 	PortalManager()=default;

@@ -4,6 +4,9 @@
 #include "Config.h"
 #include "ScreenDrawer.h"
 
+//声明静态数据成员
+char GameMap::_defaultIcon = '&';
+
 GameMap::GameMap(const MapID& id, int rows, int cols,AutoMapInit init)
 	:_id(id)
 	,_rows(rows)
@@ -133,6 +136,16 @@ const GameMapGrid& GameMap::GetMapGrid() const
 	return _grid;
 }
 
+Icon GameMap::GetIconWith(const Location& location) const
+{
+	if (HasGameObject(location)) {
+		return GetGameObject(location)->GetIcon();
+	}
+	else {
+		return _defaultIcon;
+	}
+}
+
 void GameObjectStack::Push(AutoGameObject obj)
 {
 	_stack.push(obj);
@@ -215,8 +228,24 @@ void UnwhiteTownMapInitializer::initialize(GameMap& map)
 
 	for (int i = 4; i < 15; ++i) {
 		map.AddGameObject(
-			GameObjectFactory::getInstance().createWallFromConf({i,7}),
-			{i,7}
+			GameObjectFactory::getInstance().createWallFromConf({i,6}),
+			{i,6}
+		);
+	}
+	for (int i = 4; i < 15; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({i,10}),
+			{i,10}
+		);
+	}
+	for (int i = 7; i < 10; ++i) {
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({4,i}),
+			{4,i}
+		);
+		map.AddGameObject(
+			GameObjectFactory::getInstance().createWallFromConf({14,i}),
+			{14,i}
 		);
 	}
 }

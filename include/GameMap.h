@@ -79,12 +79,14 @@ public:
     void Print() const;
     //获取地图网格
     const GameMapGrid& GetMapGrid()const;
+    //获取图标
+    Icon GetIconWith(const Location& location)const;
 private:
     MapID _id;//地图id
     const int _rows, _cols;//行、列
     GameMapGrid _grid;//地图网格
     AutoMapInit _initFunc;//初始化
-
+    static  char _defaultIcon;//处理异常
 };
 
 //用于设计map的初始化函数
