@@ -1,4 +1,5 @@
 #include "PokemonSpecies.h"
+#include "Log.h"
 
 string PokemonSpecies::GetSpeciesName() const
 {
@@ -13,4 +14,16 @@ const PokemonDatas& PokemonSpecies::GetBasicData() const
 DataType PokemonSpecies::GetBasicEmpirical() const
 {
 	return _basicEmpirical;
+}
+
+AutoSkill PokemonSpecies::GetLearnableSkill(int index) const
+{
+	if (index < 0 || index >= _learnableSkills.size()) {
+		LOG_ERROR("尝试从种类中使用非法下标");
+		return nullptr;
+	}
+	else
+	{
+		return _learnableSkills[index];
+	}
 }

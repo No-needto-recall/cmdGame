@@ -2,12 +2,18 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "PokemonDatas.h"
 
 using std::string;
+using std::shared_ptr;
+using std::vector;
 
 class PokemonSpecies;
 class PokemonSkill;
+
+using AutoSkill = shared_ptr<PokemonSkill>;
+using Skills = vector<AutoSkill>;
 
 class Pokemon {
 public:
@@ -32,17 +38,23 @@ public:
     // 宝可梦使用技能
     void UseSkill(int index, Pokemon* target);
 
-    // 宝可梦学习新的技能
-    bool LearnSkill(PokemonSkill* newSkill);
+    // 宝可梦添加新的技能
+    bool AddSkill(AutoSkill  newSkill);
+    // 宝可梦删除持有的技能
+    bool Delete(int index);
+
+    //宝可梦替换新的技能
+    bool ReplaceSkill(int index, AutoSkill newSkill);
 
     // 检查宝可梦是否可以战斗
     bool CanBattle() const;
 
-    // 战斗结束，恢复战前的属性值
-    void EndBattle();
+    // 刷新宝可梦的能力值
+    void RefreshCapability();
 
     //获取宝可梦的种类信息
     const PokemonSpecies* GetSpecies() const;
+    //获取宝可梦种类的基础信息
     const PokemonDatas& GetBasicData()const;
 
     //获取宝可梦当前属性
@@ -56,9 +68,11 @@ public:
     const DataType& GetMaxHp()const;
 
 private:
-    const PokemonSpecies* _species; // 宝可梦的种类
-    PokemonDatas _individual;            // 宝可梦的个体值
-    PokemonDatas _currentData;           //宝可梦的当前属性
+    string _name;                            //宝可梦的名字
+
+    const PokemonSpecies* _species;      // 宝可梦的种类
+    const PokemonDatas _individual;      // 宝可梦的个体值
+    PokemonDatas _currentData;           //宝可梦的当前能力值
     PokemonDatas _basePoint;             //宝可梦的基础点数
     // 宝可梦的属性值
     DataType _level;                     // 等级
@@ -66,6 +80,5 @@ private:
     DataType _maxEmpirical;              // 升级所需经验值
     DataType _maxHp;                     // 最大生命值
 
-
-    std::vector<PokemonSkill*> _skills; // 宝可梦的技能列表
+    Skills _skills;                 // 宝可梦的技能列表
 };

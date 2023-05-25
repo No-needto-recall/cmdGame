@@ -28,3 +28,6 @@ private:
 	static DataType _defaultData;
 };
 
+
+#define CALCULATION PokemonDataCalculation::getInstance()
+

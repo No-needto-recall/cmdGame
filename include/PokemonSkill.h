@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 
+using std::string;
+
+
 //前置声明
 class Pokemon;
 // 技能分类
@@ -34,8 +37,7 @@ public:
     // 其他可能的方法，例如设定/获取附加效果
 
 private:
-    std::string _name;       // 技能的名称
-    std::string _type;       // 技能的类型
+    string _name;       // 技能的名称
     SkillCategory _category; // 技能的分类
     int _power;              // 技能的威力
     int _accuracy;           // 技能的命中率

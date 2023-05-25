@@ -2,16 +2,18 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "PokemonDatas.h"
 
 using std::string;
 using std::vector;
+using std::shared_ptr;
 
 //前置声明
 class PokemonSkill;
 
-using Skills = vector<PokemonSkill*>;
-using DataType = int;
+using AutoSkill = shared_ptr<PokemonSkill>;
+using Skills = vector<AutoSkill>;
 
 
 
@@ -32,7 +34,7 @@ public:
     DataType GetBasicEmpirical()const;
 
     // 获取可以学习的技能
-     const PokemonSkill* GetLearnableSkill(int index) const;
+     AutoSkill GetLearnableSkill(int index) const;
 
     // 其他可能的方法（例如获取进化信息）
 
