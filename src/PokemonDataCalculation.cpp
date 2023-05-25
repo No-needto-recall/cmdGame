@@ -69,6 +69,30 @@ DataType PokemonDataCalculation::CalculatPokemonData(Pokemon* pokemon, PokemonDa
 
 }
 
+DataType PokemonDataCalculation::CalculatDamage(PokemonSkill* skill, Pokemon* from, Pokemon* to)
+{
+	DataType fromAttack = _defaultData;
+	DataType toDefense= _defaultData;
+	switch (skill->GetType()->GetCategory())
+	{
+	case PHYSICAL:
+		fromAttack = from->GetCurrentData().Attack;
+		toDefense = from->GetCurrentData().Defense;
+		break;
+	case SPECIAL:
+		fromAttack = from->GetCurrentData().SpecialAttack;
+		toDefense = from->GetCurrentData().SpecialDefense;
+		break;
+	case STATUS:
+		break;
+	default:
+		break;
+	}
+	DataType fromLevel= from->GetLevel();
+	DataType fromPower= skill->GetType()->GetPower();
+	return (2 * fromLevel + 10) / 250 * fromAttack / toDefense * fromPower + 2;
+}
+
 PokemonDataCalculation::PokemonDataCalculation()
 {
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pokemon.h"
+#include "PokemonSkill.h"
 
 enum PokemonDataType :int
 {
@@ -21,6 +22,7 @@ public:
 	//HP:(种族值*2+个体值+基础点数/4）*等级/100+5
 	//Other:(种族值*2+个体值+基础点数/4）*等级/100+10+等级
 	DataType CalculatPokemonData(Pokemon* pokemon,PokemonDataType type);
+	DataType CalculatDamage(PokemonSkill* skill, Pokemon* from, Pokemon* to);
 private:
 	PokemonDataCalculation();
 	PokemonDataCalculation(const PokemonDataCalculation&) = delete;

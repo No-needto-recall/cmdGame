@@ -1,4 +1,5 @@
 #include "PokemonSkill.h"
+#include "PokemonDataCalculation.h"
 #include "Pokemon.h"
 #include "Log.h"
 #include "Config.h"
@@ -91,7 +92,7 @@ bool PokemonSkill::HasPP() const
 void PokemonPhysicalSkill::Use(Pokemon* user, Pokemon* target)
 {
 	DecreasePP(1);
-	DataType val = user->GetCurrentData().Attack - target->GetCurrentData().Defense;
+	DataType val = CALCULATION.CalculatDamage(this, user, target);
 	if (val >= 0) {
 		target->TakeDamage(val);
 	}
@@ -100,7 +101,7 @@ void PokemonPhysicalSkill::Use(Pokemon* user, Pokemon* target)
 void PokemonSpecialSkill::Use(Pokemon* user, Pokemon* target)
 {
 	DecreasePP(1);
-	DataType val = user->GetCurrentData().SpecialAttack- target->GetCurrentData().SpecialDefense;
+	DataType val = CALCULATION.CalculatDamage(this, user, target);
 	if (val >= 0) {
 		target->TakeDamage(val);
 	}
