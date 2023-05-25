@@ -3,6 +3,7 @@
 #include "PokemonSkill.h"
 #include "PokemonDataCalculation.h"
 #include "Log.h"
+#include "GameTool.h"
 
 
 
@@ -50,6 +51,26 @@ DataType Pokemon::GetLevel() const
 const DataType& Pokemon::GetMaxHp() const
 {
 	return _maxHp;
+}
+
+Pokemon::Pokemon(const PokemonSpecies* species, DataType level)
+	:_name(species->GetSpeciesName())
+	,_species(species)
+	, _individual({
+	GameTool::randomAtoB(0,31), 
+	GameTool::randomAtoB(0,31), 
+	GameTool::randomAtoB(0,31), 
+	GameTool::randomAtoB(0,31), 
+	GameTool::randomAtoB(0,31), 
+	GameTool::randomAtoB(0,31), 
+		})
+	,_currentData(species->GetBasicData())
+	,_basePoint({0,0,0,0,0,0})
+	,_level(level)
+	,_currentEmpirical(0)
+	,_maxEmpirical(CALCULATION.CalculatEmpiricalMax(level))
+	,_maxHp(species->GetBasicData().HP)
+{
 }
 
 string Pokemon::GetName() const

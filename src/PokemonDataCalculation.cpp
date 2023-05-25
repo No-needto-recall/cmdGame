@@ -93,6 +93,47 @@ DataType PokemonDataCalculation::CalculatDamage(PokemonSkill* skill, Pokemon* fr
 	return (2 * fromLevel + 10) / 250 * fromAttack / toDefense * fromPower + 2;
 }
 
+DataType PokemonDataCalculation::CalculatEmpiricalMax(DataType level)
+{
+	DataType empirical = _defaultData;
+	switch (level)
+	{
+	case 1:
+		empirical = 6;
+		break;
+	case 2:
+		empirical = 21;
+		break;
+	case 3:
+		empirical = 51;
+		break;
+	case 4:
+		empirical = 100;
+		break;
+	case 5:
+		empirical = 172;
+		break;
+	case 6:
+		empirical = 274;
+		break;
+	case 7:
+		empirical = 409;
+		break;
+	case 8:
+		empirical = 583;
+		break;
+	case 9:
+		empirical = 800;
+		break;
+	case 10:
+		empirical = 1064;
+		break;
+	default:
+		break;
+	}
+	return empirical;
+}
+
 PokemonDataCalculation::PokemonDataCalculation()
 {
 }

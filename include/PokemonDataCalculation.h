@@ -23,6 +23,7 @@ public:
 	//Other:(种族值*2+个体值+基础点数/4）*等级/100+10+等级
 	DataType CalculatPokemonData(Pokemon* pokemon,PokemonDataType type);
 	DataType CalculatDamage(PokemonSkill* skill, Pokemon* from, Pokemon* to);
+	DataType CalculatEmpiricalMax(DataType level);
 private:
 	PokemonDataCalculation();
 	PokemonDataCalculation(const PokemonDataCalculation&) = delete;

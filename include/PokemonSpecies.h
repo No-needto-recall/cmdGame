@@ -36,6 +36,8 @@ public:
 
     // 获取基础属性值
     const PokemonDatas& GetBasicData()const;
+    // 获取基础点数值
+    const PokemonDatas& GetBasePointData()const;
 
     // 获取基础经验值
     DataType GetBasicEmpirical()const;

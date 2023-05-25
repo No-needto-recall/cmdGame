@@ -20,6 +20,11 @@ const PokemonDatas& PokemonSpecies::GetBasicData() const
 	return _basicData;
 }
 
+const PokemonDatas& PokemonSpecies::GetBasePointData() const
+{
+	return _basePoint;
+}
+
 DataType PokemonSpecies::GetBasicEmpirical() const
 {
 	return _basicEmpirical;
