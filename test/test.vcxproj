@@ -151,6 +151,7 @@
     <ClInclude Include="..\include\Pokemon.h" />
     <ClInclude Include="..\include\PokemonDataCalculation.h" />
     <ClInclude Include="..\include\PokemonDatas.h" />
+    <ClInclude Include="..\include\PokemonFactory.h" />
     <ClInclude Include="..\include\PokemonSkill.h" />
     <ClInclude Include="..\include\PokemonSpecies.h" />
     <ClInclude Include="..\include\PortalManager.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="..\src\Pokemon.cpp" />
     <ClCompile Include="..\src\PokemonDataCalculation.cpp" />
     <ClCompile Include="..\src\PokemonDatas.cpp" />
+    <ClCompile Include="..\src\PokemonFactory.cpp" />
     <ClCompile Include="..\src\PokemonSkill.cpp" />
     <ClCompile Include="..\src\PokemonSpecies.cpp" />
     <ClCompile Include="..\src\PortalManager.cpp" />

@@ -1,6 +1,15 @@
 #include "PokemonSpecies.h"
 #include "Log.h"
 
+PokemonSpecies::PokemonSpecies(const string& speciesName, const PokemonDatas& basicData, const PokemonDatas& basicPoint, const DataType& basicEmpirical, const Skills& learnableSkils)
+	:_speciesName(speciesName)
+	,_basicData(basicData)
+	,_basePoint(basicPoint)
+	,_basicEmpirical(basicEmpirical)
+	,_learnableSkills(learnableSkils)
+{
+}
+
 string PokemonSpecies::GetSpeciesName() const
 {
 	return _speciesName;

@@ -105,3 +105,6 @@ private:
     void operator = (const GameObjectFactory&) = delete;
     GameObjectFactory();
 };
+
+
+#define GAMEOBJECT_FACTORY GameObjectFactory::getInstance() 
