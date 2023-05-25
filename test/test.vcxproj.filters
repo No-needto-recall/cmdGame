@@ -60,6 +60,24 @@
     <ClInclude Include="..\include\PortalManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\GameBattleManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameTool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Pokemon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonDataCalculation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonSkill.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PokemonSpecies.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\log\log.txt">
@@ -112,6 +130,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PortalManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameBattleManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameTool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonDataCalculation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Pokemon.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

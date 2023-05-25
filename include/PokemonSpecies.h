@@ -6,7 +6,9 @@
 using std::string;
 using std::vector;
 
+//前置声明
 class PokemonSkill;
+struct PokemonDatas;
 
 using Skills = vector<PokemonSkill*>;
 using DataType = int;
@@ -22,12 +24,10 @@ public:
     string GetSpeciesName() const;
 
     // 获取基础属性值
-    DataType GetBaseHP() const;
-    DataType GetBaseAttack() const;
-    DataType GetBaseDefense() const;
-    DataType GetBaseSpecialAttack() const;
-    DataType GetBaseSpecialDefense() const;
-    DataType GetBaseSpeed() const;
+    const PokemonDatas& GetBasicData()const;
+
+    // 获取基础经验值
+    DataType GetBasicEmpirical()const;
 
     // 获取可以学习的技能
      const PokemonSkill* GetLearnableSkill(int index) const;
@@ -36,13 +36,8 @@ public:
 
 private:
     // 宝可梦种类的各项属性值
+    PokemonDatas _basicData;            //基础属性
     string _speciesName;                //种类名称
-    DataType _baseHP;                   //基础生命值
-    DataType _baseAttack;               //基础攻击力
-    DataType _baseDefense;              //基础防御力
-    DataType _baseSpecialAttack;        //基础特殊攻击力
-    DataType _baseSpecialDefense;       //基础特殊防御力
-    DataType _baseSpeed;                //基础速度
 	DataType _basicEmpirical;           //基础经验值
     Skills  _learnableSkills;           //能学习的技能表
 };
