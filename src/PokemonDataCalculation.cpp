@@ -1,5 +1,6 @@
 #include "PokemonDataCalculation.h"
-#include "PokemonSpecies.h"
+
+
 
 //静态数据成员初始化
 DataType PokemonDataCalculation::_defaultData = 1;

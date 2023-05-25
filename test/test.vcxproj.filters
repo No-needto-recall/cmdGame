@@ -78,6 +78,9 @@
     <ClInclude Include="..\include\PokemonSpecies.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\PokemonDatas.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\log\log.txt">
@@ -142,6 +145,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Pokemon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonDatas.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PokemonSpecies.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

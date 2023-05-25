@@ -81,14 +81,14 @@ public:
 };
 
 //特殊类技能
-class PokemonPhysicalSkill :public PokemonSkill {
+class PokemonSpecialSkill :public PokemonSkill {
 public:
     using PokemonSkill::PokemonSkill;
     virtual void Use(Pokemon* user, Pokemon* target) override;
 };
 
 //状态类技能
-class PokemonPhysicalSkill :public PokemonSkill {
+class PokemonStatusSkill :public PokemonSkill {
 public:
     using PokemonSkill::PokemonSkill;
     virtual void Use(Pokemon* user, Pokemon* target) override;

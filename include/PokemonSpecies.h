@@ -2,16 +2,18 @@
 
 #include <string>
 #include <vector>
+#include "PokemonDatas.h"
 
 using std::string;
 using std::vector;
 
 //前置声明
 class PokemonSkill;
-struct PokemonDatas;
 
 using Skills = vector<PokemonSkill*>;
 using DataType = int;
+
+
 
 class PokemonSpecies {
 public:

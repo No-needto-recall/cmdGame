@@ -2,24 +2,12 @@
 
 #include <string>
 #include <vector>
-#include "PokemonSkill.h"
+#include "PokemonDatas.h"
 
 using std::string;
 
 class PokemonSpecies;
-
-using DataType = int;
-
-struct PokemonDatas
-{
-    DataType HP;                 // 宝可梦的生命值
-    DataType Attack;             // 宝可梦的攻击力
-    DataType Defense;            // 宝可梦的防御力
-    DataType SpecialAttack;      // 宝可梦的特殊攻击力
-    DataType SpecialDefense;     // 宝可梦的特殊防御力
-    DataType Speed;              // 宝可梦的速度
-};
-
+class PokemonSkill;
 
 class Pokemon {
 public:
@@ -76,6 +64,7 @@ private:
     DataType _level;                     // 等级
     DataType _currentEmpirical;          // 当前经验值
     DataType _maxEmpirical;              // 升级所需经验值
+    DataType _maxHp;                     // 最大生命值
 
 
     std::vector<PokemonSkill*> _skills; // 宝可梦的技能列表
