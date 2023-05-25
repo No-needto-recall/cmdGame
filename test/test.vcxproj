@@ -181,6 +181,7 @@
     <ClCompile Include="..\src\Pokemon.cpp" />
     <ClCompile Include="..\src\PokemonDataCalculation.cpp" />
     <ClCompile Include="..\src\PokemonDatas.cpp" />
+    <ClCompile Include="..\src\PokemonSkill.cpp" />
     <ClCompile Include="..\src\PokemonSpecies.cpp" />
     <ClCompile Include="..\src\PortalManager.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
