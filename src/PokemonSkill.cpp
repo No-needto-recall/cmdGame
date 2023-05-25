@@ -1,6 +1,7 @@
 #include "PokemonSkill.h"
 #include "Pokemon.h"
 #include "Log.h"
+#include "Config.h"
 
 PokemonSkillType::PokemonSkillType(const string& name, SkillCategory category, int power, int accuracy, int priority, int maxPP)
 	:_name(name)
@@ -137,6 +138,19 @@ AutoSkill PokemonSkillTypeFactory::create(const string& name, SkillCategory cate
 		return nullptr;
 		break;
 	}
+}
+
+AutoSkill PokemonSkillTypeFactory::createWithConfig(int index)
+{
+	auto& data = CONFIG_DATA.pokemonSkills[index];
+	return create(
+		data.name,
+		static_cast<SkillCategory>(data.category),
+		data.power,
+		data.accuracy,
+		data.priority,
+		data.maxPP
+	);
 }
 
 PokemonSkillTypeFactory::PokemonSkillTypeFactory()

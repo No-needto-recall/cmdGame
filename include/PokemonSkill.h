@@ -13,7 +13,7 @@ class Pokemon;
 class PokemonSkill;
 class PokemonSkillType;
 // 技能分类
-enum SkillCategory { PHYSICAL, SPECIAL, STATUS };
+enum SkillCategory:int { PHYSICAL=0, SPECIAL, STATUS };
 
 using AutoSkill = shared_ptr<PokemonSkill>;
 using AutoSkillType = shared_ptr<PokemonSkillType>;

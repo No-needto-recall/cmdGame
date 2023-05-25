@@ -56,7 +56,7 @@
       },
       {
         "name": "地面",
-        "icon": 95 
+        "icon": 95
       },
       {
         "name": "墙壁",
@@ -71,5 +71,23 @@
         "icon": 109
       }
     ]
-  }
+  },
+  "pokemonSkills":[
+    {
+      "name": "拍击",
+      "category": 0,
+      "power": 40,
+      "accuracy": 100,
+      "priority": 0,
+      "maxPP": 35
+    },
+    {
+      "name": "打雷",
+      "category": 1,
+      "power": 120,
+      "accuracy": 70,
+      "priority": 0,
+      "maxPP": 10
+    }
+  ]
 }
