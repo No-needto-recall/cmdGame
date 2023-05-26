@@ -21,7 +21,7 @@ public:
                        const DataType& basicEmpirical,
                        const Skills& learnableSkills 
         );
-    AutoPokemon createFromConf();
+    AutoPokemon createFromConf(int index);
 private:
     //类型对象，享元模式
     unordered_map<string, AutoSpecies> _species;

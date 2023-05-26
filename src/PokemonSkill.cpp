@@ -154,6 +154,32 @@ AutoSkill PokemonSkillTypeFactory::createWithConfig(int index)
 	);
 }
 
+AutoSkill PokemonSkillTypeFactory::createWithName(string name)
+{
+	if (_types.count(name) == 0) {
+		LOG_ERROR("不存在该技能:"+name);
+		return nullptr;
+	}
+	else {
+		switch (_types[name]->GetCategory())
+		{
+		case PHYSICAL:
+			return AutoSkill(new PokemonPhysicalSkill(_types[name].get()));
+			break;
+		case SPECIAL:
+			return AutoSkill(new PokemonSpecialSkill(_types[name].get()));
+			break;
+		case STATUS:
+			return AutoSkill(new PokemonStatusSkill(_types[name].get()));
+			break;
+		default:
+			LOG_ERROR("不存在该类型的技能");
+			return nullptr;
+			break;
+		}
+	}
+}
+
 PokemonSkillTypeFactory::PokemonSkillTypeFactory()
 {
 }

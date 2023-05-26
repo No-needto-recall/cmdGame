@@ -1,4 +1,5 @@
 #include "PokemonFactory.h"
+#include "PokemonSkill.h"
 #include "Log.h"
 #include "Config.h"
 
@@ -36,9 +37,33 @@ AutoPokemon PokemonFactory::create(const string& speciesName, const DataType& ba
 	return AutoPokemon(new Pokemon(_species[speciesName].get(), 1));
 }
 
-AutoPokemon PokemonFactory::createFromConf()
+AutoPokemon PokemonFactory::createFromConf(int index)
 {
-	return AutoPokemon();
+	auto conf = CONFIG_DATA.pokemonSpecies[index];
+	Skills skills;
+	skills.reserve(4);
+	for (auto& name : conf.learnableSkills) {
+		skills.push_back(
+			SKILL_FACTORY.createWithName(name)
+		);
+	}
+	return create(
+	conf.name,
+	conf.baseHP,
+	conf.baseAttack,
+	conf.baseDefence,
+	conf.baseSpecialAttack,
+	conf.baseSpecialDefence,
+	conf.baseSpeed,
+	conf.HpPoint,
+	conf.AttackPoint,
+	conf.DefencePoint,
+	conf.SpecialAttackPoint,
+	conf.SpecialDefencePoint,
+	conf.SpeedPoint,
+	conf.basicEmpirical,
+		skills
+	);
 }
 
 PokemonFactory::PokemonFactory()
