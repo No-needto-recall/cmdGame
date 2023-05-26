@@ -72,7 +72,7 @@
       }
     ]
   },
-  "pokemonSkills":[
+  "pokemonSkills": [
     {
       "name": "拍击",
       "category": 0,
@@ -89,5 +89,26 @@
       "priority": 0,
       "maxPP": 10
     }
-  ]
+  ],
+  "pokemonSpecies": [
+    {
+      "name": "皮卡丘",
+      "baseHP": 35,
+      "baseAttack": 55,
+      "baseDefence": 30,
+      "baseSpecialAttack": 50,
+      "baseSpecialDefence": 40,
+      "baseSpeed": 90,
+      "HpPoint": 0,
+      "AttackPoint": 0,
+      "DefencePoint": 0,
+      "SpecialAttackPoint": 0,
+      "SpecialDefencePoint": 0,
+      "SpeedPoint": 2,
+      "basicEmpirical": 82,
+      "learnableSkills": [
+        "拍击","打雷"
+      ]
+    }
+  ] 
 }

@@ -74,5 +74,32 @@ void ConfigData::from_json(const nlohmann::json& j) {
 			mapJson["maxPP"]
 			});
 	}
+
+
+	for (auto& mapJson : j["pokemonSpecies"]) {
+
+		pokemonSpecies.push_back({
+			utf8_to_local(mapJson["name"].get<string>()),
+			mapJson["baseHP"],
+			mapJson["baseAttack"],
+			mapJson["baseDefence"],
+			mapJson["baseSpecialAttack"],
+			mapJson["baseSpecialDefence"],
+			mapJson["baseSpeed"],
+			mapJson["HpPoint"],
+			mapJson["AttackPoint"],
+			mapJson["DefencePoint"],
+			mapJson["SpecialAttackPoint"],
+			mapJson["SpecialDefencePoint"],
+			mapJson["SpeedPoint"],
+			mapJson["basicEmpirical"],
+			});
+		for (auto& json : mapJson["learnableSkills"]) {
+			pokemonSpecies.back().learnableSkills.push_back(
+				utf8_to_local(json.get<string>())
+			);
+		}
+	}
+
 }
 
