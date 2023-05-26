@@ -31,7 +31,7 @@ public:
 	//清除draw，绘制，切换
 	void clear_drawChar_swap(short x, short y, const char ch);
 	//在指定坐标绘制一个字符串
-	void drawString(short x, short y, const string &&str);
+	void drawString(short x, short y, const string &str);
 
 	//绘制一个圆
 	void drawCircle(int centerX, int centerY, int radius);

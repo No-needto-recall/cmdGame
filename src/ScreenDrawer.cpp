@@ -42,7 +42,7 @@ void ScreenDrawer::clear_drawChar_swap(short x, short y, const char ch) {
 
 //在指定坐标绘制一个字符串
 //对换行进行了处理
-void ScreenDrawer::drawString(short x,short y, const string &&str) {
+void ScreenDrawer::drawString(short x,short y, const string &str) {
 	COORD coord = { x,y };
 
 	for (const  char ch : str) {

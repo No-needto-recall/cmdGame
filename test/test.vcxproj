@@ -156,6 +156,7 @@
     <ClInclude Include="..\include\PokemonSpecies.h" />
     <ClInclude Include="..\include\PortalManager.h" />
     <ClInclude Include="..\include\ScreenDrawer.h" />
+    <ClInclude Include="..\include\ScreenWindow.h" />
     <ClInclude Include="..\lib\nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +188,7 @@
     <ClCompile Include="..\src\PokemonSpecies.cpp" />
     <ClCompile Include="..\src\PortalManager.cpp" />
     <ClCompile Include="..\src\ScreenDrawer.cpp" />
+    <ClCompile Include="..\src\ScreenWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
