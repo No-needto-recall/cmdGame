@@ -1,9 +1,10 @@
 #include "ScreenDrawer.h"
+#include "Config.h"
 
 
-ScreenDrawer::ScreenDrawer(int width,int height)
-	: _screenWidth(width)
-	, _screenHeight(height)
+ScreenDrawer::ScreenDrawer()
+	: _screenWidth(CONFIG_DATA.game.screen.width)
+	, _screenHeight(CONFIG_DATA.game.screen.height)
 {
 	_buffer1 = createConsoleBuffer();
 	_buffer2 = createConsoleBuffer();

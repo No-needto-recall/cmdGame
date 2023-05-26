@@ -54,7 +54,7 @@ private:
 	//创建缓冲区
 	HANDLE createConsoleBuffer();
 	//构造函数私有
-	ScreenDrawer(int width = 30, int height = 30);
+	ScreenDrawer();
 	~ScreenDrawer(){}
 
 private:

@@ -17,6 +17,10 @@ struct PlayerData
     int lineOfSight;
 };
 
+struct ScreenData {
+    int width;
+    int height;
+};
 
 struct LevelData
 {
@@ -78,6 +82,7 @@ struct ConfigData {
     PlayerData player;
 
 	struct Game {
+        ScreenData screen;
         vector<LevelData> levels;
         vector<MapData> maps;
         vector<PortalData> portals;

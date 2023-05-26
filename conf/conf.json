@@ -8,6 +8,10 @@
     "lineOfSight": 5
   },
   "game": {
+    "screen": {
+      "width": 30,
+      "height": 30
+    },
     "levels": [
       {
         "levelid": "测试关卡"
