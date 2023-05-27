@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "GameObject.h"
+#include "PokemonBox.h"
 
 using std::string;
 using std::shared_ptr;
@@ -18,6 +19,7 @@ class CollisionManager;
 //类型别名
 using AutoGameObject = shared_ptr<GameObject>;
 using AutoCollisionManager= unique_ptr<CollisionManager>;
+using AutoPokemonBox = unique_ptr<PokemonBox>;
 
 class GamePlayer {
 public:
@@ -62,7 +64,14 @@ public:
 	void LeftMove();
 	void RightMove();
 
-
+	//添加宝可梦
+	void AddPokemon(AutoPokemon pokemon);
+	//移除宝可梦
+	void RemovePokemon(int id);
+	//获取当前参战的宝可梦的id集合
+	vector<int> GetBattlePokemonIds()const;
+	//通过宝可梦id ,获取宝可梦指针
+	AutoPokemon GetPokemonById(int id)const;
 
 private:
 	string _name;
@@ -72,7 +81,7 @@ private:
 	AutoGameObject _myObject;//自身的object
 	int _lineOfSight;//视距
 	AutoCollisionManager _myCollision;//绑定的碰撞逻辑
-
+	AutoPokemonBox _pokemonBox; //宝可梦存储器
 };
 
 //玩家类单例工厂

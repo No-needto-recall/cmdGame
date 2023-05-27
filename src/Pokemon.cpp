@@ -53,6 +53,16 @@ const DataType& Pokemon::GetMaxHp() const
 	return _maxHp;
 }
 
+void Pokemon::SetID(int id)
+{
+	_id = id;
+}
+
+const int& Pokemon::GetID() const
+{
+	return _id;
+}
+
 Pokemon::Pokemon(const PokemonSpecies* species, DataType level)
 	:_name(species->GetSpeciesName())
 	,_species(species)
@@ -70,6 +80,7 @@ Pokemon::Pokemon(const PokemonSpecies* species, DataType level)
 	,_currentEmpirical(0)
 	,_maxEmpirical(CALCULATION.CalculatEmpiricalMax(level))
 	,_maxHp(species->GetBasicData().HP)
+	,_id(DEFAULT_COMPARTMENT_ID)
 {
 }
 

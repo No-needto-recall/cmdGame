@@ -67,6 +67,10 @@ public:
     // 获取宝可梦的最大生命值
     const DataType& GetMaxHp()const;
 
+    //设置id
+    void SetID(int id);
+    //获取id
+    const int& GetID()const;
 private:
     string _name;                            //宝可梦的名字
 
@@ -80,5 +84,9 @@ private:
     DataType _maxEmpirical;              // 升级所需经验值
     DataType _maxHp;                     // 最大生命值
 
+    int _id; //唯一id值
+
     Skills _skills;                 // 宝可梦的技能列表
 };
+
+#define DEFAULT_POKEMON_ID -1

@@ -175,3 +175,40 @@ void GamePlayer::RightMove()
 	MoveToLocation(newLocation);
 }
 
+void GamePlayer::AddPokemon(AutoPokemon pokemon)
+{
+	if (_pokemonBox->AddPokemon(pokemon))
+	{
+		//如果参战列表没有满将该宝可梦添加到参战列表
+		if (_pokemonBox->CanAddBattlePokemon()) {
+			_pokemonBox->AddBattlePokemon(pokemon->GetID());
+		}
+		else {
+			LOG_INFO("参战列表已满");
+		}
+	}
+	else {
+		LOG_ERROR("持有的宝可梦达到上限");
+	}
+}
+
+void GamePlayer::RemovePokemon(int id)
+{
+	if (_pokemonBox->DeletePokemon(id)) {
+
+	}
+	else {
+		LOG_ERROR("尝试移除不存在列表中的宝可梦");
+	}
+}
+
+vector<int> GamePlayer::GetBattlePokemonIds() const
+{
+	return _pokemonBox->GetBattlePokemonIds();
+}
+
+AutoPokemon GamePlayer::GetPokemonById(int id) const
+{
+	return _pokemonBox->GetPokemonById(id);
+}
+
