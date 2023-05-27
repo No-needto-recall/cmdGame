@@ -1,17 +1,49 @@
-#include "ScreenWindow.h"
 #include <sstream>
-
+#include "ScreenWindow.h"
+#include "GameTool.h"
+// 计算一个字符的显示宽度
+int displayWidth(const std::string& ch) {
+    return (unsigned char)ch[0] < 128 ? 1 : 2;
+}
+// 切割字符串为一个个字符
+std::vector<std::string> splitCharacters(const std::string& text) {
+    std::vector<std::string> chars;
+    for (size_t i = 0; i < text.length(); ) {
+        size_t charLen = (unsigned char)text[i] < 128 ? 1 : 3;
+        chars.push_back(text.substr(i, charLen));
+        i += charLen;
+    }
+    return chars;
+}
 ScreenWindow::ScreenWindow(int x, int y, int width, int height)
 	: topLeft{ static_cast<SHORT>(x), static_cast<SHORT>(y) }, width(width), height(height) {}
 
 void ScreenWindow::addText(const std::string& str) {
-    std::istringstream stream(str);
-    std::string line;
-    while (std::getline(stream, line,'\n')) {
-        allLines.push_back(line);
-    }
+    splitText(str);
 }
 
+void ScreenWindow::splitText(const std::string& text) {
+    std::stringstream ss(text);
+    std::string line;
+    while (std::getline(ss, line)) {
+        std::vector<std::string> chars = splitCharacters(line);
+        std::string currentLine;
+        int currentWidth = 0;
+        for (const std::string& ch : chars) {
+            int chWidth = displayWidth(ch);
+            if (currentWidth + chWidth > width) {
+                allLines.push_back(currentLine);
+                currentLine.clear();
+                currentWidth = 0;
+            }
+            currentLine += ch;
+            currentWidth += chWidth;
+        }
+        if (!currentLine.empty()) {
+            allLines.push_back(currentLine);
+        }
+    }
+}
 void ScreenWindow::displayNextPage() {
     if (allLines.empty()) {
         refresh();
@@ -20,27 +52,9 @@ void ScreenWindow::displayNextPage() {
 
     lines.clear();
     int i = 0;
-    while (i < height && !allLines.empty()) {
-        std::string line = allLines.front();
+    for (int i = 0; i < height && !allLines.empty(); ++i) {
+        lines.push_back(allLines.front());
         allLines.pop_front();
-
-        while (line.length() > width) {
-            lines.push_back(line.substr(0, width));
-            line = line.substr(width);
-            ++i;
-            // 到达页面最大行数，将未显示完全的行推回 allLines
-            if (i >= height) {
-                allLines.push_front(line);
-                refresh();
-                return;
-            }
-        }
-
-        // 如果当前行在宽度允许的范围内，直接添加到 lines
-        if (i < height) {
-            lines.push_back(line);
-            ++i;
-        }
     }
     refresh();
 }
@@ -59,7 +73,7 @@ void ScreenWindow::refresh() {
             drawer.drawString(topLeft.X, y + i, std::string(width, ' '));
         }
         for (const auto& line : lines) {
-            drawer.drawString(topLeft.X, y++, line);
+            drawer.drawWideString(topLeft.X, y++, GameTool::stringToWstring(line));
         }
     }
     lines.clear();

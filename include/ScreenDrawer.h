@@ -32,6 +32,8 @@ public:
 	void clear_drawChar_swap(short x, short y, const char ch);
 	//在指定坐标绘制一个字符串
 	void drawString(short x, short y, const string &str);
+	//宽字符版本，用于处理中文字符，并未处理换行
+	void drawWideString(short x, short y, const std::wstring& str);
 
 	//绘制一个圆
 	void drawCircle(int centerX, int centerY, int radius);

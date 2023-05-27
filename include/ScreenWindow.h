@@ -2,6 +2,7 @@
 
 #include <deque>
 #include <string>
+#include <vector>
 #include "ScreenDrawer.h"
 
 class ScreenWindow {
@@ -18,6 +19,7 @@ public:
 private:
     // 刷新窗口，将当前缓冲区中的文本显示出来
     void refresh();
+    void splitText(const std::string& text);
 
     COORD topLeft;  // 窗口左上角的坐标
     int width, height;  // 窗口的宽度和高度

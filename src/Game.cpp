@@ -117,5 +117,7 @@ void Game::loadControl() {
 	_Control.setButtonW(std::make_unique<upMove>());
 	_Control.setButtonS(std::make_unique<downMove>());
 	_Control.setButtonQ(std::make_unique<Quit>());
+	_Control.setButtonJ(std::make_unique<Nothing>());
+	_Control.setButtonK(std::make_unique<Nothing>());
 	_Control.setNothing(std::make_unique<Nothing>());
 }

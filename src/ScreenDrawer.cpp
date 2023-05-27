@@ -57,6 +57,13 @@ void ScreenDrawer::drawString(short x,short y, const string &str) {
 	}
 }
 
+void ScreenDrawer::drawWideString(short x, short y, const std::wstring& str)
+{
+	COORD coord = { (short)x, (short)y };
+	DWORD written;
+	WriteConsoleOutputCharacterW(_drawingBuffer, str.c_str(),static_cast<DWORD>(str.size()), coord, & written);
+}
+
 //绘制一个圆
 void ScreenDrawer::drawCircle(int centerX, int centerY, int radius) {
 	for (int y = centerY - radius; y <= centerY + radius; ++y) {

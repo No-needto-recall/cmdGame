@@ -1,5 +1,9 @@
 #pragma once
 
+#include <vector>
+#include "ScreenWindow.h"
+#include "InputHandler.h"
+
 class GamePlayer;
 class Pokemon;
 
@@ -34,11 +38,19 @@ public:
 
 private:
 	
-	GamePlayer* _player;
+	GamePlayer* _player;    //玩家指针
 	Pokemon* _playerPokemon;//玩家目前使用的宝可梦
 	Pokemon* _pokemon;//与玩家对战的宝可梦
 	bool _inBattle; // 表示是否在战斗中
-	// 其他已经存在的函数和变量
+	vector<ScreenWindow> _windows;//窗口管理
+	InputHandler _Control;//战斗状态下的按键管理
+
+	//初始化战斗UI界面
+	void LoadBattleUI();
+	//初始化战斗按键
+	void LoadBattleControl();
+
+	void SelectWindow();
 
 	// 判断战斗结果
 	void DetermineBattleOutcome();

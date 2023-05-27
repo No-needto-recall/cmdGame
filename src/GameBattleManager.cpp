@@ -60,6 +60,22 @@ bool GameBattleManager::InBattle() const
 	return _inBattle;
 }
 
+void GameBattleManager::LoadBattleUI()
+{
+}
+
+void GameBattleManager::LoadBattleControl()
+{
+	_Control.setButtonA(std::make_unique<Nothing>());
+	_Control.setButtonD(std::make_unique<Nothing>());
+	_Control.setButtonW(std::make_unique<Nothing>());
+	_Control.setButtonS(std::make_unique<Nothing>());
+	_Control.setButtonQ(std::make_unique<Quit>());
+	_Control.setButtonJ(std::make_unique<Nothing>());
+	_Control.setButtonK(std::make_unique<Nothing>());
+	_Control.setNothing(std::make_unique<Nothing>());
+}
+
 void GameBattleManager::DetermineBattleOutcome()
 {
 }

@@ -6,6 +6,16 @@ using namespace std;
 
 int main(int argc,char* argv[]) {
 
-	Game::getInstance().start();
+	std::setlocale(LC_ALL, "en_US.UTF-8");
+	SetConsoleOutputCP(65001);
+
+	ScreenWindow window(0, 10, 20, 3);
+	while (1) {
+		window.addText("想要小火龙做什么呢?攻击还是防御");
+		window.displayNextPage();
+		ScreenDrawer::getInstance().swapBuffers();
+		Sleep(2000);
+	}
+	//Game::getInstance().start();
 	return 0;
 }
