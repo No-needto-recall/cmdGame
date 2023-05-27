@@ -2,10 +2,13 @@
 
 #include <vector>
 #include "ScreenWindow.h"
-#include "InputHandler.h"
-#include "GamePlayer.h"
+#include "Game.h"
 
 class Pokemon;
+
+enum OptionType :int {
+	
+};
 
 //游戏战斗管理
 class GameBattleManager {
