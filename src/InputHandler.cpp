@@ -32,6 +32,12 @@ AutoCmd& InputHandler::handleInput() {
 				case 'q':
 					//LOG_INFO("Q");
 					return _buttonQ;
+				case 'j':
+					//LOG_INFO("Q");
+					return _buttonJ;
+				case 'k':
+					//LOG_INFO("Q");
+					return _buttonK;
 				default:
 					LOG_INFO("无效的按键 ");
 					break;
@@ -67,6 +73,16 @@ void InputHandler::setButtonQ(AutoCmd cmd)
 	_buttonQ = std::move(cmd);
 }
 
+void InputHandler::setButtonJ(AutoCmd cmd)
+{
+	_buttonJ = std::move(cmd);
+}
+
+void InputHandler::setButtonK(AutoCmd cmd)
+{
+	_buttonK = std::move(cmd);
+}
+
 void InputHandler::setNothing(AutoCmd cmd)
 {
 	_nothing = std::move(cmd);
@@ -99,5 +115,13 @@ void Quit::execute(AutoGamePlayer actor)
 }
 
 void Nothing::execute(AutoGamePlayer actor)
+{
+}
+
+void Confirm::execute(AutoGamePlayer actor)
+{
+}
+
+void Back::execute(AutoGamePlayer actor)
 {
 }

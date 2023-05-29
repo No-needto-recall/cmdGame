@@ -31,7 +31,9 @@ public:
 	//清除draw，绘制，切换
 	void clear_drawChar_swap(short x, short y, const char ch);
 	//在指定坐标绘制一个字符串
-	void drawString(short x, short y, const string &&str);
+	void drawString(short x, short y, const string &str);
+	//宽字符版本，用于处理中文字符，并未处理换行
+	void drawWideString(short x, short y, const std::wstring& str);
 
 	//绘制一个圆
 	void drawCircle(int centerX, int centerY, int radius);
@@ -54,7 +56,7 @@ private:
 	//创建缓冲区
 	HANDLE createConsoleBuffer();
 	//构造函数私有
-	ScreenDrawer(int width = 30, int height = 30);
+	ScreenDrawer();
 	~ScreenDrawer(){}
 
 private:

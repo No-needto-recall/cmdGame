@@ -29,6 +29,9 @@ void ConfigData::from_json(const nlohmann::json& j) {
 	player.y = j["player"]["y"];
 	player.lineOfSight = j["player"]["lineOfSight"];
 
+	game.screen.width = j["game"]["screen"]["width"];
+	game.screen.height= j["game"]["screen"]["height"];
+
 	for (auto& mapJson : j["game"]["levels"]) {
 		game.levels.push_back({
 			utf8_to_local(mapJson["levelid"].get<string>()),
@@ -74,5 +77,32 @@ void ConfigData::from_json(const nlohmann::json& j) {
 			mapJson["maxPP"]
 			});
 	}
+
+
+	for (auto& mapJson : j["pokemonSpecies"]) {
+
+		pokemonSpecies.push_back({
+			utf8_to_local(mapJson["name"].get<string>()),
+			mapJson["baseHP"],
+			mapJson["baseAttack"],
+			mapJson["baseDefence"],
+			mapJson["baseSpecialAttack"],
+			mapJson["baseSpecialDefence"],
+			mapJson["baseSpeed"],
+			mapJson["HpPoint"],
+			mapJson["AttackPoint"],
+			mapJson["DefencePoint"],
+			mapJson["SpecialAttackPoint"],
+			mapJson["SpecialDefencePoint"],
+			mapJson["SpeedPoint"],
+			mapJson["basicEmpirical"],
+			});
+		for (auto& json : mapJson["learnableSkills"]) {
+			pokemonSpecies.back().learnableSkills.push_back(
+				utf8_to_local(json.get<string>())
+			);
+		}
+	}
+
 }
 

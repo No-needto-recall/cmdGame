@@ -1,9 +1,10 @@
 #include "ScreenDrawer.h"
+#include "Config.h"
 
 
-ScreenDrawer::ScreenDrawer(int width,int height)
-	: _screenWidth(width)
-	, _screenHeight(height)
+ScreenDrawer::ScreenDrawer()
+	: _screenWidth(CONFIG_DATA.game.screen.width)
+	, _screenHeight(CONFIG_DATA.game.screen.height)
 {
 	_buffer1 = createConsoleBuffer();
 	_buffer2 = createConsoleBuffer();
@@ -41,7 +42,7 @@ void ScreenDrawer::clear_drawChar_swap(short x, short y, const char ch) {
 
 //在指定坐标绘制一个字符串
 //对换行进行了处理
-void ScreenDrawer::drawString(short x,short y, const string &&str) {
+void ScreenDrawer::drawString(short x,short y, const string &str) {
 	COORD coord = { x,y };
 
 	for (const  char ch : str) {
@@ -54,6 +55,13 @@ void ScreenDrawer::drawString(short x,short y, const string &&str) {
 			++coord.X;
 		}
 	}
+}
+
+void ScreenDrawer::drawWideString(short x, short y, const std::wstring& str)
+{
+	COORD coord = { (short)x, (short)y };
+	DWORD written;
+	WriteConsoleOutputCharacterW(_drawingBuffer, str.c_str(),static_cast<DWORD>(str.size()), coord, & written);
 }
 
 //绘制一个圆

@@ -9,11 +9,10 @@
 
 Game::Game()
 	:_gameManager(new GameManager())
-	,_Control()
+	,_gameStates(new GameState())
 	,_player(nullptr)
 {
 	LOG_INFO("-----启动游戏");
-	loadControl();
 	loadGameManager();
 	loadGamePlayer();
 	loadPortal();
@@ -38,7 +37,7 @@ void Game::start() {
 	ScreenDrawer::getInstance().swapBuffers();
 	while (1)
 	{
-		_Control.handleInput()->execute(_player);
+		_gameStates->GetNowControl()->handleInput()->execute(_player);
 		_gameManager->DrawMapWithPlayer();
 		ScreenDrawer::getInstance().swapBuffers();
 	}
@@ -111,11 +110,3 @@ void Game::loadPortal()
 
 }
 
-void Game::loadControl() {
-	_Control.setButtonA(std::make_unique<leftMove>());
-	_Control.setButtonD(std::make_unique<rightMove>());
-	_Control.setButtonW(std::make_unique<upMove>());
-	_Control.setButtonS(std::make_unique<downMove>());
-	_Control.setButtonQ(std::make_unique<Quit>());
-	_Control.setNothing(std::make_unique<Nothing>());
-}

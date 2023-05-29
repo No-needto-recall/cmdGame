@@ -115,8 +115,11 @@ public:
     AutoSkill create(const string& name, SkillCategory category,
         int power, int accuracy, int priority, int maxPP);
 
-    //根据配置文件修改
+    //根据配置文件创建
     AutoSkill createWithConfig(int index);
+    //根据技能名称创建
+    AutoSkill createWithName(string name);
+
 private:
     //类型对象，享元模式
     unordered_map<string, AutoSkillType> _types;
@@ -126,4 +129,4 @@ private:
     PokemonSkillTypeFactory();
 };
 
-#define SKILL_FACTORY PokemonSkillTypeFactory()::getInstance()
+#define SKILL_FACTORY PokemonSkillTypeFactory::getInstance()

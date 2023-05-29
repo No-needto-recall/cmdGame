@@ -1,6 +1,7 @@
 #include "GameBattleManager.h"
 #include "GamePlayer.h"
 #include "Log.h"
+#include "Config.h"
 
 GameBattleManager& GameBattleManager::getInstance()
 {
@@ -17,10 +18,10 @@ void GameBattleManager::BattleLoop()
 	EndBattle();
 }
 
-void GameBattleManager::InitBattle(GamePlayer* player, Pokemon* wildPokemon)
+void GameBattleManager::InitBattle(AutoGamePlayer player, Pokemon* wildPokemon)
 {
 	if (player) {
-		_player = player;
+		_player=player;
 	}
 	else {
 		LOG_ERROR("尝试初始化战斗的player为nullptr");
@@ -58,6 +59,22 @@ void GameBattleManager::PokemonFainted()
 bool GameBattleManager::InBattle() const
 {
 	return _inBattle;
+}
+
+void GameBattleManager::LoadBattleUI()
+{
+	int sight = CONFIG_DATA.player.lineOfSight;
+	_windows.emplace_back(sight/4,sight/2,sight,sight/2);
+	_windows.emplace_back(sight/4+2*sight,sight/2,sight,sight/2);
+	_windows.emplace_back(sight/4,sight/2+sight,sight,sight/2);
+	_windows.emplace_back(sight/4+2*sight,sight/2+sight,sight,sight/2);
+}
+
+
+void GameBattleManager::SelectWindow()
+{
+	while (1) {
+	}
 }
 
 void GameBattleManager::DetermineBattleOutcome()

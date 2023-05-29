@@ -54,6 +54,18 @@ public:
 	void execute(AutoGamePlayer actor)override;
 };
 
+class Confirm :public Command {
+public:
+	void execute(AutoGamePlayer actor)override;
+};
+
+class Back:public Command {
+public:
+	void execute(AutoGamePlayer actor)override;
+};
+
+
+
 class InputHandler {
 
 public:
@@ -63,6 +75,8 @@ public:
 	void setButtonW(AutoCmd cmd);
 	void setButtonS(AutoCmd cmd);
 	void setButtonQ(AutoCmd cmd);
+	void setButtonJ(AutoCmd cmd);
+	void setButtonK(AutoCmd cmd);
 	void setNothing(AutoCmd cmd);
 
 private:
@@ -71,6 +85,8 @@ private:
 	AutoCmd _buttonW;
 	AutoCmd _buttonS;
 	AutoCmd _buttonQ;
+	AutoCmd _buttonJ;
+	AutoCmd _buttonK;
 	AutoCmd _nothing;
 
 
