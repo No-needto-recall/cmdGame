@@ -15,6 +15,7 @@ using std::vector;
 using std::shared_ptr;
 
 //注释
+//测试
 using AutoPokemon = shared_ptr<Pokemon>;
 
 class PokemonBox {
